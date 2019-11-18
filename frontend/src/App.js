@@ -1,37 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Switch
-} from 'react-router-dom';
-
-import ShowData from './containers/ShowData';
-import Welcome from './containers/Welcome';
-
+import Routes from './routes';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <header>
-          <p>
-            HEADER
-          </p>
-        </header>
-      </div>
-
-      <Switch>
-        <Route path='/' exact>
-          <Welcome />
-        </Route>
-        <Route path='/showData' exact>
-          <ShowData />
-        </Route>
-      </Switch>
-
-    </Router>
+    <Fragment>
+      <Routes />
+    </Fragment>
   );
 }
 
