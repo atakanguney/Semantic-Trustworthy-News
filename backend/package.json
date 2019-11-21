@@ -20,10 +20,17 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "http-errors": "^1.7.3",
+    "lodash": "^4.17.15",
+    "md5": "^2.2.1",
+    "neo4j-driver": "^1.7.6",
+    "node-uuid": "^1.4.8",
     "pino": "^5.13.6",
     "pino-http": "^4.3.0",
-    "pino-pretty": "^3.3.0"
-  }
+    "pino-pretty": "^3.3.0",
+    "randomstring": "^1.1.5"
+  },
+  "devDependencies": {}
 }
