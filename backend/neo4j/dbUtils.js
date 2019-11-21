@@ -4,7 +4,7 @@
 var nconf = require('../config/config')['database'];
 
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver(nconf['neo4j'], neo4j.auth.basic(nconf['username'], nconf['password']));
+var driver = neo4j.driver(nconf.neo4j, neo4j.auth.basic(nconf.username, nconf.password));
 
 
 exports.getSession = function (context) {
