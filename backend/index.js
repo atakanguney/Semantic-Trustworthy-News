@@ -3,6 +3,7 @@ const express = require('express')
 const httpErrors = require('http-errors')
 const pino = require('pino')
 const pinoHttp = require('pino-http')
+const bodyParser = require('body-parser');
 const setAuthUser = require('./middlewares/setAuthUser');
 const neo4jSessionCleanup = require('./middlewares/neo4jSessionCleanup');
 
@@ -48,7 +49,8 @@ module.exports = function main (options, cb) {
   // Common middleware
   // app.use(/* ... */)
   app.use(pinoHttp({ logger }))
-  // app.use(setAuthUser)
+  app.use(bodyParser.json())
+  app.use(setAuthUser)
   app.use(neo4jSessionCleanup)
 
       
