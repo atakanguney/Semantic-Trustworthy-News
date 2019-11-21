@@ -3,6 +3,8 @@ const express = require('express')
 const httpErrors = require('http-errors')
 const pino = require('pino')
 const pinoHttp = require('pino-http')
+const setAuthUser = require('./middlewares/setAuthUser');
+const neo4jSessionCleanup = require('./middlewares/neo4jSessionCleanup');
 
 module.exports = function main (options, cb) {
   // Set default options
@@ -46,6 +48,9 @@ module.exports = function main (options, cb) {
   // Common middleware
   // app.use(/* ... */)
   app.use(pinoHttp({ logger }))
+  // app.use(setAuthUser)
+  app.use(neo4jSessionCleanup)
+
       
   // Register routes
   // @NOTE: require here because this ensures that even syntax errors
@@ -70,6 +75,7 @@ module.exports = function main (options, cb) {
       }]
     })
   })
+
 
   // Start server
   server = app.listen(opts.port, opts.host, function (err) {
