@@ -1,5 +1,4 @@
-import NotLoggedInLayout from './NotLoggedInLayout';
+import NotLoggedInLayout from './NotLoggedInLayout'
+import PrivateLayout from './PrivateLayout'
 
-export {
-    NotLoggedInLayout
-};
+export { NotLoggedInLayout, PrivateLayout }

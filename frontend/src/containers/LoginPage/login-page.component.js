@@ -5,10 +5,12 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 
 import axios from 'axios'
+import { useAuth } from '../../context/auth'
 
-const LoginPage = history => {
+const LoginPage = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const { setAuthTokens } = useAuth()
 
   const handleUsernameChange = event => setUsername(event.target.value)
   const handlePasswordChange = event => setPassword(event.target.value)
@@ -22,7 +24,9 @@ const LoginPage = history => {
 })
 			.then(
 				res => {
+  setAuthTokens(res.data)
   console.log(res)
+  history.push('/profile')
 },
 				err => {
   console.log(err)
