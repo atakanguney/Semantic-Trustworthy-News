@@ -1,23 +1,19 @@
-import React from 'react';
+import React from 'react'
 import { Route } from 'react-router-dom'
-import {
-    NavBar
-} from '../../components';
-
+import { NavBar } from '../../components'
 
 const NotLoggedInLayout = props => {
-    const { component: Component, ...rest} = props;
-    return(
-        <Route 
-            {...rest}
-            component={matchProps => (
-                <div>
-                    <NavBar {...matchProps}/>
-                    <Component {...matchProps}/>
-                </div>
-            )}
-        />
-    )
+  const { component: Component, ...rest } = props
+  return (
+    <Route
+      {...rest}
+      component={({ history, matchProps }) =>
+        <div>
+          <NavBar {...{ history, matchProps }} />
+          <Component {...{ history, matchProps }} />
+        </div>}
+		/>
+  )
 }
 
-export default NotLoggedInLayout;
+export default NotLoggedInLayout
