@@ -1,5 +1,4 @@
-import HomeFeed from './HomeFeed';
+import HomeFeed from './HomeFeed'
+import LoginPage from './LoginPage'
 
-export {
-    HomeFeed
-};
+export { HomeFeed, LoginPage }
