@@ -7,7 +7,7 @@ const Routes = () =>
   <Router>
     <Switch>
       <NotLoggedInLayout component={HomeFeed} path='/' exact />
-      <NotLoggedInLayout component={LoginPage} path='/login-page' exact />
+      <NotLoggedInLayout component={LoginPage} path='/login' exact />
       <PrivateLayout component={ProfilePage} path='/profile' exact />
     </Switch>
   </Router>

@@ -5,11 +5,11 @@ const data = require('./handlers/data')
 const userRoutes = require('./routes/users')
 
 module.exports = function (app, opts) {
-  // Setup routes, middleware, and handlers
-  app.get('/', simple)
-  app.get('/configured', configured(opts))
-  app.get('/data', data)
-  app.post('/register', userRoutes.register)
-  app.post('/login', userRoutes.login)
-  app.get('/users/me', userRoutes.me)
+	// Setup routes, middleware, and handlers
+  app.get('/api', simple)
+  app.get('/api/configured', configured(opts))
+  app.get('/api/data', data)
+  app.post('/api/register', userRoutes.register)
+  app.post('/api/login', userRoutes.login)
+  app.get('/api/users/me', userRoutes.me)
 }
