@@ -7,8 +7,6 @@ const userRoutes = require('./routes/users')
 module.exports = function (app, opts) {
   // Setup routes, middleware, and handlers
   app.get('/', simple)
-  app.get('/configured', configured(opts))
-  app.get('/data', data)
   app.post('/register', userRoutes.register)
   app.post('/login', userRoutes.login)
   app.get('/users/me', userRoutes.me)
