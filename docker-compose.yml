@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  database:
+    image: neo4j:3.5.13
+    environment: 
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD}
+    ports:
+      - ${NEO4J_BOLT_PORT}:${NEO4J_BOLT_PORT}
+      - ${NEO4J_BROWSER_PORT}:${NEO4J_BROWSER_PORT}
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/logs:/logs
+
+  backend:
+    build: ./backend
+    expose:
+      - ${APP_SERVER_PORT}
+    environment:
+      API_HOST: ${API_HOST}
+      APP_SERVER_PORT: ${APP_SERVER_PORT}
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+    volumes:
+      - ./backend:/usr/src/app
+    working_dir: /usr/src/app
+    depends_on: 
+      - database
+  frontend:
+    build: ./frontend
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT_DOCKER_IMG}
+    working_dir: /app/
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
