@@ -10,7 +10,7 @@ import { useAuth } from '../../context/auth'
 const RegistrationPage = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  //const { setAuthTokens } = useAuth()
+  const { setAuthTokens } = useAuth()
 
   const handleUsernameChange = event => setUsername(event.target.value)
   const handlePasswordChange = event => setPassword(event.target.value)
@@ -18,15 +18,15 @@ const RegistrationPage = ({ history }) => {
   const handleSubmit = event => {
     event.preventDefault()
     axios
-			.post('/register', {
+			.post('/api/register', {
   username: username,
   password: password
 })
 			.then(
 				res => {
-  //setAuthTokens(res.data)
+  setAuthTokens(res.data)
   console.log(res)
-  history.push('/login-page')
+  history.push('/profile')
 },
 				err => {
   console.log(err)
