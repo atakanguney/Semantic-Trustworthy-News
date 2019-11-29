@@ -12,6 +12,14 @@ To start the backend and the frontend
 Both Backend API and Frontend app should be run.
 
 
+To start the neo4j (community)
+---
+
+1. Go to bin folder `cd bin` and run `./neo4j console`     
+
+neo4j app should be run.
+
+
 Who are we?
 ---
 1. Atakan Güney

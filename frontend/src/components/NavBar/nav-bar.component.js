@@ -7,7 +7,7 @@ const NavBar = () => {
     <NavBarWrapper>
       <header>
         <section className='navBarAccount'>
-          <NavLink className='navBarLink' to='/login-page'>
+          <NavLink className='navBarLink' to='/login'>
 						Login
 					</NavLink>
           <NavLink className='navBarLink' to='/register'>
