@@ -15,7 +15,8 @@
     "url": "https://github.com/atakanguney/Semantic-Trustworthy-News"
   },
   "scripts": {
-    "start": "./bin/app",
+    "start": "node bin/app",
+    "dev": "nodemon bin/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -32,5 +33,7 @@
     "pino-pretty": "^3.3.0",
     "randomstring": "^1.1.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
 }
