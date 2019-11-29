@@ -4,7 +4,7 @@ services:
   database:
     image: neo4j:3.5.13
     environment: 
-      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD}
+      NEO4J_AUTH: ${NEO4J_USERNAME}/${NEO4J_PASSWORD}
     ports:
       - ${NEO4J_BOLT_PORT}:${NEO4J_BOLT_PORT}
       - ${NEO4J_BROWSER_PORT}:${NEO4J_BROWSER_PORT}
