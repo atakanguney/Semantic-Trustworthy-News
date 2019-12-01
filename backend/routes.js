@@ -1,7 +1,6 @@
 'use strict'
+
 const simple = require('./handlers/simple')
-const configured = require('./handlers/configured')
-const data = require('./handlers/data')
 const userRoutes = require('./routes/users')
 
 module.exports = function (app, opts) {
