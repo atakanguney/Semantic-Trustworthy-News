@@ -13,7 +13,7 @@ Before starting the app, you need to have done following instructions
 - Create .env file under root directory
 - Define following variables in .env:
     - API_HOST
-    - APP_SERVER_PORT
+    - API_PORT
 
     - REACT_APP_PORT_DOCKER_IMG
     - REACT_APP_PORT
@@ -22,6 +22,8 @@ Before starting the app, you need to have done following instructions
     - NEO4J_PASSWORD
     - NEO4J_BOLT_PORT
     - NEO4J_BROWSER_PORT
+
+    - DATABASE_HOST
 
 - Run the following command:
     `make build`
