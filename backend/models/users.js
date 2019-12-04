@@ -21,7 +21,8 @@ var register = function (session, username, password) {
           api_key: randomstring.generate({
             length: 20,
             charset: 'hex'
-          })
+          }),
+          trustworthiness: 0
         }
 				)
 				.then(results => {
