@@ -12,6 +12,10 @@ const RegistrationPage = ({ history }) => {
   const [password, setPassword] = useState('')
   const { setAuthTokens } = useAuth()
 
+  function validateForm() {
+    return username.length > 0 && password.length > 0;
+  }
+
   const handleUsernameChange = event => setUsername(event.target.value)
   const handlePasswordChange = event => setPassword(event.target.value)
 
@@ -55,7 +59,7 @@ const RegistrationPage = ({ history }) => {
             onChange={handlePasswordChange}
 					/>
         </Form.Group>
-        <Button variant='primary' type='submit'>
+        <Button variant='primary' disabled={!validateForm()} type='submit'>
 					Submit
 				</Button>
       </Form>

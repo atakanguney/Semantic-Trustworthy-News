@@ -11,6 +11,10 @@ const LoginPage = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { setAuthTokens } = useAuth()
+  
+  function validateForm() {
+    return username.length > 0 && password.length > 0;
+  }
 
   const handleUsernameChange = event => setUsername(event.target.value)
   const handlePasswordChange = event => setPassword(event.target.value)
@@ -41,7 +45,7 @@ const LoginPage = ({ history }) => {
           <Form.Control
             type='text'
             value={username}
-            placeholder='Enter username'
+            placeholder='Enter your username'
             onChange={handleUsernameChange}
 					/>
         </Form.Group>
@@ -51,11 +55,11 @@ const LoginPage = ({ history }) => {
           <Form.Control
             type='password'
             value={password}
-            placeholder='Password'
+            placeholder='Enter your password'
             onChange={handlePasswordChange}
 					/>
         </Form.Group>
-        <Button variant='primary' type='submit'>
+        <Button variant='primary' disabled={!validateForm()} type='submit'>
 					Submit
 				</Button>
       </Form>

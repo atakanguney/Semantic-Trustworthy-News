@@ -10,6 +10,7 @@ const Routes = () =>
       <NotLoggedInLayout component={RegistrationPage} path='/register' exact />
       <NotLoggedInLayout component={LoginPage} path='/login' exact />
       <PrivateLayout component={ProfilePage} path='/profile' exact />
+
     </Switch>
   </Router>
 
