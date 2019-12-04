@@ -65,17 +65,8 @@
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followedBy -->
 
     <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
-        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
     </owl:ObjectProperty>
     
 
@@ -83,17 +74,41 @@
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#follows -->
 
     <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#follows">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followsNews -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followsNews">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#follows"/>
+        <owl:inverseOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#newsFollowedBy"/>
         <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
+        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followsSource -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followsSource">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#follows"/>
+        <owl:inverseOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#sourceFollowedBy"/>
+        <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
+        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followsUser -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followsUser">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#follows"/>
+        <owl:inverseOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#userFollowedBy"/>
+        <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
+        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
     </owl:ObjectProperty>
     
 
@@ -128,24 +143,6 @@
     
 
 
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness -->
-
-    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
-        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasWritten -->
 
     <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasWritten">
@@ -173,6 +170,36 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
         <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#newsFollowedBy -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#newsFollowedBy">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followedBy"/>
+        <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
+        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#sourceFollowedBy -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#sourceFollowedBy">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followedBy"/>
+        <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
+        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#userFollowedBy -->
+
+    <owl:ObjectProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#userFollowedBy">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#followedBy"/>
+        <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
+        <rdfs:range rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User"/>
     </owl:ObjectProperty>
     
 
@@ -351,6 +378,19 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#trustworthiness -->
+
+    <owl:DatatypeProperty rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#trustworthiness">
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#newsArticle"/>
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#source"/>
+        <rdfs:subPropertyOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#user"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
     </owl:DatatypeProperty>
     
 
@@ -589,14 +629,6 @@
     
 
 
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#High -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#High">
-        <rdfs:subClassOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness"/>
-    </owl:Class>
-    
-
-
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Hong_Kong -->
 
     <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Hong_Kong">
@@ -677,14 +709,6 @@
     
 
 
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Low -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Low">
-        <rdfs:subClassOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness"/>
-    </owl:Class>
-    
-
-
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Malaysia -->
 
     <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Malaysia">
@@ -737,96 +761,6 @@
 
     <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Nigeria">
         <rdfs:subClassOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Country"/>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Normal -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Normal">
-        <rdfs:subClassOf rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness"/>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalNewsArticle -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalNewsArticle">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-                    <owl:Class>
-                        <owl:complementOf>
-                            <owl:Class>
-                                <owl:unionOf rdf:parseType="Collection">
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasSource"/>
-                                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthySource"/>
-                                    </owl:Restriction>
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#isWrittenBy"/>
-                                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyPerson"/>
-                                    </owl:Restriction>
-                                </owl:unionOf>
-                            </owl:Class>
-                        </owl:complementOf>
-                    </owl:Class>
-                    <owl:Class>
-                        <owl:complementOf>
-                            <owl:Class>
-                                <owl:unionOf rdf:parseType="Collection">
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasSource"/>
-                                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthySource"/>
-                                    </owl:Restriction>
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#isWrittenBy"/>
-                                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyPerson"/>
-                                    </owl:Restriction>
-                                </owl:unionOf>
-                            </owl:Class>
-                        </owl:complementOf>
-                    </owl:Class>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalPerson -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalPerson">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness"/>
-                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Normal"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalSource -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalSource">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness"/>
-                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Normal"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
     </owl:Class>
     
 
@@ -1005,100 +939,6 @@
     
 
 
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#High"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Low"/>
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Normal"/>
-                </owl:unionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthyNewsArticle -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthyNewsArticle">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <owl:Restriction>
-                                <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasSource"/>
-                                <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthySource"/>
-                            </owl:Restriction>
-                            <owl:Restriction>
-                                <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#isWrittenBy"/>
-                                <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthyPerson"/>
-                            </owl:Restriction>
-                        </owl:unionOf>
-                    </owl:Class>
-                    <owl:Class>
-                        <owl:complementOf>
-                            <owl:Class>
-                                <owl:unionOf rdf:parseType="Collection">
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasSource"/>
-                                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthySource"/>
-                                    </owl:Restriction>
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#isWrittenBy"/>
-                                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyPerson"/>
-                                    </owl:Restriction>
-                                </owl:unionOf>
-                            </owl:Class>
-                        </owl:complementOf>
-                    </owl:Class>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthyPerson -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthyPerson">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness"/>
-                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#High"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthySource -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthySource">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness"/>
-                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#High"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Turkey -->
 
     <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Turkey">
@@ -1139,68 +979,6 @@
     
 
 
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyNewsArticle -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyNewsArticle">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <owl:Restriction>
-                                <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasSource"/>
-                                <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthySource"/>
-                            </owl:Restriction>
-                            <owl:Restriction>
-                                <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#isWrittenBy"/>
-                                <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyPerson"/>
-                            </owl:Restriction>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyPerson -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyPerson">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness"/>
-                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Low"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthySource -->
-
-    <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthySource">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasTrustworthiness"/>
-                        <owl:someValuesFrom rdf:resource="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Low"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-    </owl:Class>
-    
-
-
     <!-- https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User -->
 
     <owl:Class rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User">
@@ -1228,43 +1006,9 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/Person"/>
             <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Category"/>
             <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
             <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Trustworthiness"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Category"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Source"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#High"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Low"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Normal"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalNewsArticle"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthyNewsArticle"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthyNewsArticle"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NormalSource"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#TrustworthySource"/>
-            <rdf:Description rdf:about="https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#UntrustworthySource"/>
         </owl:members>
     </rdf:Description>
 </rdf:RDF>

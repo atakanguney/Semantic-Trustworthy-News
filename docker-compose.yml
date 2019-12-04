@@ -13,6 +13,7 @@ services:
       - ./neo4j/logs:/logs
       - ./neo4j/plugins:/plugins
       - ./neo4j/conf:/conf
+      - ./neo4j/ontology:/ontology
 
   backend:
     build: ./backend
