@@ -1,0 +1,704 @@
+{
+    "ae": {
+        "SubCategory": {
+            "business": "/s/uae-business-news-api",
+            "entertainment": "/s/uae-entertainment-news-api",
+            "health": "/s/uae-health-news-api",
+            "science": "/s/uae-science-news-api",
+            "sports": "/s/uae-sports-news-api",
+            "technology": "/s/uae-technology-news-api"
+        },
+        "id": "ae",
+        "name": "UAE",
+        "url": "/s/uae-news-api"
+    },
+    "ar": {
+        "SubCategory": {
+            "business": "/s/argentina-business-news-api",
+            "entertainment": "/s/argentina-entertainment-news-api",
+            "health": "/s/argentina-health-news-api",
+            "science": "/s/argentina-science-news-api",
+            "sports": "/s/argentina-sports-news-api",
+            "technology": "/s/argentina-technology-news-api"
+        },
+        "id": "ar",
+        "name": "Argentina",
+        "url": "/s/argentina-news-api"
+    },
+    "at": {
+        "SubCategory": {
+            "business": "/s/austria-business-news-api",
+            "entertainment": "/s/austria-entertainment-news-api",
+            "health": "/s/austria-health-news-api",
+            "science": "/s/austria-science-news-api",
+            "sports": "/s/austria-sports-news-api",
+            "technology": "/s/austria-technology-news-api"
+        },
+        "id": "at",
+        "name": "Austria",
+        "url": "/s/austria-news-api"
+    },
+    "au": {
+        "SubCategory": {
+            "business": "/s/australia-business-news-api",
+            "entertainment": "/s/australia-entertainment-news-api",
+            "health": "/s/australia-health-news-api",
+            "science": "/s/australia-science-news-api",
+            "sports": "/s/australia-sports-news-api",
+            "technology": "/s/australia-technology-news-api"
+        },
+        "id": "au",
+        "name": "Australia",
+        "url": "/s/australia-news-api"
+    },
+    "be": {
+        "SubCategory": {
+            "business": "/s/belgium-business-news-api",
+            "entertainment": "/s/belgium-entertainment-news-api",
+            "health": "/s/belgium-health-news-api",
+            "science": "/s/belgium-science-news-api",
+            "sports": "/s/belgium-sports-news-api",
+            "technology": "/s/belgium-technology-news-api"
+        },
+        "id": "be",
+        "name": "Belgium",
+        "url": "/s/belgium-news-api"
+    },
+    "bg": {
+        "SubCategory": {
+            "business": "/s/bulgaria-business-news-api",
+            "entertainment": "/s/bulgaria-entertainment-news-api",
+            "health": "/s/bulgaria-health-news-api",
+            "science": "/s/bulgaria-science-news-api",
+            "sports": "/s/bulgaria-sports-news-api",
+            "technology": "/s/bulgaria-technology-news-api"
+        },
+        "id": "bg",
+        "name": "Bulgaria",
+        "url": "/s/bulgaria-news-api"
+    },
+    "br": {
+        "SubCategory": {
+            "business": "/s/brazil-business-news-api",
+            "entertainment": "/s/brazil-entertainment-news-api",
+            "health": "/s/brazil-health-news-api",
+            "science": "/s/brazil-science-news-api",
+            "sports": "/s/brazil-sports-news-api",
+            "technology": "/s/brazil-technology-news-api"
+        },
+        "id": "br",
+        "name": "Brazil",
+        "url": "/s/brazil-news-api"
+    },
+    "ca": {
+        "SubCategory": {
+            "business": "/s/canada-business-news-api",
+            "entertainment": "/s/canada-entertainment-news-api",
+            "health": "/s/canada-health-news-api",
+            "science": "/s/canada-science-news-api",
+            "sports": "/s/canada-sports-news-api",
+            "technology": "/s/canada-technology-news-api"
+        },
+        "id": "ca",
+        "name": "Canada",
+        "url": "/s/canada-news-api"
+    },
+    "ch": {
+        "SubCategory": {
+            "business": "/s/switzerland-business-news-api",
+            "entertainment": "/s/switzerland-entertainment-news-api",
+            "health": "/s/switzerland-health-news-api",
+            "science": "/s/switzerland-science-news-api",
+            "sports": "/s/switzerland-sports-news-api",
+            "technology": "/s/switzerland-technology-news-api"
+        },
+        "id": "ch",
+        "name": "Switzerland",
+        "url": "/s/switzerland-news-api"
+    },
+    "cn": {
+        "SubCategory": {
+            "business": "/s/china-business-news-api",
+            "entertainment": "/s/china-entertainment-news-api",
+            "health": "/s/china-health-news-api",
+            "science": "/s/china-science-news-api",
+            "sports": "/s/china-sports-news-api",
+            "technology": "/s/china-technology-news-api"
+        },
+        "id": "cn",
+        "name": "China",
+        "url": "/s/china-news-api"
+    },
+    "co": {
+        "SubCategory": {
+            "business": "/s/colombia-business-news-api",
+            "entertainment": "/s/colombia-entertainment-news-api",
+            "health": "/s/colombia-health-news-api",
+            "science": "/s/colombia-science-news-api",
+            "sports": "/s/colombia-sports-news-api",
+            "technology": "/s/colombia-technology-news-api"
+        },
+        "id": "co",
+        "name": "Colombia",
+        "url": "/s/colombia-news-api"
+    },
+    "cu": {
+        "SubCategory": {
+            "business": "/s/cuba-business-news-api",
+            "entertainment": "/s/cuba-entertainment-news-api",
+            "health": "/s/cuba-health-news-api",
+            "science": "/s/cuba-science-news-api",
+            "sports": "/s/cuba-sports-news-api",
+            "technology": "/s/cuba-technology-news-api"
+        },
+        "id": "cu",
+        "name": "Cuba",
+        "url": "/s/cuba-news-api"
+    },
+    "cz": {
+        "SubCategory": {
+            "business": "/s/czech-republic-business-news-api",
+            "entertainment": "/s/czech-republic-entertainment-news-api",
+            "health": "/s/czech-republic-health-news-api",
+            "science": "/s/czech-republic-science-news-api",
+            "sports": "/s/czech-republic-sports-news-api",
+            "technology": "/s/czech-republic-technology-news-api"
+        },
+        "id": "cz",
+        "name": "Czech Republic",
+        "url": "/s/czech-republic-news-api"
+    },
+    "de": {
+        "SubCategory": {
+            "business": "/s/germany-business-news-api",
+            "entertainment": "/s/germany-entertainment-news-api",
+            "health": "/s/germany-health-news-api",
+            "science": "/s/germany-science-news-api",
+            "sports": "/s/germany-sports-news-api",
+            "technology": "/s/germany-technology-news-api"
+        },
+        "id": "de",
+        "name": "Germany",
+        "url": "/s/germany-news-api"
+    },
+    "eg": {
+        "SubCategory": {
+            "business": "/s/egypt-business-news-api",
+            "entertainment": "/s/egypt-entertainment-news-api",
+            "health": "/s/egypt-health-news-api",
+            "science": "/s/egypt-science-news-api",
+            "sports": "/s/egypt-sports-news-api",
+            "technology": "/s/egypt-technology-news-api"
+        },
+        "id": "eg",
+        "name": "Egypt",
+        "url": "/s/egypt-news-api"
+    },
+    "fr": {
+        "SubCategory": {
+            "business": "/s/france-business-news-api",
+            "entertainment": "/s/france-entertainment-news-api",
+            "health": "/s/france-health-news-api",
+            "science": "/s/france-science-news-api",
+            "sports": "/s/france-sports-news-api",
+            "technology": "/s/france-technology-news-api"
+        },
+        "id": "fr",
+        "name": "France",
+        "url": "/s/france-news-api"
+    },
+    "gb": {
+        "SubCategory": {
+            "business": "/s/uk-business-news-api",
+            "entertainment": "/s/uk-entertainment-news-api",
+            "health": "/s/uk-health-news-api",
+            "science": "/s/uk-science-news-api",
+            "sports": "/s/uk-sports-news-api",
+            "technology": "/s/uk-technology-news-api"
+        },
+        "id": "gb",
+        "name": "United Kingdom",
+        "url": "/s/uk-news-api"
+    },
+    "gr": {
+        "SubCategory": {
+            "business": "/s/greece-business-news-api",
+            "entertainment": "/s/greece-entertainment-news-api",
+            "health": "/s/greece-health-news-api",
+            "science": "/s/greece-science-news-api",
+            "sports": "/s/greece-sports-news-api",
+            "technology": "/s/greece-technology-news-api"
+        },
+        "id": "gr",
+        "name": "Greece",
+        "url": "/s/greece-news-api"
+    },
+    "hk": {
+        "SubCategory": {
+            "business": "/s/hong-kong-business-news-api",
+            "entertainment": "/s/hong-kong-entertainment-news-api",
+            "health": "/s/hong-kong-health-news-api",
+            "science": "/s/hong-kong-science-news-api",
+            "sports": "/s/hong-kong-sports-news-api",
+            "technology": "/s/hong-kong-technology-news-api"
+        },
+        "id": "hk",
+        "name": "Hong Kong",
+        "url": "/s/hong-kong-news-api"
+    },
+    "hu": {
+        "SubCategory": {
+            "business": "/s/hungary-business-news-api",
+            "entertainment": "/s/hungary-entertainment-news-api",
+            "health": "/s/hungary-health-news-api",
+            "science": "/s/hungary-science-news-api",
+            "sports": "/s/hungary-sports-news-api",
+            "technology": "/s/hungary-technology-news-api"
+        },
+        "id": "hu",
+        "name": "Hungary",
+        "url": "/s/hungary-news-api"
+    },
+    "id": {
+        "SubCategory": {
+            "business": "/s/indonesia-business-news-api",
+            "entertainment": "/s/indonesia-entertainment-news-api",
+            "health": "/s/indonesia-health-news-api",
+            "science": "/s/indonesia-science-news-api",
+            "sports": "/s/indonesia-sports-news-api",
+            "technology": "/s/indonesia-technology-news-api"
+        },
+        "id": "id",
+        "name": "Indonesia",
+        "url": "/s/indonesia-news-api"
+    },
+    "ie": {
+        "SubCategory": {
+            "business": "/s/ireland-business-news-api",
+            "entertainment": "/s/ireland-entertainment-news-api",
+            "health": "/s/ireland-health-news-api",
+            "science": "/s/ireland-science-news-api",
+            "sports": "/s/ireland-sports-news-api",
+            "technology": "/s/ireland-technology-news-api"
+        },
+        "id": "ie",
+        "name": "Ireland",
+        "url": "/s/ireland-news-api"
+    },
+    "il": {
+        "SubCategory": {
+            "business": "/s/israel-business-news-api",
+            "entertainment": "/s/israel-entertainment-news-api",
+            "health": "/s/israel-health-news-api",
+            "science": "/s/israel-science-news-api",
+            "sports": "/s/israel-sports-news-api",
+            "technology": "/s/israel-technology-news-api"
+        },
+        "id": "il",
+        "name": "Israel",
+        "url": "/s/israel-news-api"
+    },
+    "in": {
+        "SubCategory": {
+            "business": "/s/india-business-news-api",
+            "entertainment": "/s/india-entertainment-news-api",
+            "health": "/s/india-health-news-api",
+            "science": "/s/india-science-news-api",
+            "sports": "/s/india-sports-news-api",
+            "technology": "/s/india-technology-news-api"
+        },
+        "id": "in",
+        "name": "India",
+        "url": "/s/india-news-api"
+    },
+    "it": {
+        "SubCategory": {
+            "business": "/s/italy-business-news-api",
+            "entertainment": "/s/italy-entertainment-news-api",
+            "health": "/s/italy-health-news-api",
+            "science": "/s/italy-science-news-api",
+            "sports": "/s/italy-sports-news-api",
+            "technology": "/s/italy-technology-news-api"
+        },
+        "id": "it",
+        "name": "Italy",
+        "url": "/s/italy-news-api"
+    },
+    "jp": {
+        "SubCategory": {
+            "business": "/s/japan-business-news-api",
+            "entertainment": "/s/japan-entertainment-news-api",
+            "health": "/s/japan-health-news-api",
+            "science": "/s/japan-science-news-api",
+            "sports": "/s/japan-sports-news-api",
+            "technology": "/s/japan-technology-news-api"
+        },
+        "id": "jp",
+        "name": "Japan",
+        "url": "/s/japan-news-api"
+    },
+    "kr": {
+        "SubCategory": {
+            "business": "/s/south-korea-business-news-api",
+            "entertainment": "/s/south-korea-entertainment-news-api",
+            "health": "/s/south-korea-health-news-api",
+            "science": "/s/south-korea-science-news-api",
+            "sports": "/s/south-korea-sports-news-api",
+            "technology": "/s/south-korea-technology-news-api"
+        },
+        "id": "kr",
+        "name": "South Korea",
+        "url": "/s/south-korea-news-api"
+    },
+    "lt": {
+        "SubCategory": {
+            "business": "/s/lithuania-business-news-api",
+            "entertainment": "/s/lithuania-entertainment-news-api",
+            "health": "/s/lithuania-health-news-api",
+            "science": "/s/lithuania-science-news-api",
+            "sports": "/s/lithuania-sports-news-api",
+            "technology": "/s/lithuania-technology-news-api"
+        },
+        "id": "lt",
+        "name": "Lithuania",
+        "url": "/s/lithuania-news-api"
+    },
+    "lv": {
+        "SubCategory": {
+            "business": "/s/latvia-business-news-api",
+            "entertainment": "/s/latvia-entertainment-news-api",
+            "health": "/s/latvia-health-news-api",
+            "science": "/s/latvia-science-news-api",
+            "sports": "/s/latvia-sports-news-api",
+            "technology": "/s/latvia-technology-news-api"
+        },
+        "id": "lv",
+        "name": "Latvia",
+        "url": "/s/latvia-news-api"
+    },
+    "ma": {
+        "SubCategory": {
+            "business": "/s/morocco-business-news-api",
+            "entertainment": "/s/morocco-entertainment-news-api",
+            "health": "/s/morocco-health-news-api",
+            "science": "/s/morocco-science-news-api",
+            "sports": "/s/morocco-sports-news-api",
+            "technology": "/s/morocco-technology-news-api"
+        },
+        "id": "ma",
+        "name": "Morocco",
+        "url": "/s/morocco-news-api"
+    },
+    "mx": {
+        "SubCategory": {
+            "business": "/s/mexico-business-news-api",
+            "entertainment": "/s/mexico-entertainment-news-api",
+            "health": "/s/mexico-health-news-api",
+            "science": "/s/mexico-science-news-api",
+            "sports": "/s/mexico-sports-news-api",
+            "technology": "/s/mexico-technology-news-api"
+        },
+        "id": "mx",
+        "name": "Mexico",
+        "url": "/s/mexico-news-api"
+    },
+    "my": {
+        "SubCategory": {
+            "business": "/s/malaysia-business-news-api",
+            "entertainment": "/s/malaysia-entertainment-news-api",
+            "health": "/s/malaysia-health-news-api",
+            "science": "/s/malaysia-science-news-api",
+            "sports": "/s/malaysia-sports-news-api",
+            "technology": "/s/malaysia-technology-news-api"
+        },
+        "id": "my",
+        "name": "Malaysia",
+        "url": "/s/malaysia-news-api"
+    },
+    "ng": {
+        "SubCategory": {
+            "business": "/s/nigeria-business-news-api",
+            "entertainment": "/s/nigeria-entertainment-news-api",
+            "health": "/s/nigeria-health-news-api",
+            "science": "/s/nigeria-science-news-api",
+            "sports": "/s/nigeria-sports-news-api",
+            "technology": "/s/nigeria-technology-news-api"
+        },
+        "id": "ng",
+        "name": "Nigeria",
+        "url": "/s/nigeria-news-api"
+    },
+    "nl": {
+        "SubCategory": {
+            "business": "/s/netherlands-business-news-api",
+            "entertainment": "/s/netherlands-entertainment-news-api",
+            "health": "/s/netherlands-health-news-api",
+            "science": "/s/netherlands-science-news-api",
+            "sports": "/s/netherlands-sports-news-api",
+            "technology": "/s/netherlands-technology-news-api"
+        },
+        "id": "nl",
+        "name": "Netherlands",
+        "url": "/s/netherlands-news-api"
+    },
+    "no": {
+        "SubCategory": {
+            "business": "/s/norway-business-news-api",
+            "entertainment": "/s/norway-entertainment-news-api",
+            "health": "/s/norway-health-news-api",
+            "science": "/s/norway-science-news-api",
+            "sports": "/s/norway-sports-news-api",
+            "technology": "/s/norway-technology-news-api"
+        },
+        "id": "no",
+        "name": "Norway",
+        "url": "/s/norway-news-api"
+    },
+    "nz": {
+        "SubCategory": {
+            "business": "/s/new-zealand-business-news-api",
+            "entertainment": "/s/new-zealand-entertainment-news-api",
+            "health": "/s/new-zealand-health-news-api",
+            "science": "/s/new-zealand-science-news-api",
+            "sports": "/s/new-zealand-sports-news-api",
+            "technology": "/s/new-zealand-technology-news-api"
+        },
+        "id": "nz",
+        "name": "New Zealand",
+        "url": "/s/new-zealand-news-api"
+    },
+    "ph": {
+        "SubCategory": {
+            "business": "/s/philippines-business-news-api",
+            "entertainment": "/s/philippines-entertainment-news-api",
+            "health": "/s/philippines-health-news-api",
+            "science": "/s/philippines-science-news-api",
+            "sports": "/s/philippines-sports-news-api",
+            "technology": "/s/philippines-technology-news-api"
+        },
+        "id": "ph",
+        "name": "Philippines",
+        "url": "/s/philippines-news-api"
+    },
+    "pl": {
+        "SubCategory": {
+            "business": "/s/poland-business-news-api",
+            "entertainment": "/s/poland-entertainment-news-api",
+            "health": "/s/poland-health-news-api",
+            "science": "/s/poland-science-news-api",
+            "sports": "/s/poland-sports-news-api",
+            "technology": "/s/poland-technology-news-api"
+        },
+        "id": "pl",
+        "name": "Poland",
+        "url": "/s/poland-news-api"
+    },
+    "pt": {
+        "SubCategory": {
+            "business": "/s/portugal-business-news-api",
+            "entertainment": "/s/portugal-entertainment-news-api",
+            "health": "/s/portugal-health-news-api",
+            "science": "/s/portugal-science-news-api",
+            "sports": "/s/portugal-sports-news-api",
+            "technology": "/s/portugal-technology-news-api"
+        },
+        "id": "pt",
+        "name": "Portugal",
+        "url": "/s/portugal-news-api"
+    },
+    "ro": {
+        "SubCategory": {
+            "business": "/s/romania-business-news-api",
+            "entertainment": "/s/romania-entertainment-news-api",
+            "health": "/s/romania-health-news-api",
+            "science": "/s/romania-science-news-api",
+            "sports": "/s/romania-sports-news-api",
+            "technology": "/s/romania-technology-news-api"
+        },
+        "id": "ro",
+        "name": "Romania",
+        "url": "/s/romania-news-api"
+    },
+    "rs": {
+        "SubCategory": {
+            "business": "/s/serbia-business-news-api",
+            "entertainment": "/s/serbia-entertainment-news-api",
+            "health": "/s/serbia-health-news-api",
+            "science": "/s/serbia-science-news-api",
+            "sports": "/s/serbia-sports-news-api",
+            "technology": "/s/serbia-technology-news-api"
+        },
+        "id": "rs",
+        "name": "Serbia",
+        "url": "/s/serbia-news-api"
+    },
+    "ru": {
+        "SubCategory": {
+            "business": "/s/russia-business-news-api",
+            "entertainment": "/s/russia-entertainment-news-api",
+            "health": "/s/russia-health-news-api",
+            "science": "/s/russia-science-news-api",
+            "sports": "/s/russia-sports-news-api",
+            "technology": "/s/russia-technology-news-api"
+        },
+        "id": "ru",
+        "name": "Russia",
+        "url": "/s/russia-news-api"
+    },
+    "sa": {
+        "SubCategory": {
+            "business": "/s/saudi-arabia-business-news-api",
+            "entertainment": "/s/saudi-arabia-entertainment-news-api",
+            "health": "/s/saudi-arabia-health-news-api",
+            "science": "/s/saudi-arabia-science-news-api",
+            "sports": "/s/saudi-arabia-sports-news-api",
+            "technology": "/s/saudi-arabia-technology-news-api"
+        },
+        "id": "sa",
+        "name": "Saudi Arabia",
+        "url": "/s/saudi-arabia-news-api"
+    },
+    "se": {
+        "SubCategory": {
+            "business": "/s/sweden-business-news-api",
+            "entertainment": "/s/sweden-entertainment-news-api",
+            "health": "/s/sweden-health-news-api",
+            "science": "/s/sweden-science-news-api",
+            "sports": "/s/sweden-sports-news-api",
+            "technology": "/s/sweden-technology-news-api"
+        },
+        "id": "se",
+        "name": "Sweden",
+        "url": "/s/sweden-news-api"
+    },
+    "sg": {
+        "SubCategory": {
+            "business": "/s/singapore-business-news-api",
+            "entertainment": "/s/singapore-entertainment-news-api",
+            "health": "/s/singapore-health-news-api",
+            "science": "/s/singapore-science-news-api",
+            "sports": "/s/singapore-sports-news-api",
+            "technology": "/s/singapore-technology-news-api"
+        },
+        "id": "sg",
+        "name": "Singapore",
+        "url": "/s/singapore-news-api"
+    },
+    "si": {
+        "SubCategory": {
+            "business": "/s/slovenia-business-news-api",
+            "entertainment": "/s/slovenia-entertainment-news-api",
+            "health": "/s/slovenia-health-news-api",
+            "science": "/s/slovenia-science-news-api",
+            "sports": "/s/slovenia-sports-news-api",
+            "technology": "/s/slovenia-technology-news-api"
+        },
+        "id": "si",
+        "name": "Slovenia",
+        "url": "/s/slovenia-news-api"
+    },
+    "sk": {
+        "SubCategory": {
+            "business": "/s/slovakia-business-news-api",
+            "entertainment": "/s/slovakia-entertainment-news-api",
+            "health": "/s/slovakia-health-news-api",
+            "science": "/s/slovakia-science-news-api",
+            "sports": "/s/slovakia-sports-news-api",
+            "technology": "/s/slovakia-technology-news-api"
+        },
+        "id": "sk",
+        "name": "Slovakia",
+        "url": "/s/slovakia-news-api"
+    },
+    "th": {
+        "SubCategory": {
+            "business": "/s/thailand-business-news-api",
+            "entertainment": "/s/thailand-entertainment-news-api",
+            "health": "/s/thailand-health-news-api",
+            "science": "/s/thailand-science-news-api",
+            "sports": "/s/thailand-sports-news-api",
+            "technology": "/s/thailand-technology-news-api"
+        },
+        "id": "th",
+        "name": "Thailand",
+        "url": "/s/thailand-news-api"
+    },
+    "tr": {
+        "SubCategory": {
+            "business": "/s/turkey-business-news-api",
+            "entertainment": "/s/turkey-entertainment-news-api",
+            "health": "/s/turkey-health-news-api",
+            "science": "/s/turkey-science-news-api",
+            "sports": "/s/turkey-sports-news-api",
+            "technology": "/s/turkey-technology-news-api"
+        },
+        "id": "tr",
+        "name": "Turkey",
+        "url": "/s/turkey-news-api"
+    },
+    "tw": {
+        "SubCategory": {
+            "business": "/s/taiwan-business-news-api",
+            "entertainment": "/s/taiwan-entertainment-news-api",
+            "health": "/s/taiwan-health-news-api",
+            "science": "/s/taiwan-science-news-api",
+            "sports": "/s/taiwan-sports-news-api",
+            "technology": "/s/taiwan-technology-news-api"
+        },
+        "id": "tw",
+        "name": "Taiwan",
+        "url": "/s/taiwan-news-api"
+    },
+    "ua": {
+        "SubCategory": {
+            "business": "/s/ukraine-business-news-api",
+            "entertainment": "/s/ukraine-entertainment-news-api",
+            "health": "/s/ukraine-health-news-api",
+            "science": "/s/ukraine-science-news-api",
+            "sports": "/s/ukraine-sports-news-api",
+            "technology": "/s/ukraine-technology-news-api"
+        },
+        "id": "ua",
+        "name": "Ukraine",
+        "url": "/s/ukraine-news-api"
+    },
+    "us": {
+        "SubCategory": {
+            "business": "/s/us-business-news-api",
+            "entertainment": "/s/us-entertainment-news-api",
+            "health": "/s/us-health-news-api",
+            "science": "/s/us-science-news-api",
+            "sports": "/s/us-sports-news-api",
+            "technology": "/s/us-technology-news-api"
+        },
+        "id": "us",
+        "name": "United States",
+        "url": "/s/us-news-api"
+    },
+    "ve": {
+        "SubCategory": {
+            "business": "/s/venuzuela-business-news-api",
+            "entertainment": "/s/venuzuela-entertainment-news-api",
+            "health": "/s/venuzuela-health-news-api",
+            "science": "/s/venuzuela-science-news-api",
+            "sports": "/s/venuzuela-sports-news-api",
+            "technology": "/s/venuzuela-technology-news-api"
+        },
+        "id": "ve",
+        "name": "Venuzuela",
+        "url": "/s/venuzuela-news-api"
+    },
+    "za": {
+        "SubCategory": {
+            "business": "/s/south-africa-business-news-api",
+            "entertainment": "/s/south-africa-entertainment-news-api",
+            "health": "/s/south-africa-health-news-api",
+            "science": "/s/south-africa-science-news-api",
+            "sports": "/s/south-africa-sports-news-api",
+            "technology": "/s/south-africa-technology-news-api"
+        },
+        "id": "za",
+        "name": "South Africa",
+        "url": "/s/south-africa-news-api"
+    }
+}
