@@ -18,9 +18,6 @@ var createNews = async function ({
   var _source = await sources.createSource({ session: session, id: source['id'], name: source['name'] })
   var _author = await authors.createAuthor(session, author)
 
-  console.log(_source)
-  console.log(_author)
-
   var queries = [
     'MERGE (source:Source{id: {source_id}})',
     'MERGE (author:Author{id: {author_id}})',
