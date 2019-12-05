@@ -1,9 +1,11 @@
 import React from 'react'
 
+
 const ProfilePage = () => {
   return (
     <div>
-      <p>Private Profile Page</p>
+      <p>Private Profile Page
+      </p>
     </div>
   )
 }
