@@ -6,7 +6,7 @@ const News = require('../models/news')
 
 const fs = require('fs')
 const NewsAPI = require('newsapi')
-const newsapi = new NewsAPI('API_KEY')
+const newsapi = new NewsAPI('5b7846d800d14c20b2b1cca6a06f4d6e')
 
 newsapi.v2
 	.everything({
