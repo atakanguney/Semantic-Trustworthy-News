@@ -17,7 +17,7 @@
   "scripts": {
     "start": "node bin/app",
     "dev": "nodemon bin/app",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/test-news --exit"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -35,6 +35,9 @@
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.1"
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.1",
+    "request": "^2.88.0"
   }
 }
