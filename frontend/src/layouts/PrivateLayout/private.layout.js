@@ -4,19 +4,20 @@ import { useAuth } from '../../context/auth'
 import { NavBar } from '../../components'
 
 const PrivateLayout = ({ component: Component, ...rest }) => {
-  const {authTokens} = useAuth()
-  console.log(authTokens)
+  const { authTokens } = useAuth()
+
   return (
     <Route
       {...rest}
-      render={props => (authTokens ?
-      <div>
-        <NavBar {...props}/>
-        <Component {...props} />
-      </div> : <Redirect to='login' />)}
-    />
+      component={({ history, matchedProps }) =>
+				authTokens
+					? <div>
+  <NavBar {...{ ...matchedProps, history }} />
+  <Component {...{ ...matchedProps, history }} />
+						</div>
+					: <Redirect to='login' />}
+		/>
   )
 }
 
 export default PrivateLayout
-

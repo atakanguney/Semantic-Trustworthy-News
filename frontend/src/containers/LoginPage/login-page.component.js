@@ -11,9 +11,9 @@ const LoginPage = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { setAuthTokens } = useAuth()
-  
-  function validateForm() {
-    return username.length > 0 && password.length > 0;
+
+  function validateForm () {
+    return username.length > 0 && password.length > 0
   }
 
   const handleUsernameChange = event => setUsername(event.target.value)
@@ -29,8 +29,7 @@ const LoginPage = ({ history }) => {
 			.then(
 				res => {
   setAuthTokens(res.data)
-  console.log(res)
-  history.push('/profile')
+					// history.push('/profile')
 },
 				err => {
   console.log(err)
