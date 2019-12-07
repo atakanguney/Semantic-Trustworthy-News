@@ -1,19 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { useAuth } from '../../context/auth'
 import { NavBar } from '../../components'
+import { AuthContext } from '../../context/auth'
 
 const PrivateLayout = ({ component: Component, ...rest }) => {
-  const { authTokens } = useAuth()
+  const { authTokens } = useContext(AuthContext)
 
   return (
     <Route
       {...rest}
-      component={({ history, matchedProps }) =>
+      component={({ history, matchProps }) =>
 				authTokens
 					? <div>
-  <NavBar {...{ ...matchedProps, history }} />
-  <Component {...{ ...matchedProps, history }} />
+  <NavBar {...{ ...matchProps, history }} />
+  <Component {...{ ...matchProps, history }} />
 						</div>
 					: <Redirect to='login' />}
 		/>

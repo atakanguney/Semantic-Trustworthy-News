@@ -1,7 +1,13 @@
-import { createContext, useContext } from 'react'
+import React, { createContext } from 'react'
+import { getAuthTokens } from '../helpers/getAuthTokens'
+import { useAuth } from '../hooks/useAuth'
 
-export const AuthContext = createContext()
+const AuthContext = createContext()
 
-export const useAuth = () => {
-  return useContext(AuthContext)
+const AuthContextProvider = props => {
+  const { authTokens, setAuthTokens, removeAuthTokens } = useAuth(getAuthTokens())
+
+  return <AuthContext.Provider value={{ authTokens, setAuthTokens, removeAuthTokens }} {...props} />
 }
+
+export { AuthContext, AuthContextProvider }
