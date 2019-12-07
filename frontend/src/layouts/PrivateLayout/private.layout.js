@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { NavBar } from '../../components'
+import { AuthNavBar } from '../../components'
 import { AuthContext } from '../../context/auth'
 
 const PrivateLayout = ({ component: Component, ...rest }) => {
@@ -9,11 +9,11 @@ const PrivateLayout = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      component={({ history, matchProps }) =>
+      component={props =>
 				authTokens
 					? <div>
-  <NavBar {...{ ...matchProps, history }} />
-  <Component {...{ ...matchProps, history }} />
+  <AuthNavBar {...props} />
+  <Component {...props} />
 						</div>
 					: <Redirect to='login' />}
 		/>
