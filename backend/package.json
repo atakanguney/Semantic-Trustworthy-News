@@ -17,9 +17,10 @@
   "scripts": {
     "start": "node bin/app",
     "dev": "nodemon bin/app",
-    "test": "mocha test/test-news --exit"
+    "test": "mocha test/routes/test-news --exit"
   },
   "dependencies": {
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",

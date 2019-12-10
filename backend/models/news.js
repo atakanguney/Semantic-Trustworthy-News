@@ -55,7 +55,13 @@ var getNewsBySlug = function ({ session, slug }) {
   })
 }
 
+var allNews = function ({ session }) {
+  return session.run('MATCH (news: NewsArticle) RETURN news').then(results => {
+    return results.records.map(result => new News(result.get(['news'])))
+  })
+}
 module.exports = {
   createNews: createNews,
-  getNewsBySlug: getNewsBySlug
+  getNewsBySlug: getNewsBySlug,
+  allNews: allNews
 }

@@ -1,6 +1,6 @@
 var expect = require('chai').expect
-var Sources = require('../models/sources')
-var dbUtils = require('../neo4j/dbUtils')
+var Sources = require('../../models/sources')
+var dbUtils = require('../../neo4j/dbUtils')
 
 describe('Sources', function () {
   describe('#createSource', function () {

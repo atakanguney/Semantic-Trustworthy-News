@@ -1,7 +1,7 @@
 var expect = require('chai').expect
-var dbUtils = require('../neo4j/dbUtils')
+var dbUtils = require('../../neo4j/dbUtils')
 
-var News = require('../models/news')
+var News = require('../../models/news')
 
 describe('News', function () {
   var params = {
@@ -42,6 +42,14 @@ describe('News', function () {
     News.getNewsBySlug({ session: dbUtils.getSession({}), slug: params['slug'] })
 			.then(response => {
   expect(response.slug).to.equal(params['slug'])
+})
+			.finally(done)
+  })
+
+  it('should return all news in database', function (done) {
+    News.allNews({ session: dbUtils.getSession({}) })
+			.then(response => {
+  expect(response.length).to.greaterThan(0)
 })
 			.finally(done)
   })
