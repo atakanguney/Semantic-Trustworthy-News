@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 
 import axios from 'axios'
-import { useAuth } from '../../context/auth'
+import { AuthContext } from '../../context/auth'
 
 const RegistrationPage = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const { setAuthTokens } = useAuth()
+  const { setAuthTokens } = useContext(AuthContext)
 
-  function validateForm() {
-    return username.length > 0 && password.length > 0;
+  function validateForm () {
+    return username.length > 0 && password.length > 0
   }
 
   const handleUsernameChange = event => setUsername(event.target.value)

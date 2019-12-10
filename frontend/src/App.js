@@ -1,23 +1,16 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import './App.css'
 import Routes from './routes'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { AuthContext } from './context/auth'
+import { AuthContextProvider } from './context/auth'
 
-function App () {
-  const [authTokens, setAuthTokens] = useState()
-
-  const setTokens = data => {
-    localStorage.setItem('tokens', JSON.stringify(data))
-    setAuthTokens(data)
-  }
-
+const App = () => {
   return (
-    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
+    <AuthContextProvider>
       <Fragment>
         <Routes />
       </Fragment>
-    </AuthContext.Provider>
+    </AuthContextProvider>
   )
 }
 
