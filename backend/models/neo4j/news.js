@@ -7,6 +7,7 @@ var News = (module.exports = function (_node) {
     url: _node.properties['url'],
     urlToImage: _node.properties['urlToImage'],
     publishedAt: _node.properties['publishedAt'],
-    content: _node.properties['content']
+    content: _node.properties['content'],
+    slug: _node.properties['slug']
   })
 })

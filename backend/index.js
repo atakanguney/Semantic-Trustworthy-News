@@ -99,4 +99,6 @@ module.exports = function main (options, cb) {
     logger.info(`Started at ${opts.host || addr.host || 'localhost'}:${addr.port}`)
     ready(err, app, server)
   })
+
+  return server
 }

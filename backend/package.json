@@ -17,9 +17,10 @@
   "scripts": {
     "start": "node bin/app",
     "dev": "nodemon bin/app",
-    "test": "mocha test/test-news --exit"
+    "test": "mocha test/routes/test-news --exit"
   },
   "dependencies": {
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
@@ -33,7 +34,8 @@
     "pino": "^5.13.6",
     "pino-http": "^4.3.0",
     "pino-pretty": "^3.3.0",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "slugify": "^1.3.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",

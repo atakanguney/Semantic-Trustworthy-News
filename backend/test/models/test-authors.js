@@ -1,6 +1,6 @@
 var expect = require('chai').expect
-var Authors = require('../models/authors')
-var dbUtils = require('../neo4j/dbUtils')
+var Authors = require('../../models/authors')
+var dbUtils = require('../../neo4j/dbUtils')
 
 describe('Authors', function () {
   describe('#createAuthor', function () {
