@@ -33,7 +33,8 @@
     "pino": "^5.13.6",
     "pino-http": "^4.3.0",
     "pino-pretty": "^3.3.0",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "slugify": "^1.3.6"
   },
   "devDependencies": {
     "chai": "^4.2.0",
