@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { Navbar, Nav, FormControl, Form, Button } from 'react-bootstrap'
+import { AuthContext } from '../../context/auth'
 
-const NavBar = () => {
+export default () => {
+  const { removeAuthTokens } = useContext(AuthContext)
+
   return (
     <Navbar bg='light' expand='lg'>
       <Navbar.Brand href='/'>Semantic Trusthworthy News</Navbar.Brand>
@@ -10,8 +13,8 @@ const NavBar = () => {
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='mr-auto'>
           <Nav.Link href='/'>Home</Nav.Link>
-          <Nav.Link href='/login'>Login</Nav.Link>
-          <Nav.Link href='/register'>Register</Nav.Link>
+          <Nav.Link href='/profile'>Profile</Nav.Link>
+          <Nav.Link onClick={removeAuthTokens}>Logout</Nav.Link>
         </Nav>
         <Form inline>
           <FormControl type='text' placeholder='Search' className='mr-sm-2' />
@@ -21,5 +24,3 @@ const NavBar = () => {
     </Navbar>
   )
 }
-
-export default NavBar
