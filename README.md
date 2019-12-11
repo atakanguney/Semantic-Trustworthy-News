@@ -28,6 +28,8 @@ Before starting the app, you need to have done following instructions
 - Run the following command:
     `make build`
 
+- Occasionally, you may need to run the following command to clear the cache `docker-compose down -v`, and build the project from scratch. This is sometimes required due to the newly added modules.
+
 To start the backend and the frontend
 ---
 
