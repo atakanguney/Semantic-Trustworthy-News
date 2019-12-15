@@ -28,7 +28,7 @@
     "http-errors": "^1.7.3",
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
-    "neo4j-driver": "^1.7.6",
+    "neo4j-driver": "^4.0.0",
     "newsapi": "^2.4.0",
     "node-uuid": "^1.4.8",
     "pino": "^5.13.6",

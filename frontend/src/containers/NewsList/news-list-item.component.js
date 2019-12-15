@@ -2,23 +2,25 @@ import React from 'react'
 
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { CardTitle } from './news-list-item.style'
+
 const NewsListItem = props => {
-  const { source, author, title, description, url, urlToImage, publishedAt, content, slug } = props.news
+  const { source, author, title, description, url, urlToImage, slug } = props.news
 
   return (
     <Card>
       <Link to={`/news/${slug}`}>
         <Card.Img variant='top' src={urlToImage} />
       </Link>
-      <Card.Title style={{ 'text-align': 'center' }}>
+      <CardTitle>
         {title}
-      </Card.Title>
+      </CardTitle>
       <Card.Body>
         <Card.Subtitle className='mb-2 text-muted'>
-          {author + ', ' + source.name}
+          {author.personname + ', ' + source.name}
         </Card.Subtitle>
         <Card.Text>
-          {content}
+          {description}
         </Card.Text>
       </Card.Body>
       <Card.Footer>
