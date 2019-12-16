@@ -53,4 +53,12 @@ describe('News', function () {
 })
 			.finally(done)
   })
+
+  it('should update news in the database', function (done) {
+    News.updateNews('the-new-york-times', 1, 'en')
+			.then(result => {
+  expect(result).to.be.true
+})
+			.finally(done)
+  })
 })

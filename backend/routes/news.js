@@ -54,3 +54,23 @@ exports.allNews = function (req, res, next) {
 		.then(response => writeResponse(res, response, 200))
 		.catch(next)
 }
+
+exports.updateNews = function (req, res, next) {
+  var source = _.get(req.body, 'source')
+  var language = _.get(req.body, 'language') || 'en'
+  var pageSize = _.get(req.body, 'pageSize') || 100
+
+  if (!source) {
+    throw { title: 'This field is required.', status: 400 }
+  }
+
+  News.updateNews(source, pageSize, language)
+		.then(response => {
+  if (response) {
+    writeResponse(res, { status: response }, 200)
+  } else {
+    writeError(res, 'Cannot fetch news', 401)
+  }
+})
+		.catch(next)
+}
