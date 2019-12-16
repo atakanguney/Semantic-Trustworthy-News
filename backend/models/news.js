@@ -1,37 +1,33 @@
 'use strict'
 
-var sources = require('../models/sources')
-var authors = require('../models/authors')
 var slugify = require('slugify')
 var News = require('../models/neo4j/news')
+var Author = require('../models/neo4j/author')
+var Source = require('../models/neo4j/source')
 
-var createNews = async function ({
-	session,
-	source,
-	author,
-	title,
-	description,
-	url,
-	urlToImage,
-	publishedAt,
-	content
-}) {
-  var _source = await sources.createSource({ session: session, id: source['id'], name: source['name'] })
-  var _author = await authors.createAuthor(session, author)
+var _ = require('lodash')
+var uuid = require('node-uuid')
 
-  var queries = [
-    'MERGE (source:Source{id: {source_id}})',
-    'MERGE (author:Author{id: {author_id}})',
-    'CREATE (news:NewsArticle {title: {title}, description: {description}, url: {url}, urlToImage: {urlToImage}, publishedAt: {publishedAt}, content: {content}, slug: {slug}})',
-    'CREATE (news)-[:hasSource]->(source)',
-    'CREATE (news)-[:isWrittenBy]->(author)',
-    'CREATE (author)-[:hasWritten]->(news)',
-    'RETURN news'
-  ]
-  return session
-		.run(queries.join(' '), {
-  source_id: _source['id'],
-  author_id: _author['id'],
+var createNews = function ({ session, source, author, title, description, url, urlToImage, publishedAt, content }) {
+  return session.run('MATCH (news:NewsArticle{title:{title}}) RETURN news', { title: title }).then(async response => {
+    if (!_.isEmpty(response.records)) {
+      return new News(response.records[0].get('news'))
+    } else {
+      var queries = [
+        'MERGE (source:Source{id: {sourceId}, name: {sourceName}})',
+        'MERGE (author:Author{id: {authorId}, personname: {authorName}})',
+        'MERGE (news:NewsArticle {title: {title}, description: {description}, url: {url}, urlToImage: {urlToImage}, publishedAt: {publishedAt}, content: {content}, slug: {slug}})',
+        'MERGE (news)-[:hasSource]->(source)',
+        'MERGE (news)-[:isWrittenBy]->(author)',
+        'MERGE (author)-[:hasWritten]->(news)',
+        'RETURN news'
+      ]
+      return session
+				.run(queries.join(' '), {
+  sourceId: source['id'] || '',
+  sourceName: source['name'] || '',
+  authorId: uuid.v4(),
+  authorName: author || '',
   title: title,
   description: description,
   url: url,
@@ -40,9 +36,12 @@ var createNews = async function ({
   content: content,
   slug: slugify(title)
 })
-		.then(results => {
-  return new News(results.records[0].get('news'))
+				.then(result => {
+  session.close()
+  return new News(result.records[0].get('news'))
 })
+    }
+  })
 }
 
 var getNewsBySlug = function ({ session, slug }) {
@@ -56,9 +55,26 @@ var getNewsBySlug = function ({ session, slug }) {
 }
 
 var allNews = function ({ session }) {
-  return session.run('MATCH (news: NewsArticle) RETURN news').then(results => {
-    return results.records.map(result => new News(result.get(['news'])))
+  var queries = [
+    'MERGE (news: NewsArticle)',
+    'MERGE (news)-[:isWrittenBy]->(author: Author)',
+    'MERGE (news)-[:hasSource]->(source: Source)',
+    'RETURN news, source, author'
+  ]
+  return session
+		.run(queries.join(' '))
+		.then(results => {
+  return results.records.map(record => {
+    return Object.assign(
+					new News(record.get('news')),
+					{ source: new Source(record.get('source')) },
+					{ author: new Author(record.get('author')) }
+				)
   })
+})
+		.catch(err => {
+  console.log(err)
+})
 }
 module.exports = {
   createNews: createNews,

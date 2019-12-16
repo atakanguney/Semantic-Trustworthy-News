@@ -3,3 +3,5 @@
 /node_modules
 neo4j/data
 neo4j/logs
+graphdb-docekr
+graphdb-docker

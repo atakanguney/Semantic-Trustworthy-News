@@ -14,14 +14,22 @@ newsapi.v2
   pageSize: 100,
   sources: 'the-new-york-times'
 })
-	.then(async response => {
-  const articles = response['articles'].map(article => {
-    return new Promise(async (resolve, reject) => {
-      setTimeout(async function () {
-        await News.createNews({ session: dbUtils.getSession({}), ...article })
-        resolve()
-      }, 10)
-    })
-  })
-  const status = await Promise.all(articles)
+	.then(response => {
+  console.log(response)
+  const articles = response['articles']
+  console.log(articles.length)
+  for (let article of articles) {
+    News.createNews({ session: dbUtils.getSession({}), ...article })
+  }
+  console.log('Done !')
+		// const articles = response['articles'].map(article => {
+		//   return new Promise(async (resolve, reject) => {
+		//     setTimeout(async function () {
+		//       await News.createNews({ session: dbUtils.getSession({}), ...article })
+		//       resolve()
+		//     }, 10)
+		//   })
+		// })
+		// const status = await Promise.all(articles)
+		// console.log(status)
 })

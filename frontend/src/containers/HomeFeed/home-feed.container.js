@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { fetchNews } from '../../helpers/fetchNews'
+import React from 'react'
+import NewsList from '../NewsList'
+import { Title } from './home-feed.style'
 
-const HomeFeedContainer = props => {
-  const [news, setNews] = useState([])
-
-  const getNews = async () => {
-    let newsList = await fetchNews()
-    setNews(newsList)
-  }
-
-  useEffect(() => {
-    getNews()
-  }, [])
-
+const HomeFeedContainer = () => {
   return (
     <div>
-      <h1>Semantic Trustworthy News</h1>
-      {news.map((item, key) =>
-        <p key={key}>
-          {item.title + ' ' + item.source.id}
-        </p>
-			)}
+      <Title>Semantic Trustworthy News</Title>
+      {<NewsList />}
     </div>
   )
 }

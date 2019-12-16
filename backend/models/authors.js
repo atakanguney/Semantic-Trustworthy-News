@@ -13,9 +13,9 @@ var createAuthor = function (session, name) {
     return new Author(response.records[0].get('a'))
   } else {
     return session
-					.run('CREATE (a: Author {id: {id}, personname: {name}}) RETURN a', {
+					.run('MERGE (a: Author {id: {id}, personname: {name}}) RETURN a', {
   id: uuid.v4(),
-  name: name
+  name: name || ''
 })
 					.then(results => {
   return new Author(results.records[0].get('a'))
