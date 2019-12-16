@@ -29,13 +29,13 @@ var createNews = function ({ session, source, author, title, description, url, u
   sourceName: source['name'] || '',
   authorId: uuid.v4(),
   authorName: author || '',
-  title: title,
-  description: description,
-  url: url,
-  urlToImage: urlToImage,
-  publishedAt: publishedAt,
-  content: content,
-  slug: slugify(title)
+  title: title || '',
+  description: description || '',
+  url: url || '',
+  urlToImage: urlToImage || '',
+  publishedAt: publishedAt || '',
+  content: content || '',
+  slug: slugify(title) || ''
 })
 				.then(result => {
   session.close()
