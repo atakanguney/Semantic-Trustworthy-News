@@ -54,3 +54,15 @@ exports.allNews = function (req, res, next) {
 		.then(response => writeResponse(res, response, 200))
 		.catch(next)
 }
+
+exports.getNewsBySlug = function (req, res, next) {
+  var slug = req.params.slug
+
+  if (!slug) {
+    throw { title: 'This field is required.', status: 400 }
+  }
+
+  News.getNewsBySlug({ session: dbUtils.getSession(req), slug: slug })
+		.then(response => writeResponse(res, response, 200))
+		.catch(next)
+}

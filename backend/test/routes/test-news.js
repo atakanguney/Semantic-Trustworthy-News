@@ -62,4 +62,12 @@ describe('News', function () {
       done()
     })
   })
+
+  it('should return news with the slug parameter', function (done) {
+    chai.request(app).get(`/api/news/${req.body.slug}`).end((err, res) => {
+      expect(res.status).to.equal(200)
+      expect(JSON.parse(res.text).slug).to.equal(req.body.slug)
+      done()
+    })
+  })
 })
