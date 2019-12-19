@@ -1,6 +1,18 @@
 version: "3"
 
 services:
+  graphdb:
+    build: 
+      context: ./graphdb-docker/free-edition
+      args: 
+        edition: free
+        version: 9.0.0
+    ports:
+      - 7200:7200
+    volumes: 
+      - ./graphdb-docker/data:/opt/graphdb/home/data
+      - ./graphdb-docker/logs:/opt/graphdb/home/logs
+
   database:
     image: neo4j:3.5.13
     environment: 
