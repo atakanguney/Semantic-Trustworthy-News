@@ -1,35 +1,27 @@
 'use strict'
+var nconf = require('../config/config')['newsapi']
 
-require('dotenv').config()
-const dbUtils = require('../neo4j/dbUtils')
-const News = require('../models/news')
+var NewsAPI = require('newsapi')
+var dbUtils = require('../neo4j/dbUtils')
+var newsapi = new NewsAPI(nconf.apikey)
 
-const fs = require('fs')
-const NewsAPI = require('newsapi')
-const newsapi = new NewsAPI('5b7846d800d14c20b2b1cca6a06f4d6e')
-
-newsapi.v2
-	.everything({
-  language: 'en',
-  pageSize: 100,
-  sources: 'the-new-york-times'
+exports.fetchNews = function (source, pageSize, language, createNews) {
+  return newsapi.v2
+		.everything({
+  language: language,
+  pageSize: pageSize,
+  sources: source
 })
-	.then(response => {
-  console.log(response)
-  const articles = response['articles']
-  console.log(articles.length)
+		.then(response => {
+  var articles = response['articles'] || []
+
   for (let article of articles) {
-    News.createNews({ session: dbUtils.getSession({}), ...article })
+    createNews({ session: dbUtils.getSession({}), ...article })
   }
-  console.log('Done !')
-		// const articles = response['articles'].map(article => {
-		//   return new Promise(async (resolve, reject) => {
-		//     setTimeout(async function () {
-		//       await News.createNews({ session: dbUtils.getSession({}), ...article })
-		//       resolve()
-		//     }, 10)
-		//   })
-		// })
-		// const status = await Promise.all(articles)
-		// console.log(status)
+  return true
 })
+		.catch(err => {
+  console.log(err)
+  return false
+})
+}
