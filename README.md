@@ -31,8 +31,15 @@ Before starting the app, you need to have done following instructions
 
     - DATABASE_HOST
 
+- To set graphdb:
+    - Create two folders named 'data' and 'logs' under 'graphdb-docker'
+    - Put graphdb .zip file under 'graphdb-docker/free-edition'
+
+
 - Run the following command:
     `make build`
+
+
 
 - Occasionally, you may need to run the following command to clear the cache `docker-compose down -v`, and build the project from scratch. This is sometimes required due to the newly added modules.
 
@@ -47,7 +54,6 @@ Building without Docker
 4. Finally, run `npm start`
 
 Both Backend API and Frontend app should be run.
-
 
 #### To start the neo4j (community)
 
