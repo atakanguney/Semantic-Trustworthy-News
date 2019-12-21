@@ -104,66 +104,6 @@ var register = function (username, password) {
   })
 }
 
-var getUserById = function (userId) {
-  var selectQuery = [
-    'PREFIX',
-    ':',
-    '<http://www.stnews.com/>',
-    'PREFIX',
-    'foaf:',
-    '<http://xmlns.com/foaf/0.1/>',
-    'SELECT',
-    '?id',
-    '?name',
-    '?apikey',
-    'WHERE',
-    '{',
-    '?p',
-    'foaf:name',
-    '?name',
-    ';',
-    ':hasAPIKey',
-    '?apikey',
-    ';',
-    ':hasId',
-    '?id',
-    ';',
-    ':hasId',
-    '"' + userId + '"',
-    '.',
-    '}'
-  ].join(' ')
-
-  var repository = dbUtils.getRepository()
-  repository.registerParser(dbUtils.getJSONParser())
-
-  var selectPayload = dbUtils
-		.getQueryPayload()
-		.setQuery(selectQuery)
-		.setQueryType(dbUtils.getQueryTypes().SELECT)
-		.setResponseType(dbUtils.getRDFMimeType().SPARQL_RESULTS_JSON)
-		.setLimit(100)
-
-  return repository.query(selectPayload).then(stream => {
-    var results = []
-
-    return new Promise((resolve, reject) => {
-      stream.on('data', bindings => {
-        results.push(bindings)
-      })
-      stream.on('error', reject)
-      stream.on('end', () => {
-        if (results.length > 0) {
-          var user = new User(results[0])
-          resolve(user)
-        } else {
-          resolve(null)
-        }
-      })
-    })
-  })
-}
-
 var getUserByUsername = function (username) {
   var selectQuery = [
     'PREFIX',

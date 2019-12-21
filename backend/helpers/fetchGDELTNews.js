@@ -119,7 +119,7 @@ var gkgFields = [
 var allFields = [eventFields, mentionsFields, gkgFields]
 
 var getRawNews = function (fileUrl, fields) {
-  var output = fileUrl.split('/').pop()
+  var output = './newsdata/' + fileUrl.split('/').pop()
   var csvFile = output.slice(0, -4)
 
   var promise = new Promise((resolve, reject) => {
@@ -128,7 +128,7 @@ var getRawNews = function (fileUrl, fields) {
       var zipEntries = zip.getEntries()
 
       zipEntries.forEach(function (zipEntry) {
-        zip.extractEntryTo(zipEntry.entryName, '.', false, true)
+        zip.extractEntryTo(zipEntry.entryName, './newsdata', false, true)
       })
       const results = []
       fs
@@ -167,4 +167,11 @@ var getAllSources = function () {
 
     return Promise.all(allData)
   })
+}
+
+module.exports = {
+  eventFields: eventFields,
+  mentionsFields: mentionsFields,
+  gkgFields: gkgFields,
+  getAllSources: getAllSources
 }
