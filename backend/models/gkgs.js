@@ -1,21 +1,20 @@
-var Event = require('../models/graphdb/event')
+var GKG = require('../models/graphdb/gkg')
 var dbUtils = require('../graphdb/dbUtils')
 var utils = require('./utils')
 
-var eventGraph = 'ssw:stn:Events'
+var gkgGraph = 'ssw:stn:GKG'
 
-var createEvent = function (event) {
+var createGKG = function (gkg) {
 	// Construct the query
   var query = utils
 		.getSTNPrefix()
-		.concat(['INSERT', 'DATA', '{', ':' + event['GlobalEventID'], 'rdf:type', ':Event'])
-		.concat(utils.constructPredicatesAndObjects(event))
+		.concat(['INSERT', 'DATA', '{', ':' + gkg['GKGRECORDID'], 'rdf:type', ':GKG'])
+		.concat(utils.constructPredicatesAndObjects(gkg))
 		.concat(['.', '}'])
 		.join(' ')
 
 	// Construct the payload
-
-  var payload = dbUtils.getUpdateQueryPayload(eventGraph).setQuery(query)
+  var payload = dbUtils.getUpdateQueryPayload(gkgGraph).setQuery(query)
 
 	// Get repository
   var repository = dbUtils.getRepository()
@@ -23,11 +22,11 @@ var createEvent = function (event) {
 	// Make the request
 
   return repository.update(payload).then(() => {
-    console.log('Event Created Successfully')
+    console.log('GKG Record Created Successfully')
   })
 }
 
-var getEventByEventId = function (eventId) {
+var getGKGByGKGRECORDID = function (gkgRecordId) {
   var query = utils
 		.getSTNPrefix()
 		.concat([
@@ -37,8 +36,8 @@ var getEventByEventId = function (eventId) {
   'WHERE',
   '{',
   '?s',
-  ':hasGlobalEventID',
-  '"' + eventId + '"',
+  ':hasGKGRECORDID',
+  '"' + gkgRecordId + '"',
   '.',
   '?s',
   '?p',
@@ -67,28 +66,28 @@ var getEventByEventId = function (eventId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
-        resolve(new Event(utils.extractResults(results)))
+        resolve(new GKG(utils.extractResults(results)))
       })
     })
     return promise
   })
 }
 
-var getAllEvents = function () {
+var getAllGKGs = function () {
   var query = utils
 		.getSTNPrefix()
 		.concat([
   'SELECT',
   'DISTINCT',
-  '?eventId',
+  '?gkgRecordId',
   'WHERE',
   '{',
   '?s',
   'rdf:type',
-  ':Event',
+  ':GKG',
   ';',
-  ':hasGlobalEventID',
-  '?eventId',
+  ':hasGKGRECORDID',
+  '?gkgRecordId',
   '.',
   '}'
 ])
@@ -108,11 +107,11 @@ var getAllEvents = function () {
     return new Promise((resolve, reject) => {
       stream.on('data', bindings => results.push(bindings))
       stream.on('error', reject)
-      stream.on('end', () => resolve(results.map(item => JSON.parse(item['eventId']['id']))))
+      stream.on('end', () => resolve(results.map(item => JSON.parse(item['gkgRecordId']['id']))))
     }).then(eventIds => {
       var eventPromises = []
       eventIds.forEach(element => {
-        eventPromises.push(getEventByEventId(element))
+        eventPromises.push(getGKGByGKGRECORDID(element))
       })
 
       return Promise.all(eventPromises)
@@ -121,7 +120,7 @@ var getAllEvents = function () {
 }
 
 module.exports = {
-  createEvent: createEvent,
-  getEventByEventId: getEventByEventId,
-  getAllEvents: getAllEvents
+  createGKG: createGKG,
+  getGKGByGKGRECORDID: getGKGByGKGRECORDID,
+  getAllGKGs: getAllGKGs
 }

@@ -1,21 +1,20 @@
-var Event = require('../models/graphdb/event')
+var Mention = require('../models/graphdb/mention')
 var dbUtils = require('../graphdb/dbUtils')
 var utils = require('./utils')
 
-var eventGraph = 'ssw:stn:Events'
+var mentionGraph = 'ssw:stn:Mention'
 
-var createEvent = function (event) {
+var createMention = function (mention) {
 	// Construct the query
   var query = utils
 		.getSTNPrefix()
-		.concat(['INSERT', 'DATA', '{', ':' + event['GlobalEventID'], 'rdf:type', ':Event'])
-		.concat(utils.constructPredicatesAndObjects(event))
+		.concat(['INSERT', 'DATA', '{', ':' + mention['GlobalEventID'], 'rdf:type', ':Mention'])
+		.concat(utils.constructPredicatesAndObjects(mention))
 		.concat(['.', '}'])
 		.join(' ')
 
 	// Construct the payload
-
-  var payload = dbUtils.getUpdateQueryPayload(eventGraph).setQuery(query)
+  var payload = dbUtils.getUpdateQueryPayload(mentionGraph).setQuery(query)
 
 	// Get repository
   var repository = dbUtils.getRepository()
@@ -23,11 +22,11 @@ var createEvent = function (event) {
 	// Make the request
 
   return repository.update(payload).then(() => {
-    console.log('Event Created Successfully')
+    console.log('Mention Created Successfully')
   })
 }
 
-var getEventByEventId = function (eventId) {
+var getMentionByGlobalEventID = function (globalEventId) {
   var query = utils
 		.getSTNPrefix()
 		.concat([
@@ -38,7 +37,7 @@ var getEventByEventId = function (eventId) {
   '{',
   '?s',
   ':hasGlobalEventID',
-  '"' + eventId + '"',
+  '"' + globalEventId + '"',
   '.',
   '?s',
   '?p',
@@ -67,28 +66,28 @@ var getEventByEventId = function (eventId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
-        resolve(new Event(utils.extractResults(results)))
+        resolve(new Mention(utils.extractResults(results)))
       })
     })
     return promise
   })
 }
 
-var getAllEvents = function () {
+var getAllMentions = function () {
   var query = utils
 		.getSTNPrefix()
 		.concat([
   'SELECT',
   'DISTINCT',
-  '?eventId',
+  '?globalEventId',
   'WHERE',
   '{',
   '?s',
   'rdf:type',
-  ':Event',
+  ':Mention',
   ';',
   ':hasGlobalEventID',
-  '?eventId',
+  '?globalEventId',
   '.',
   '}'
 ])
@@ -108,11 +107,11 @@ var getAllEvents = function () {
     return new Promise((resolve, reject) => {
       stream.on('data', bindings => results.push(bindings))
       stream.on('error', reject)
-      stream.on('end', () => resolve(results.map(item => JSON.parse(item['eventId']['id']))))
+      stream.on('end', () => resolve(results.map(item => JSON.parse(item['globalEventId']['id']))))
     }).then(eventIds => {
       var eventPromises = []
       eventIds.forEach(element => {
-        eventPromises.push(getEventByEventId(element))
+        eventPromises.push(getMentionByGlobalEventID(element))
       })
 
       return Promise.all(eventPromises)
@@ -121,7 +120,7 @@ var getAllEvents = function () {
 }
 
 module.exports = {
-  createEvent: createEvent,
-  getEventByEventId: getEventByEventId,
-  getAllEvents: getAllEvents
+  createMention: createMention,
+  getMentionByGlobalEventID: getMentionByGlobalEventID,
+  getAllMentions: getAllMentions
 }

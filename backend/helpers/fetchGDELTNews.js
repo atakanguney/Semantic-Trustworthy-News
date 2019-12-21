@@ -2,6 +2,10 @@ const csv = require('csv-parser')
 const fs = require('fs')
 var AdmZip = require('adm-zip')
 const request = require('request')
+const events = require('../models/events')
+const gkgs = require('../models/gkgs')
+const mentions = require('../models/mentions')
+var os = require('os')
 
 var eventFields = [
   'GlobalEventID',
@@ -117,6 +121,7 @@ var gkgFields = [
 ]
 
 var allFields = [eventFields, mentionsFields, gkgFields]
+var allCreateFunctions = [events.createEvent, mentions.createMention, gkgs.createGKG]
 
 var getRawNews = function (fileUrl, fields) {
   var output = './newsdata/' + fileUrl.split('/').pop()
@@ -158,14 +163,80 @@ var getAllFiles = function () {
   return promise
 }
 
+var validateJSON = function (str) {
+  try {
+    JSON.parse(str)
+  } catch (e) {
+    return false
+  }
+  return true
+}
+
+var eventToRDF = function (event) {
+  var initial = ':' + event['GlobalEventID'] + ' ' + 'rdf:type' + ' ' + ':Event' + ' ' + '.'
+  var rest = Object.entries(event)
+		.map(([key, val]) => {
+  return ':' + event['GlobalEventID'] + ' ' + ':has' + key + ' ' + '"' + val + '"' + ' ' + '.'
+})
+		.join(os.EOL)
+
+  return initial + os.EOL + rest
+}
+
+var mentionToRDF = function (mention) {
+  var initial = ':' + mention['GlobalEventID'] + ' ' + 'rdf:type' + ' ' + ':Mention' + ' ' + '.'
+  var rest = Object.entries(mention)
+		.map(([key, val]) => {
+  return ':' + mention['GlobalEventID'] + ' ' + ':has' + key + ' ' + '"' + val + '"' + ' ' + '.'
+})
+		.join(os.EOL)
+
+  return initial + os.EOL + rest
+}
+
+var gkgToRDF = function (gkg) {
+  var initial = ':' + gkg['GKGRECORDID'] + ' ' + 'rdf:type' + ' ' + ':GKG' + '.'
+  var rest = Object.entries(gkg)
+		.map(([key, val]) => {
+  return ':' + gkg['GKGRECORDID'] + ' ' + ':has' + key + ' ' + '"' + val + '"' + ' ' + '.'
+})
+		.join(os.EOL)
+
+  return initial + os.EOL + rest
+}
+
+var allToRDF = [eventToRDF, mentionToRDF, gkgToRDF]
+
 var getAllSources = function () {
   return getAllFiles().then(fileUrls => {
     var allData = []
     fileUrls.forEach((fileUrl, key) => {
-      allData.push(getRawNews(fileUrl, allFields[key]))
+      allData.push(
+				getRawNews(fileUrl, allFields[key]).then(results => {
+  var prefix =
+						'@prefix : <http://www.stnews.com/> .' +
+						os.EOL +
+						'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .'
+  var rdf = results.map(item => allToRDF[key](item)).join(os.EOL)
+
+  return prefix + os.EOL + rdf
+})
+			)
     })
 
-    return Promise.all(allData)
+    return Promise.all(allData).then(res => {
+      let names = ['events', 'mentions', 'gkgs']
+      res.forEach((item, key) => {
+        fs.writeFile('/tmp/' + names[key], item, function (err) {
+          if (err) {
+            return console.log(err)
+          }
+          console.log(`The file of ${names[key]} was saved!`)
+        })
+      })
+
+      return true
+    })
   })
 }
 

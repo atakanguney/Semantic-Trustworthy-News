@@ -13,7 +13,7 @@
 	"scripts": {
 		"start": "node bin/app",
 		"dev": "nodemon bin/app",
-		"test": "mocha test/models/test-users --exit"
+		"test": "mocha test/models --exit"
 	},
 	"dependencies": {
 		"adm-zip": "^0.4.13",
@@ -34,8 +34,8 @@
 		"pino-http": "^4.3.0",
 		"pino-pretty": "^3.3.0",
 		"randomstring": "^1.1.5",
-		"slugify": "^1.3.6",
-		"request": "^2.88.0"
+		"request": "^2.88.0",
+		"slugify": "^1.3.6"
 	},
 	"devDependencies": {
 		"chai": "^4.2.0",
