@@ -1,5 +1,4 @@
 var Event = require('../models/graphdb/event')
-var fields = require('../helpers/fetchGDELTNews').eventFields
 var dbUtils = require('../graphdb/dbUtils')
 var utils = require('./utils')
 
@@ -69,7 +68,7 @@ var getEventByEventId = function (eventId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
-        resolve(utils.extractResults(results))
+        resolve(new Event(utils.extractResults(results)))
       })
     })
     return promise
@@ -96,7 +95,6 @@ var getAllEvents = function () {
 ])
 		.join(' ')
 
-  console.log(query)
   var repository = dbUtils.getRepository()
   repository.registerParser(dbUtils.getJSONParser())
 
