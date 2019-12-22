@@ -173,12 +173,26 @@ var validateJSON = function (str) {
   return true
 }
 
+var fixString = function (str) {
+  return str.replace(/"/g, ' ').replace(/\u2013|\u2014/g, '-')
+}
+
 var eventToRDF = function (event) {
-  var initial = ':' + event['GlobalEventID'] + ' ' + 'rdf:type' + ' ' + ':Event' + ' ' + '.'
+  var initial = ':' + fixString(event['GlobalEventID']) + ' ' + 'rdf:type' + ' ' + ':Event' + ' ' + '.'
   var rest = Object.entries(event)
 		.map(([key, val]) => {
   return (
-				':' + event['GlobalEventID'] + ' ' + ':has' + key + ' ' + '"' + val.replace(/"/g, ' ') + '"' + ' ' + '.'
+				':' +
+				fixString(event['GlobalEventID']) +
+				' ' +
+				':has' +
+				key +
+				' ' +
+				'"' +
+				fixString(val) +
+				'"' +
+				' ' +
+				'.'
   )
 })
 		.join(os.EOL)
@@ -187,18 +201,18 @@ var eventToRDF = function (event) {
 }
 
 var mentionToRDF = function (mention) {
-  var initial = ':' + mention['GlobalEventID'] + ' ' + 'rdf:type' + ' ' + ':Mention' + ' ' + '.'
+  var initial = ':' + fixString(mention['GlobalEventID']) + ' ' + 'rdf:type' + ' ' + ':Mention' + ' ' + '.'
   var rest = Object.entries(mention)
 		.map(([key, val]) => {
   return (
 				':' +
-				mention['GlobalEventID'] +
+				fixString(mention['GlobalEventID']) +
 				' ' +
 				':has' +
 				key +
 				' ' +
 				'"' +
-				val.replace(/"/g, ' ') +
+				fixString(val) +
 				'"' +
 				' ' +
 				'.'
@@ -210,10 +224,12 @@ var mentionToRDF = function (mention) {
 }
 
 var gkgToRDF = function (gkg) {
-  var initial = ':' + gkg['GKGRECORDID'] + ' ' + 'rdf:type' + ' ' + ':GKG' + ' ' + '.'
+  var initial = ':' + fixString(gkg['GKGRECORDID']) + ' ' + 'rdf:type' + ' ' + ':GKG' + ' ' + '.'
   var rest = Object.entries(gkg)
 		.map(([key, val]) => {
-  return ':' + gkg['GKGRECORDID'] + ' ' + ':has' + key + ' ' + '"' + val.replace(/"/g, ' ') + '"' + ' ' + '.'
+  return (
+				':' + fixString(gkg['GKGRECORDID']) + ' ' + ':has' + key + ' ' + '"' + fixString(val) + '"' + ' ' + '.'
+  )
 })
 		.join(os.EOL)
 
@@ -257,7 +273,7 @@ var getAllSources = function () {
 }
 
 var uploadRDTToGraphDB = function () {
-  this.getAllSources().then(res => {
+  return this.getAllSources().then(res => {
     if (res) {
       let names = ['events', 'mentions', 'gkgs']
       let contexts = ['ssw:stn:Events', 'ssw:stn:Mention', 'ssw:stn:GKG']
@@ -267,14 +283,18 @@ var uploadRDTToGraphDB = function () {
       const repository = dbUtils.getRepository()
 
       files.forEach((item, key) => {
-        console.log(item)
         fs.readFile(item, (err, stream) => {
           repository
 						.upload(stream, contentType, contexts[key], null)
 						.then(r => console.log(`Turtle File Uploaded Successfully ${contexts[key]}`))
-						.catch(e => console.log(e))
+						.catch(e => {
+  console.log(e)
+  return false
+})
         })
       })
+
+      return true
     }
   })
 }
