@@ -13,4 +13,5 @@ module.exports = function (app, opts) {
   app.post('/api/create-news', newsRoutes.createNews)
   app.get('/api/all-news', newsRoutes.allNews)
   app.get('/api/news/:slug', newsRoutes.getNewsBySlug)
+  app.post('/api/update-news', newsRoutes.updateNews)
 }

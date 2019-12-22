@@ -4,6 +4,7 @@ var slugify = require('slugify')
 var News = require('../models/neo4j/news')
 var Author = require('../models/neo4j/author')
 var Source = require('../models/neo4j/source')
+var NewsFetchHelper = require('../helpers/fetchExternalNews')
 
 var _ = require('lodash')
 var uuid = require('node-uuid')
@@ -28,13 +29,13 @@ var createNews = function ({ session, source, author, title, description, url, u
   sourceName: source['name'] || '',
   authorId: uuid.v4(),
   authorName: author || '',
-  title: title,
-  description: description,
-  url: url,
-  urlToImage: urlToImage,
-  publishedAt: publishedAt,
-  content: content,
-  slug: slugify(title)
+  title: title || '',
+  description: description || '',
+  url: url || '',
+  urlToImage: urlToImage || '',
+  publishedAt: publishedAt || '',
+  content: content || '',
+  slug: slugify(title) || ''
 })
 				.then(result => {
   session.close()
@@ -76,8 +77,14 @@ var allNews = function ({ session }) {
   console.log(err)
 })
 }
+
+var updateNews = function (source, pageSize, language) {
+  return NewsFetchHelper.fetchNews(source, pageSize, language, createNews)
+}
+
 module.exports = {
   createNews: createNews,
   getNewsBySlug: getNewsBySlug,
-  allNews: allNews
+  allNews: allNews,
+  updateNews: updateNews
 }

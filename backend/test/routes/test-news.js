@@ -69,5 +69,16 @@ describe('News', function () {
       expect(JSON.parse(res.text).slug).to.equal(req.body.slug)
       done()
     })
+
+  it('should update news', function (done) {
+    chai
+			.request(app)
+			.post('/api/update-news')
+			.send({ source: 'the-new-york-times', pageSize: 10 })
+			.end((err, res) => {
+  expect(res.status).to.equal(200)
+  done()
+})
+
   })
 })
