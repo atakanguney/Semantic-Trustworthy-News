@@ -17,8 +17,10 @@ exports.register = function (req, res, next) {
     throw { password: 'This field is required.', status: 400 }
   }
 
-  Users.register(dbUtils.getSession(req), username, password)
-		.then(response => writeResponse(res, response, 201))
+  Users.register(username, password)
+		.then(response => {
+  writeResponse(res, response, 201)
+})
 		.catch(next)
 }
 
@@ -33,7 +35,7 @@ exports.login = function (req, res, next) {
     throw { password: 'This field is required.', status: 400 }
   }
 
-  Users.login(dbUtils.getSession(req), username, password).then(response => writeResponse(res, response)).catch(next)
+  Users.login(username, password).then(response => writeResponse(res, response)).catch(next)
 }
 
 exports.me = function (req, res, next) {
@@ -45,6 +47,6 @@ exports.me = function (req, res, next) {
     }
 
     var token = match[1]
-    Users.me(dbUtils.getSession(req), token).then(response => writeResponse(res, response)).catch(next)
+    Users.me(token).then(response => writeResponse(res, response)).catch(next)
   })
 }
