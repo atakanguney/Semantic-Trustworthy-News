@@ -1,11 +1,8 @@
 import React from 'react'
+import HomeFeedContainer from './home-feed.container'
 
-const HomeFeed = () => {
-  return (
-    <div>
-      <h1>Welcome to the Semantic Trustworthy News Platform!</h1>
-    </div>
-  )
+const HomeFeed = props => {
+  return <HomeFeedContainer />
 }
 
 export default HomeFeed

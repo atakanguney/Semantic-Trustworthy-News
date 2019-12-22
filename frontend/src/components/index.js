@@ -1,5 +1,4 @@
-import NavBar from './NavBar';
+import NavBar from './NavBar'
+import AuthNavBar from './AuthNavBar'
 
-export {
-    NavBar
-};
+export { NavBar, AuthNavBar }

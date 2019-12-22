@@ -102,3 +102,7 @@ dist
 
 # Node modules
 /node_modules
+
+# ZIP and CSV files
+*.zip
+*.csv

@@ -1,22 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { useAuth } from '../../context/auth'
-import { NavBar } from '../../components'
+import { AuthNavBar } from '../../components'
+import { AuthContext } from '../../context/auth'
 
 const PrivateLayout = ({ component: Component, ...rest }) => {
-  const {authTokens} = useAuth()
-  console.log(authTokens)
+  const { authTokens } = useContext(AuthContext)
+
   return (
     <Route
       {...rest}
-      render={props => (authTokens ?
-      <div>
-        <NavBar {...props}/>
-        <Component {...props} />
-      </div> : <Redirect to='login' />)}
-    />
+      component={props =>
+				authTokens
+					? <div>
+  <AuthNavBar {...props} />
+  <Component {...props} />
+						</div>
+					: <Redirect to='login' />}
+		/>
   )
 }
 
 export default PrivateLayout
-

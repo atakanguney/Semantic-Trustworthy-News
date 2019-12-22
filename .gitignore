@@ -3,3 +3,8 @@
 /node_modules
 neo4j/data
 neo4j/logs
+graphdb-docker/data
+graphdb-docker/logs
+graphdb-docker/free-edition/graphdb-free-9.0.0-dist.zip
+*.ipynb
+*.csv
