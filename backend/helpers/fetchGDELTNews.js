@@ -6,6 +6,7 @@ const events = require('../models/events')
 const gkgs = require('../models/gkgs')
 const mentions = require('../models/mentions')
 var os = require('os')
+var dbUtils = require('../graphdb/dbUtils')
 
 var eventFields = [
   'GlobalEventID',
@@ -176,7 +177,9 @@ var eventToRDF = function (event) {
   var initial = ':' + event['GlobalEventID'] + ' ' + 'rdf:type' + ' ' + ':Event' + ' ' + '.'
   var rest = Object.entries(event)
 		.map(([key, val]) => {
-  return ':' + event['GlobalEventID'] + ' ' + ':has' + key + ' ' + '"' + val + '"' + ' ' + '.'
+  return (
+				':' + event['GlobalEventID'] + ' ' + ':has' + key + ' ' + '"' + val.replace(/"/g, ' ') + '"' + ' ' + '.'
+  )
 })
 		.join(os.EOL)
 
@@ -187,7 +190,19 @@ var mentionToRDF = function (mention) {
   var initial = ':' + mention['GlobalEventID'] + ' ' + 'rdf:type' + ' ' + ':Mention' + ' ' + '.'
   var rest = Object.entries(mention)
 		.map(([key, val]) => {
-  return ':' + mention['GlobalEventID'] + ' ' + ':has' + key + ' ' + '"' + val + '"' + ' ' + '.'
+  return (
+				':' +
+				mention['GlobalEventID'] +
+				' ' +
+				':has' +
+				key +
+				' ' +
+				'"' +
+				val.replace(/"/g, ' ') +
+				'"' +
+				' ' +
+				'.'
+  )
 })
 		.join(os.EOL)
 
@@ -195,10 +210,10 @@ var mentionToRDF = function (mention) {
 }
 
 var gkgToRDF = function (gkg) {
-  var initial = ':' + gkg['GKGRECORDID'] + ' ' + 'rdf:type' + ' ' + ':GKG' + '.'
+  var initial = ':' + gkg['GKGRECORDID'] + ' ' + 'rdf:type' + ' ' + ':GKG' + ' ' + '.'
   var rest = Object.entries(gkg)
 		.map(([key, val]) => {
-  return ':' + gkg['GKGRECORDID'] + ' ' + ':has' + key + ' ' + '"' + val + '"' + ' ' + '.'
+  return ':' + gkg['GKGRECORDID'] + ' ' + ':has' + key + ' ' + '"' + val.replace(/"/g, ' ') + '"' + ' ' + '.'
 })
 		.join(os.EOL)
 
@@ -227,9 +242,10 @@ var getAllSources = function () {
     return Promise.all(allData).then(res => {
       let names = ['events', 'mentions', 'gkgs']
       res.forEach((item, key) => {
-        fs.writeFile('/tmp/' + names[key], item, function (err) {
+        fs.writeFile('/tmp/' + names[key] + '.ttl', item + os.EOL, function (err) {
           if (err) {
-            return console.log(err)
+            console.log(err)
+            return false
           }
           console.log(`The file of ${names[key]} was saved!`)
         })
@@ -240,9 +256,33 @@ var getAllSources = function () {
   })
 }
 
+var uploadRDTToGraphDB = function () {
+  this.getAllSources().then(res => {
+    if (res) {
+      let names = ['events', 'mentions', 'gkgs']
+      let contexts = ['ssw:stn:Events', 'ssw:stn:Mention', 'ssw:stn:GKG']
+      const contentType = dbUtils.getRDFMimeType().TURTLE
+      const files = names.map(item => '/tmp/' + item + '.ttl')
+
+      const repository = dbUtils.getRepository()
+
+      files.forEach((item, key) => {
+        console.log(item)
+        fs.readFile(item, (err, stream) => {
+          repository
+						.upload(stream, contentType, contexts[key], null)
+						.then(r => console.log(`Turtle File Uploaded Successfully ${contexts[key]}`))
+						.catch(e => console.log(e))
+        })
+      })
+    }
+  })
+}
+
 module.exports = {
   eventFields: eventFields,
   mentionsFields: mentionsFields,
   gkgFields: gkgFields,
-  getAllSources: getAllSources
+  getAllSources: getAllSources,
+  uploadRDTToGraphDB: uploadRDTToGraphDB
 }

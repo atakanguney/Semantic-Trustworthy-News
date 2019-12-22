@@ -14,12 +14,12 @@ exports.getServerClient = function () {
 }
 
 exports.getRepository = function (repository = 'STN') {
-  const readTimeout = 30000
-  const writeTimeout = 30000
+  const readTimeout = 3000000
+  const writeTimeout = 3000000
   const config = new RepositoryClientConfig(
 		[`http://graphdb:7200/repositories/${repository}`],
     {
-      Accept: RDFMimeType.JSON_LD
+      Accept: RDFMimeType.TURTLE
     },
 		'',
 		readTimeout,
@@ -59,26 +59,3 @@ exports.getJSONParser = function () {
 exports.getXMLParser = function () {
   return new SparqlXmlResultParser()
 }
-// const elements = [
-//   {
-//     subject: 'Atakan',
-//     predicate: 'hasPassword',
-//     object: 1234567869
-//   }
-// ]
-
-// let payload = this.getUpdateQueryPayload('ssw:stn:Authors', elements)
-// const repository = this.getRepository()
-
-// repository.update(payload).then(() => {})
-
-// payload = new GetStatementsPayload()
-// 	.setResponseType(RDFMimeType.JSON_LD)
-// 	.setContext('Authors')
-// 	.setSubject('http://stnews.com/Atakan')
-// 	.setPredicate('http://stnews.com/hasPassword')
-// 	.setInference(true)
-
-// repository.get(payload).then(data => {
-//   console.log(data)
-// })
