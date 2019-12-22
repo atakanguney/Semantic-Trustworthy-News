@@ -30,50 +30,27 @@ rdf:PlainLiteral rdfs:comment "Unique string id for source" .
 #    Object Properties
 #################################################################
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#factChecks
-:factChecks rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf owl:topObjectProperty ;
-            rdfs:domain :User ;
-            rdfs:range :NewsArticle ;
-            owl:propertyDisjointWith g:rates .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasSource
-:hasSource rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf owl:topObjectProperty ;
-           rdf:type owl:FunctionalProperty ;
-           rdfs:domain :NewsArticle .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLObjectProperty_3fa7698d_0ee4_472b_a6ab_bdac58eb5c25
-g:OWLObjectProperty_3fa7698d_0ee4_472b_a6ab_bdac58eb5c25 rdf:type owl:ObjectProperty ;
-                                                         rdfs:subPropertyOf owl:topObjectProperty ;
-                                                         owl:inverseOf g:hasEvent ;
-                                                         rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                         rdfs:range :NewsArticle ;
-                                                         rdfs:label "isContainedIn"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLObjectProperty_84e64ca7_6a2d_4681_9a53_ed9dce2d5836
-g:OWLObjectProperty_84e64ca7_6a2d_4681_9a53_ed9dce2d5836 rdf:type owl:ObjectProperty ;
-                                                         rdfs:subPropertyOf owl:topObjectProperty ;
-                                                         rdfs:domain :NewsArticle ;
-                                                         rdfs:range g:Theme ;
-                                                         rdfs:label "hasTheme"@en .
-
-
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/annotates
 g:annotates rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
-            rdfs:domain :User ;
-            rdfs:range :NewsArticle .
+            rdfs:domain g:User ;
+            rdfs:range g:NewsArticle .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/factChecks
+g:factChecks rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain g:User ;
+             rdfs:range g:NewsArticle ;
+             owl:propertyDisjointWith g:rates .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasEvent
 g:hasEvent rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf owl:topObjectProperty ;
-           rdfs:domain :NewsArticle ;
-           rdfs:range <http://webprotege.stanford.edu/Event> .
+           owl:inverseOf g:isContainedIn ;
+           rdfs:domain g:NewsArticle ;
+           rdfs:range g:Event .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasLocation
@@ -81,18 +58,39 @@ g:hasLocation rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
               owl:inverseOf g:isLocationOf ;
               rdf:type owl:FunctionalProperty ;
-              rdfs:domain <http://webprotege.stanford.edu/Event> ,
-                          :NewsArticle ;
-              rdfs:range :Country .
+              rdfs:domain g:Event ,
+                          g:NewsArticle ;
+              rdfs:range g:Country .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasSource
+g:hasSource rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdf:type owl:FunctionalProperty ;
+            rdfs:domain g:NewsArticle .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasTheme
+g:hasTheme rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain g:NewsArticle ;
+           rdfs:range g:Theme .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/isContainedIn
+g:isContainedIn rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain g:Event ;
+                rdfs:range g:NewsArticle .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/isLocationOf
 g:isLocationOf rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
                rdf:type owl:InverseFunctionalProperty ;
-               rdfs:domain :Country ;
-               rdfs:range <http://webprotege.stanford.edu/Event> ,
-                          :NewsArticle .
+               rdfs:domain g:Country ;
+               rdfs:range g:Event ,
+                          g:NewsArticle .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/rates
@@ -104,188 +102,154 @@ g:rates rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasPassword
-:hasPassword rdf:type owl:DatatypeProperty ;
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasActor1Geo_CountryCode
+g:hasActor1Geo_CountryCode rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain g:Event ;
+                           rdfs:range xsd:string .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasArticleURL
+g:hasArticleURL rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain g:NewsArticle ;
+                rdfs:range xsd:string .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasAvgTone
+g:hasAvgTone rdf:type owl:DatatypeProperty ;
              rdfs:subPropertyOf owl:topDataProperty ;
-             rdf:type owl:FunctionalProperty ;
-             rdfs:domain :User ;
-             rdfs:range xsd:string .
+             rdfs:domain g:Event ;
+             rdfs:range xsd:float .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#hasUsername
-:hasUsername rdf:type owl:DatatypeProperty ;
-             rdfs:subPropertyOf owl:topDataProperty ;
-             rdf:type owl:FunctionalProperty ;
-             rdfs:domain :User ;
-             rdfs:range xsd:string .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasCountryCode
+g:hasCountryCode rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain g:Country .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_05d2fc0e_f1aa_430b_b3d6_080d5825e32b
-g:OWLDataProperty_05d2fc0e_f1aa_430b_b3d6_080d5825e32b rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "isRootEvent"@en .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasDate
+g:hasDate rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain g:Event ;
+          rdfs:range xsd:integer .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_0604ad43_bca9_4f31_ac5c_e6f0c5f28d08
-g:OWLDataProperty_0604ad43_bca9_4f31_ac5c_e6f0c5f28d08 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasPolarity"@en .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasDateAdded
+g:hasDateAdded rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain g:Event ;
+               rdfs:range xsd:integer .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_0ffd114b_c35e_49d5_8738_639eab6204be
-g:OWLDataProperty_0ffd114b_c35e_49d5_8738_639eab6204be rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasGoldsteinScale"@en .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasEventCode
+g:hasEventCode rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain g:Event ;
+               rdfs:range xsd:integer .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_12676364_4171_4405_bbc4_f121944b0aab
-g:OWLDataProperty_12676364_4171_4405_bbc4_f121944b0aab rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasNegativeScore"@en .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasFractionDate
+g:hasFractionDate rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain g:Event ;
+                  rdfs:range xsd:float .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_16ab1961_6c87_412f_9bfe_6c5296dedc85
-g:OWLDataProperty_16ab1961_6c87_412f_9bfe_6c5296dedc85 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ,
-                                                                   :NewsArticle ;
-                                                       rdfs:range xsd:string ;
-                                                       rdfs:label "hasSourceURL"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_201c67c9_cc1d_4331_9eaa_3efc07f09fd7
-g:OWLDataProperty_201c67c9_cc1d_4331_9eaa_3efc07f09fd7 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasPositiveScore"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_21b6a216_3e59_4742_b229_d1f2f7b6daf1
-g:OWLDataProperty_21b6a216_3e59_4742_b229_d1f2f7b6daf1 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasAvgTone"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_4b6a9265_f991_4d73_b969_6ce2f939fd87
-g:OWLDataProperty_4b6a9265_f991_4d73_b969_6ce2f939fd87 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "hasPublishDate"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_5ef383c3_7858_4205_8c8f_9c42e2ff1f42
-g:OWLDataProperty_5ef383c3_7858_4205_8c8f_9c42e2ff1f42 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "hasDateAdded"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_66df3b80_6331_49c5_80ba_9d23ca6d2426
-g:OWLDataProperty_66df3b80_6331_49c5_80ba_9d23ca6d2426 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "hasNumSources"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_67051763_b206_4e20_b645_c87d66e47e51
-g:OWLDataProperty_67051763_b206_4e20_b645_c87d66e47e51 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "hasNumMentions"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_6a638885_229a_479a_bc2b_5354b778a7c6
-g:OWLDataProperty_6a638885_229a_479a_bc2b_5354b778a7c6 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "hasEventCode"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65
-g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :Country ;
-                                                       rdfs:label "hasCountryCode"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_99e36c8f_dbc9_4e9a_862c_4fcd5cabc001
-g:OWLDataProperty_99e36c8f_dbc9_4e9a_862c_4fcd5cabc001 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasTone"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_a893f0d1_6fae_4f05_abdc_5671be6a6a29
-g:OWLDataProperty_a893f0d1_6fae_4f05_abdc_5671be6a6a29 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:string ;
-                                                       rdfs:label "hasGKG_ID"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_ade76f1a_24df_4bf6_826b_9b6b022c6fe7
-g:OWLDataProperty_ade76f1a_24df_4bf6_826b_9b6b022c6fe7 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdf:type owl:FunctionalProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:float ;
-                                                       rdfs:label "hasFractionDate"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_d20e52e0_fc28_4ab4_a7b5_f4e5c542ba08
-g:OWLDataProperty_d20e52e0_fc28_4ab4_a7b5_f4e5c542ba08 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:string ;
-                                                       rdfs:label "hasActor1Geo_CountryCode"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_f27b5129_936d_4857_8d24_97a11bfa8d2c
-g:OWLDataProperty_f27b5129_936d_4857_8d24_97a11bfa8d2c rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdf:type owl:FunctionalProperty ;
-                                                       rdfs:domain <http://webprotege.stanford.edu/Event> ;
-                                                       rdfs:range xsd:integer ;
-                                                       rdfs:label "hasDate"@en .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLDataProperty_f4369ac4_7f0e_4bdf_91ca_fdfd77566ae9
-g:OWLDataProperty_f4369ac4_7f0e_4bdf_91ca_fdfd77566ae9 rdf:type owl:DatatypeProperty ;
-                                                       rdfs:subPropertyOf owl:topDataProperty ;
-                                                       rdfs:domain :NewsArticle ;
-                                                       rdfs:range xsd:string ;
-                                                       rdfs:label "hasArticleURL"@en .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasGKG_ID
+g:hasGKG_ID rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain g:NewsArticle ;
+            rdfs:range xsd:string .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasGlobalEventID
 g:hasGlobalEventID rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
-                   rdfs:domain <http://webprotege.stanford.edu/Event> ;
+                   rdfs:domain g:Event ;
                    rdfs:range xsd:integer .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasGoldsteinScale
+g:hasGoldsteinScale rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain g:Event ;
+                    rdfs:range xsd:float .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasNegativeScore
+g:hasNegativeScore rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain g:NewsArticle ;
+                   rdfs:range xsd:float .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasNumMentions
+g:hasNumMentions rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain g:Event ;
+                 rdfs:range xsd:integer .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasNumSources
+g:hasNumSources rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain g:Event ;
+                rdfs:range xsd:integer .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasPassword
+g:hasPassword rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain g:User ;
+              rdfs:range xsd:string .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasPolarity
+g:hasPolarity rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain g:NewsArticle ;
+              rdfs:range xsd:float .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasPositiveScore
+g:hasPositiveScore rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain g:NewsArticle ;
+                   rdfs:range xsd:float .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasPublishDate
+g:hasPublishDate rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain g:NewsArticle ;
+                 rdfs:range xsd:integer .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasSource
 g:hasSource rdf:type owl:DatatypeProperty ;
             rdfs:subPropertyOf owl:topDataProperty ;
-            rdfs:domain <http://webprotege.stanford.edu/Event> ,
-                        :NewsArticle .
+            rdfs:domain g:Event ,
+                        g:NewsArticle .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasSourceURL
+g:hasSourceURL rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain g:Event ,
+                           g:NewsArticle ;
+               rdfs:range xsd:string .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasTone
+g:hasTone rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain g:NewsArticle ;
+          rdfs:range xsd:float .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasTrustLevel
@@ -293,76 +257,87 @@ g:hasTrustLevel rdf:type owl:DatatypeProperty ;
                 rdfs:subPropertyOf owl:topDataProperty .
 
 
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/hasUsername
+g:hasUsername rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain g:User ;
+              rdfs:range xsd:string .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/isRootEvent
+g:isRootEvent rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain g:Event ;
+              rdfs:range xsd:integer .
+
+
 #################################################################
 #    Classes
 #################################################################
-
-###  http://webprotege.stanford.edu/Event
-<http://webprotege.stanford.edu/Event> rdf:type owl:Class ;
-                                       rdfs:subClassOf owl:Thing .
-
 
 ###  http://xmlns.com/foaf/0.1/person
 <http://xmlns.com/foaf/0.1/person> rdf:type owl:Class ;
                                    rdfs:subClassOf owl:Thing .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#Country
-:Country rdf:type owl:Class ;
-         rdfs:subClassOf owl:Thing ;
-         rdfs:comment "where the news is originated" .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Country
+g:Country rdf:type owl:Class ;
+          rdfs:subClassOf owl:Thing ;
+          rdfs:comment "where the news is originated" .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#NewsArticle
-:NewsArticle rdf:type owl:Class ;
-             rdfs:subClassOf owl:Thing ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty g:hasEvent ;
-                               owl:someValuesFrom <http://webprotege.stanford.edu/Event>
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty g:hasLocation ;
-                               owl:someValuesFrom :Country
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty g:OWLDataProperty_16ab1961_6c87_412f_9bfe_6c5296dedc85 ;
-                               owl:someValuesFrom xsd:string
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty g:hasTrustLevel ;
-                               owl:someValuesFrom xsd:integer
-                             ] .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Event
+g:Event rdf:type owl:Class ;
+        rdfs:subClassOf owl:Thing .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl#User
-:User rdf:type owl:Class ;
-      owl:equivalentClass [ rdf:type owl:Restriction ;
-                            owl:onProperty :hasPassword ;
-                            owl:someValuesFrom xsd:string
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty :hasUsername ;
-                            owl:someValuesFrom xsd:string
-                          ] ;
-      rdfs:subClassOf owl:Thing ,
-                      <http://xmlns.com/foaf/0.1/person> ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty :factChecks ;
-                        owl:someValuesFrom :NewsArticle
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty g:annotates ;
-                        owl:someValuesFrom :NewsArticle
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty g:rates ;
-                        owl:someValuesFrom :NewsArticle
-                      ] .
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NewsArticle
+g:NewsArticle rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty g:hasEvent ;
+                                owl:someValuesFrom g:Event
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty g:hasLocation ;
+                                owl:someValuesFrom g:Country
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty g:hasTrustLevel ;
+                                owl:someValuesFrom xsd:integer
+                              ] .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Theme
 g:Theme rdf:type owl:Class ;
         rdfs:subClassOf owl:Thing .
+
+
+###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/User
+g:User rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty g:hasPassword ;
+                             owl:someValuesFrom xsd:string
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty g:hasUsername ;
+                             owl:someValuesFrom xsd:string
+                           ] ;
+       rdfs:subClassOf owl:Thing ,
+                       <http://xmlns.com/foaf/0.1/person> ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty g:annotates ;
+                         owl:someValuesFrom g:NewsArticle
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty g:factChecks ;
+                         owl:someValuesFrom g:NewsArticle
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty g:rates ;
+                         owl:someValuesFrom g:NewsArticle
+                       ] .
 
 
 #################################################################
@@ -407,7 +382,8 @@ g:Theme rdf:type owl:Class ;
 
 ###  http://dbpedia.org/resource/China
 <http://dbpedia.org/resource/China> rdf:type owl:NamedIndividual ;
-                                    owl:sameAs g:China .
+                                    owl:sameAs g:China ,
+                                               <https://www.wikidata.org/entity/Q148> .
 
 
 ###  http://dbpedia.org/resource/Colombia
@@ -806,120 +782,120 @@ g:AVIATION_INCIDENT rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Afghanistan
 g:Afghanistan rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q889> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AF" .
+              g:hasCountryCode "AF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/AkrotiriSovereignBaseArea
 g:AkrotiriSovereignBaseArea rdf:type owl:NamedIndividual ,
-                                     :Country ;
+                                     g:Country ;
                             owl:sameAs <https://www.wikidata.org/entity/Q9143535> ;
-                            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AX" .
+                            g:hasCountryCode "AX" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Albania
 g:Albania rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q222> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AL" .
+          g:hasCountryCode "AL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Algeria
 g:Algeria rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q262> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AG" .
+          g:hasCountryCode "AG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/AmericanSamoa
 g:AmericanSamoa rdf:type owl:NamedIndividual ,
-                         :Country ;
+                         g:Country ;
                 owl:sameAs <https://www.wikidata.org/entity/Q16641> ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AQ" .
+                g:hasCountryCode "AQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Andorra
 g:Andorra rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q228> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AN" .
+          g:hasCountryCode "AN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Angola
 g:Angola rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q916> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AO" .
+         g:hasCountryCode "AO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Anguilla
 g:Anguilla rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q25228> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AV" .
+           g:hasCountryCode "AV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Antarctica
 g:Antarctica rdf:type owl:NamedIndividual ,
-                      :Country ;
+                      g:Country ;
              owl:sameAs <https://www.wikidata.org/entity/Q51> ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AY" .
+             g:hasCountryCode "AY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/AntiguaAndBarbuda
 g:AntiguaAndBarbuda rdf:type owl:NamedIndividual ,
-                             :Country ;
+                             g:Country ;
                     owl:sameAs <https://www.wikidata.org/entity/Q781> ;
-                    g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AC" .
+                    g:hasCountryCode "AC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Argentina
 g:Argentina rdf:type owl:NamedIndividual ,
-                     :Country ;
+                     g:Country ;
             owl:sameAs <https://www.wikidata.org/wiki/Special:EntityData/Q414> ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AR" .
+            g:hasCountryCode "AR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Armenia
 g:Armenia rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q399> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AM" .
+          g:hasCountryCode "AM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Aruba
 g:Aruba rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/aruba/Q21203> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AA" .
+        g:hasCountryCode "AA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/AshmoreAndCartierIslands
 g:AshmoreAndCartierIslands rdf:type owl:NamedIndividual ,
-                                    :Country ;
+                                    g:Country ;
                            owl:sameAs <https://www.wikidata.org/entity/Q133888> ;
-                           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AT" .
+                           g:hasCountryCode "AT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Australia
 g:Australia rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AS" .
+                     g:Country ;
+            g:hasCountryCode "AS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Austria
 g:Austria rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/wiki/Special:EntityData/Q40> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AU" .
+          g:hasCountryCode "AU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Azerbaijan
 g:Azerbaijan rdf:type owl:NamedIndividual ,
-                      :Country ;
+                      g:Country ;
              owl:sameAs <https://www.wikidata.org/entity/Q227> ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AJ" .
+             g:hasCountryCode "AJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BAN
@@ -954,158 +930,158 @@ g:BULLYING rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bahrain
 g:Bahrain rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q398> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BA" .
+          g:hasCountryCode "BA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BakerIsland
 g:BakerIsland rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q46879> ,
                          <https://www.wikidata.org/entity/Q4849163> ,
                          <https://www.wikidata.org/entity/Q4849164> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FQ" .
+              g:hasCountryCode "FQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bangladesh
 g:Bangladesh rdf:type owl:NamedIndividual ,
-                      :Country ;
+                      g:Country ;
              owl:sameAs <https://www.wikidata.org/entity/Q902> ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BG" .
+             g:hasCountryCode "BG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Barbados
 g:Barbados rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q244> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BB" .
+           g:hasCountryCode "BB" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BassasDaIndia
 g:BassasDaIndia rdf:type owl:NamedIndividual ,
-                         :Country ;
+                         g:Country ;
                 owl:sameAs <https://www.wikidata.org/entity/Q220601> ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BS" .
+                g:hasCountryCode "BS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Belarus
 g:Belarus rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q184> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BO" .
+          g:hasCountryCode "BO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Belgium
 g:Belgium rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q31> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BE" .
+          g:hasCountryCode "BE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Belize
 g:Belize rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q242> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BH" .
+         g:hasCountryCode "BH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Benin
 g:Benin rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q962> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BN" .
+        g:hasCountryCode "BN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bermuda
 g:Bermuda rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q23635> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BD" .
+          g:hasCountryCode "BD" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bhutan
 g:Bhutan rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q917> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BT" .
+         g:hasCountryCode "BT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bolivia
 g:Bolivia rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q750> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BL" .
+          g:hasCountryCode "BL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bosnia-Herzegovina
 g:Bosnia-Herzegovina rdf:type owl:NamedIndividual ,
-                              :Country ;
+                              g:Country ;
                      owl:sameAs <https://www.wikidata.org/entity/Q225> ;
-                     g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BK" .
+                     g:hasCountryCode "BK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Botswana
 g:Botswana rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q963> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BC" .
+           g:hasCountryCode "BC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BouvetIsland
 g:BouvetIsland rdf:type owl:NamedIndividual ,
-                        :Country ;
+                        g:Country ;
                owl:sameAs <https://www.wikidata.org/entity/Q55072041> ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BV" .
+               g:hasCountryCode "BV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Brazil
 g:Brazil rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q155> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BR" .
+         g:hasCountryCode "BR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BritishIndianOceanTerritory
 g:BritishIndianOceanTerritory rdf:type owl:NamedIndividual ,
-                                       :Country ;
+                                       g:Country ;
                               owl:sameAs <https://www.wikidata.org/entity/Q43448> ;
-                              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IO" .
+                              g:hasCountryCode "IO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BritishVirginIslands
 g:BritishVirginIslands rdf:type owl:NamedIndividual ,
-                                :Country ;
+                                g:Country ;
                        owl:sameAs <https://www.wikidata.org/entity/Q25305> ;
-                       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VI" .
+                       g:hasCountryCode "VI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Brunei
 g:Brunei rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q921> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BX" .
+         g:hasCountryCode "BX" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bulgaria
 g:Bulgaria rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q219> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BU" .
+           g:hasCountryCode "BU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/BurkinaFaso
 g:BurkinaFaso rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q965> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UV" .
+              g:hasCountryCode "UV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Burundi
 g:Burundi rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q967> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BY" .
+          g:hasCountryCode "BY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CEASEFIRE
@@ -1188,170 +1164,170 @@ g:CYBER_ATTACK rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Cambodia
 g:Cambodia rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q424> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CB" .
+           g:hasCountryCode "CB" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Cameroon
 g:Cameroon rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q1009> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CM" .
+           g:hasCountryCode "CM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Canada
 g:Canada rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q16> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CA" .
+         g:hasCountryCode "CA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CapeVerde
 g:CapeVerde rdf:type owl:NamedIndividual ,
-                     :Country ;
+                     g:Country ;
             owl:sameAs <https://www.wikidata.org/entity/Q1011> ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CV" .
+            g:hasCountryCode "CV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CaymanIslands
 g:CaymanIslands rdf:type owl:NamedIndividual ,
-                         :Country ;
+                         g:Country ;
                 owl:sameAs <https://www.wikidata.org/entity/Q5785> ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CJ" .
+                g:hasCountryCode "CJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CentralAfricanRepublic
 g:CentralAfricanRepublic rdf:type owl:NamedIndividual ,
-                                  :Country ;
+                                  g:Country ;
                          owl:sameAs <https://www.wikidata.org/entity/Q929> ;
-                         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CT" .
+                         g:hasCountryCode "CT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Chad
 g:Chad rdf:type owl:NamedIndividual ,
-                :Country ;
+                g:Country ;
        owl:sameAs <https://www.wikidata.org/entity/Q657> ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CD" .
+       g:hasCountryCode "CD" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Chile
 g:Chile rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q298> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CI" .
+        g:hasCountryCode "CI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/China
 g:China rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q148> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CH" .
+        g:hasCountryCode "CH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/ChristmasIsland
 g:ChristmasIsland rdf:type owl:NamedIndividual ,
-                           :Country ;
+                           g:Country ;
                   owl:sameAs <https://www.wikidata.org/entity/Q31063> ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KT" .
+                  g:hasCountryCode "KT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/ClippertonIsland
 g:ClippertonIsland rdf:type owl:NamedIndividual ,
-                            :Country ;
+                            g:Country ;
                    owl:sameAs <https://www.wikidata.org/entity/Q161258> ;
-                   g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IP" .
+                   g:hasCountryCode "IP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CocosKeelingIslands
 g:CocosKeelingIslands rdf:type owl:NamedIndividual ,
-                               :Country ;
+                               g:Country ;
                       owl:sameAs <https://www.wikidata.org/entity/Q36004> ;
-                      g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CK" .
+                      g:hasCountryCode "CK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Colombia
 g:Colombia rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q739> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CO" .
+           g:hasCountryCode "CO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Comoros
 g:Comoros rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q970> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CN" .
+          g:hasCountryCode "CN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Congo
 g:Congo rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q971> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CF" .
+        g:hasCountryCode "CF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CookIslands
 g:CookIslands rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q26988> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CW" .
+              g:hasCountryCode "CW" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CoralSeaIslands
 g:CoralSeaIslands rdf:type owl:NamedIndividual ,
-                           :Country ;
+                           g:Country ;
                   owl:sameAs <https://www.wikidata.org/entity/Q172216> ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CR" .
+                  g:hasCountryCode "CR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CostaRica
 g:CostaRica rdf:type owl:NamedIndividual ,
-                     :Country ;
+                     g:Country ;
             owl:sameAs <https://www.wikidata.org/entity/Q800> ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CS" .
+            g:hasCountryCode "CS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CotedIvoire
 g:CotedIvoire rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q1008> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IV" .
+              g:hasCountryCode "IV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Croatia
 g:Croatia rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q1008> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HR" .
+          g:hasCountryCode "HR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Cuba
 g:Cuba rdf:type owl:NamedIndividual ,
-                :Country ;
+                g:Country ;
        owl:sameAs <https://www.wikidata.org/entity/Q241> ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CU" .
+       g:hasCountryCode "CU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Cyprus
 g:Cyprus rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q229> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CY" .
+         g:hasCountryCode "CY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/CzechRepublic
 g:CzechRepublic rdf:type owl:NamedIndividual ,
-                         :Country ;
+                         g:Country ;
                 owl:sameAs <https://www.wikidata.org/entity/Q213> ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EZ" .
+                g:hasCountryCode "EZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Czechoslovakia
 g:Czechoslovakia rdf:type owl:NamedIndividual ,
-                          :Country ;
+                          g:Country ;
                  owl:sameAs <https://www.wikidata.org/entity/Q33946> ;
-                 g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LO" .
+                 g:hasCountryCode "LO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/DEATH_PENALTY
@@ -1410,42 +1386,42 @@ g:DRUG_TRADE rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/DemocraticRepublicOfTheCongo
 g:DemocraticRepublicOfTheCongo rdf:type owl:NamedIndividual ,
-                                        :Country ;
+                                        g:Country ;
                                owl:sameAs <https://www.wikidata.org/entity/Q974> ;
-                               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CG" .
+                               g:hasCountryCode "CG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Denmark
 g:Denmark rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q35> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "DA" .
+          g:hasCountryCode "DA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/DhekeliaSovereignBaseArea
 g:DhekeliaSovereignBaseArea rdf:type owl:NamedIndividual ,
-                                     :Country ;
+                                     g:Country ;
                             owl:sameAs <https://www.wikidata.org/entity/Q37362> ;
-                            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "DX" .
+                            g:hasCountryCode "DX" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Djibouti
 g:Djibouti rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q977> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "DJ" .
+           g:hasCountryCode "DJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Dominica
 g:Dominica rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "DO" .
+                    g:Country ;
+           g:hasCountryCode "DO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/DominicanRepublic
 g:DominicanRepublic rdf:type owl:NamedIndividual ,
-                             :Country ;
-                    g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "DR" .
+                             g:Country ;
+                    g:hasCountryCode "DR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/ECON_BANKRUPTCY
@@ -1786,59 +1762,59 @@ g:EXTREMISM rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/EastTimor
 g:EastTimor rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TT" .
+                     g:Country ;
+            g:hasCountryCode "TT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Ecuador
 g:Ecuador rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EC" .
+                   g:Country ;
+          g:hasCountryCode "EC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Egypt
 g:Egypt rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q79> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EG" .
+        g:hasCountryCode "EG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/ElSalvador
 g:ElSalvador rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ES" .
+                      g:Country ;
+             g:hasCountryCode "ES" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/EquatorialGuinea
 g:EquatorialGuinea rdf:type owl:NamedIndividual ,
-                            :Country ;
-                   g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EK" ,
-                                                                          "GV" .
+                            g:Country ;
+                   g:hasCountryCode "EK" ,
+                                    "GV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Eritrea
 g:Eritrea rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ER" .
+                   g:Country ;
+          g:hasCountryCode "ER" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Estonia
 g:Estonia rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EN" .
+                   g:Country ;
+          g:hasCountryCode "EN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Ethiopia
 g:Ethiopia rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ET" .
+                    g:Country ;
+           g:hasCountryCode "ET" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/EuropaIsland
 g:EuropaIsland rdf:type owl:NamedIndividual ,
-                        :Country ;
+                        g:Country ;
                owl:sameAs <https://www.wikidata.org/entity/Q193089> ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EU" .
+               g:hasCountryCode "EU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/FIREARM_OWNERSHIP
@@ -1873,56 +1849,56 @@ g:FUELPRICES rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/FalklandIslandsIslasMalvinas
 g:FalklandIslandsIslasMalvinas rdf:type owl:NamedIndividual ,
-                                        :Country ;
+                                        g:Country ;
                                owl:sameAs <https://www.wikidata.org/entity/Q9648> ;
-                               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FK" .
+                               g:hasCountryCode "FK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/FaroeIslands
 g:FaroeIslands rdf:type owl:NamedIndividual ,
-                        :Country ;
+                        g:Country ;
                owl:sameAs <https://www.wikidata.org/entity/Q4628> ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FO" .
+               g:hasCountryCode "FO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Fiji
 g:Fiji rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FJ" .
+                g:Country ;
+       g:hasCountryCode "FJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Finland
 g:Finland rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FI" .
+                   g:Country ;
+          g:hasCountryCode "FI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/France
 g:France rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q142> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FR" .
+         g:hasCountryCode "FR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/FrenchGuiana
 g:FrenchGuiana rdf:type owl:NamedIndividual ,
-                        :Country ;
+                        g:Country ;
                owl:sameAs <https://www.wikidata.org/entity/Q3769> ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FG" .
+               g:hasCountryCode "FG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/FrenchPolynesia
 g:FrenchPolynesia rdf:type owl:NamedIndividual ,
-                           :Country ;
+                           g:Country ;
                   owl:sameAs <https://www.wikidata.org/entity/Q30971> ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FP" .
+                  g:hasCountryCode "FP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/FrenchSouthernAndAntarcticLands
 g:FrenchSouthernAndAntarcticLands rdf:type owl:NamedIndividual ,
-                                           :Country ;
+                                           g:Country ;
                                   owl:sameAs <https://www.wikidata.org/entity/Q129003> ;
-                                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FS" .
+                                  g:hasCountryCode "FS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/GENDER_VIOLENCE
@@ -1993,107 +1969,107 @@ g:GRIEVANCES rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Gabon
 g:Gabon rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q1000> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GB" .
+        g:hasCountryCode "GB" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Gambia
 g:Gambia rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GA" .
+                  g:Country ;
+         g:hasCountryCode "GA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/GazaStrip
 g:GazaStrip rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GZ" .
+                     g:Country ;
+            g:hasCountryCode "GZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Georgia
 g:Georgia rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GG" .
+                   g:Country ;
+          g:hasCountryCode "GG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Germany
 g:Germany rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q183> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GM" .
+          g:hasCountryCode "GM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Ghana
 g:Ghana rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GH" .
+                 g:Country ;
+        g:hasCountryCode "GH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Gibraltar
 g:Gibraltar rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GI" .
+                     g:Country ;
+            g:hasCountryCode "GI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/GloriosoIslands
 g:GloriosoIslands rdf:type owl:NamedIndividual ,
-                           :Country ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GO" .
+                           g:Country ;
+                  g:hasCountryCode "GO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Greece
 g:Greece rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q41> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GR" .
+         g:hasCountryCode "GR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Greenland
 g:Greenland rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GL" .
+                     g:Country ;
+            g:hasCountryCode "GL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Grenada
 g:Grenada rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GJ" .
+                   g:Country ;
+          g:hasCountryCode "GJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Guadeloupe
 g:Guadeloupe rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GP" .
+                      g:Country ;
+             g:hasCountryCode "GP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Guam
 g:Guam rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GQ" .
+                g:Country ;
+       g:hasCountryCode "GQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Guatemala
 g:Guatemala rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GT" .
+                     g:Country ;
+            g:hasCountryCode "GT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Guernsey
 g:Guernsey rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GK" .
+                    g:Country ;
+           g:hasCountryCode "GK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Guinea-Bissau
 g:Guinea-Bissau rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PU" .
+                         g:Country ;
+                g:hasCountryCode "PU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Guyana
 g:Guyana rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "GY" .
+                  g:Country ;
+         g:hasCountryCode "GY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/HARASSMENT
@@ -2134,40 +2110,40 @@ g:HUMAN_TRAFFICKING rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Haiti
 g:Haiti rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HA" .
+                 g:Country ;
+        g:hasCountryCode "HA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/HeardIslandAndMcDonaldIslands
 g:HeardIslandAndMcDonaldIslands rdf:type owl:NamedIndividual ,
-                                         :Country ;
-                                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HM" .
+                                         g:Country ;
+                                g:hasCountryCode "HM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Honduras
 g:Honduras rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HO" .
+                    g:Country ;
+           g:hasCountryCode "HO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/HongKong
 g:HongKong rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q8646> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HK" .
+           g:hasCountryCode "HK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/HowlandIsland
 g:HowlandIsland rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HQ" .
+                         g:Country ;
+                g:hasCountryCode "HQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Hungary
 g:Hungary rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q28> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "HU" .
+          g:hasCountryCode "HU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/IDEOLOGY
@@ -2226,61 +2202,61 @@ g:INTERNET_CENSORSHIP rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Iceland
 g:Iceland rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IC" .
+                   g:Country ;
+          g:hasCountryCode "IC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/India
 g:India rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q668> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IN" .
+        g:hasCountryCode "IN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Indonesia
 g:Indonesia rdf:type owl:NamedIndividual ,
-                     :Country ;
+                     g:Country ;
             owl:sameAs <https://www.wikidata.org/entity/Q252> ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ID" .
+            g:hasCountryCode "ID" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Iran
 g:Iran rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IR" .
+                g:Country ;
+       g:hasCountryCode "IR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Iraq
 g:Iraq rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IZ" .
+                g:Country ;
+       g:hasCountryCode "IZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Ireland
 g:Ireland rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q27> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "EI" .
+          g:hasCountryCode "EI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/IsleOfMan
 g:IsleOfMan rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IM" .
+                     g:Country ;
+            g:hasCountryCode "IM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Israel
 g:Israel rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q801> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IS" .
+         g:hasCountryCode "IS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Italy
 g:Italy rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q38> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "IT" .
+        g:hasCountryCode "IT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/JIHAD
@@ -2291,51 +2267,51 @@ g:JIHAD rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Jamaica
 g:Jamaica rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JM" .
+                   g:Country ;
+          g:hasCountryCode "JM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/JanMayen
 g:JanMayen rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JN" .
+                    g:Country ;
+           g:hasCountryCode "JN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Japan
 g:Japan rdf:type owl:NamedIndividual ,
-                 :Country ;
+                 g:Country ;
         owl:sameAs <https://www.wikidata.org/entity/Q17> ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JA" .
+        g:hasCountryCode "JA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/JarvisIsland
 g:JarvisIsland rdf:type owl:NamedIndividual ,
-                        :Country ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "DQ" .
+                        g:Country ;
+               g:hasCountryCode "DQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Jersey
 g:Jersey rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JE" .
+                  g:Country ;
+         g:hasCountryCode "JE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/JohnstonAtoll
 g:JohnstonAtoll rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JQ" .
+                         g:Country ;
+                g:hasCountryCode "JQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Jordan
 g:Jordan rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JO" .
+                  g:Country ;
+         g:hasCountryCode "JO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/JuanDeNovaIsland
 g:JuanDeNovaIsland rdf:type owl:NamedIndividual ,
-                            :Country ;
-                   g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "JU" .
+                            g:Country ;
+                   g:hasCountryCode "JU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/KIDNAP
@@ -2352,44 +2328,44 @@ g:KILL rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Kazakhstan
 g:Kazakhstan rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KZ" .
+                      g:Country ;
+             g:hasCountryCode "KZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Kenya
 g:Kenya rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KE" .
+                 g:Country ;
+        g:hasCountryCode "KE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/KingmanReef
 g:KingmanReef rdf:type owl:NamedIndividual ,
-                       :Country ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KQ" .
+                       g:Country ;
+              g:hasCountryCode "KQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Kiribati
 g:Kiribati rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KR" .
+                    g:Country ;
+           g:hasCountryCode "KR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Kosovo
 g:Kosovo rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KV" .
+                  g:Country ;
+         g:hasCountryCode "KV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Kuwait
 g:Kuwait rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KU" .
+                  g:Country ;
+         g:hasCountryCode "KU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Kyrgyzstan
 g:Kyrgyzstan rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KG" .
+                      g:Country ;
+             g:hasCountryCode "KG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/LANDMINE
@@ -2436,58 +2412,58 @@ g:LOCUSTS rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Laos
 g:Laos rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LA" .
+                g:Country ;
+       g:hasCountryCode "LA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Latvia
 g:Latvia rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q211> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LG" .
+         g:hasCountryCode "LG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Lebanon
 g:Lebanon rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LE" .
+                   g:Country ;
+          g:hasCountryCode "LE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Lesotho
 g:Lesotho rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LT" .
+                   g:Country ;
+          g:hasCountryCode "LT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Liberia
 g:Liberia rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LI" .
+                   g:Country ;
+          g:hasCountryCode "LI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Libya
 g:Libya rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LY" .
+                 g:Country ;
+        g:hasCountryCode "LY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Liechtenstein
 g:Liechtenstein rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LS" .
+                         g:Country ;
+                g:hasCountryCode "LS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Lithuania
 g:Lithuania rdf:type owl:NamedIndividual ,
-                     :Country ;
+                     g:Country ;
             owl:sameAs <https://www.wikidata.org/entity/Q37> ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LH" .
+            g:hasCountryCode "LH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Luxembourg
 g:Luxembourg rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LU" .
+                      g:Country ;
+             g:hasCountryCode "LU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/MANMADE_DISASTER
@@ -2618,149 +2594,149 @@ g:MOVEMENT_WOMENS rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Macau
 g:Macau rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MC" .
+                 g:Country ;
+        g:hasCountryCode "MC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Macedonia
 g:Macedonia rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MK" .
+                     g:Country ;
+            g:hasCountryCode "MK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Madagascar
 g:Madagascar rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MA" .
+                      g:Country ;
+             g:hasCountryCode "MA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Malawi
 g:Malawi rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MI" .
+                  g:Country ;
+         g:hasCountryCode "MI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Malaysia
 g:Malaysia rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q833> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MY" .
+           g:hasCountryCode "MY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Maldives
 g:Maldives rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MV" .
+                    g:Country ;
+           g:hasCountryCode "MV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mali
 g:Mali rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ML" .
+                g:Country ;
+       g:hasCountryCode "ML" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Malta
 g:Malta rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MT" .
+                 g:Country ;
+        g:hasCountryCode "MT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/MarshallIslands
 g:MarshallIslands rdf:type owl:NamedIndividual ,
-                           :Country ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RM" .
+                           g:Country ;
+                  g:hasCountryCode "RM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Martinique
 g:Martinique rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MB" .
+                      g:Country ;
+             g:hasCountryCode "MB" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mauritania
 g:Mauritania rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MR" .
+                      g:Country ;
+             g:hasCountryCode "MR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mauritius
 g:Mauritius rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MP" .
+                     g:Country ;
+            g:hasCountryCode "MP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mayotte
 g:Mayotte rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MF" .
+                   g:Country ;
+          g:hasCountryCode "MF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mexico
 g:Mexico rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q96> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MX" .
+         g:hasCountryCode "MX" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Micronesia
 g:Micronesia rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "FM" .
+                      g:Country ;
+             g:hasCountryCode "FM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/MidwayIslands
 g:MidwayIslands rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MQ" .
+                         g:Country ;
+                g:hasCountryCode "MQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Moldova
 g:Moldova rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MD" .
+                   g:Country ;
+          g:hasCountryCode "MD" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Monaco
 g:Monaco rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MN" .
+                  g:Country ;
+         g:hasCountryCode "MN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mongolia
 g:Mongolia rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MG" .
+                    g:Country ;
+           g:hasCountryCode "MG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Montenegro
 g:Montenegro rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MJ" .
+                      g:Country ;
+             g:hasCountryCode "MJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Montserrat
 g:Montserrat rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MH" .
+                      g:Country ;
+             g:hasCountryCode "MH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Morocco
 g:Morocco rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q1028> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MO" .
+          g:hasCountryCode "MO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Mozambique
 g:Mozambique rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MZ" .
+                      g:Country ;
+             g:hasCountryCode "MZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Myanmar
 g:Myanmar rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BM" .
+                   g:Country ;
+          g:hasCountryCode "BM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NATURAL_DISASTER
@@ -2783,108 +2759,108 @@ g:NEW_CONSTRUCTION rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Namibia
 g:Namibia rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WA" .
+                   g:Country ;
+          g:hasCountryCode "WA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Nauru
 g:Nauru rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NR" .
+                 g:Country ;
+        g:hasCountryCode "NR" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NavassaIsland
 g:NavassaIsland rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BQ" .
+                         g:Country ;
+                g:hasCountryCode "BQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Nepal
 g:Nepal rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NP" .
+                 g:Country ;
+        g:hasCountryCode "NP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Netherlands
 g:Netherlands rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q55> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NL" .
+              g:hasCountryCode "NL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NetherlandsAntilles
 g:NetherlandsAntilles rdf:type owl:NamedIndividual ,
-                               :Country ;
-                      g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NT" .
+                               g:Country ;
+                      g:hasCountryCode "NT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NewCaledonia
 g:NewCaledonia rdf:type owl:NamedIndividual ,
-                        :Country ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NC" .
+                        g:Country ;
+               g:hasCountryCode "NC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NewZealand
 g:NewZealand rdf:type owl:NamedIndividual ,
-                      :Country ;
+                      g:Country ;
              owl:sameAs <https://www.wikidata.org/entity/Q664> ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NZ" .
+             g:hasCountryCode "NZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Nicaragua
 g:Nicaragua rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NU" .
+                     g:Country ;
+            g:hasCountryCode "NU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Niger
 g:Niger rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NG" .
+                 g:Country ;
+        g:hasCountryCode "NG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Nigeria
 g:Nigeria rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q1033> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NI" .
+          g:hasCountryCode "NI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Niue
 g:Niue rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NE" .
+                g:Country ;
+       g:hasCountryCode "NE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NoMansLand
 g:NoMansLand rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NM" .
+                      g:Country ;
+             g:hasCountryCode "NM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NorfolkIsland
 g:NorfolkIsland rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NF" .
+                         g:Country ;
+                g:hasCountryCode "NF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NorthKorea
 g:NorthKorea rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KN" .
+                      g:Country ;
+             g:hasCountryCode "KN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/NorthernMarianaIslands
 g:NorthernMarianaIslands rdf:type owl:NamedIndividual ,
-                                  :Country ;
-                         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CQ" .
+                                  g:Country ;
+                         g:hasCountryCode "CQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Norway
 g:Norway rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q20> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NO" .
+         g:hasCountryCode "NO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/ORGANIZED_CRIME
@@ -2893,82 +2869,16 @@ g:ORGANIZED_CRIME rdf:type owl:NamedIndividual ,
                   rdfs:comment "Discussion of gangs, mafia, organized crime, etc" .
 
 
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_0440e827_68e5_4384_9e18_9a399949279b
-g:OWLNamedIndividual_0440e827_68e5_4384_9e18_9a399949279b rdf:type owl:NamedIndividual ,
-                                                                   :Country .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_0a1b3e5f_ca86_4dc2_8cd1_e87fdb466bb8
-g:OWLNamedIndividual_0a1b3e5f_ca86_4dc2_8cd1_e87fdb466bb8 rdf:type owl:NamedIndividual ,
-                                                                   :Country ;
-                                                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PJ" .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_1fa84cec_6e26_45e7_b0b2_d0c245dc93fd
-g:OWLNamedIndividual_1fa84cec_6e26_45e7_b0b2_d0c245dc93fd rdf:type owl:NamedIndividual ,
-                                                                   :Country .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_6255636b_2b0f_4819_af20_fc7807ad7af0
-g:OWLNamedIndividual_6255636b_2b0f_4819_af20_fc7807ad7af0 rdf:type owl:NamedIndividual ,
-                                                                   :Country .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_62c7530e_d937_429f_9cf6_932bea43b85b
-g:OWLNamedIndividual_62c7530e_d937_429f_9cf6_932bea43b85b rdf:type owl:NamedIndividual ,
-                                                                   :Country ;
-                                                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VM" .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_63bb74f1_f282_43cb_ab97_ad1d8e00664c
-g:OWLNamedIndividual_63bb74f1_f282_43cb_ab97_ad1d8e00664c rdf:type owl:NamedIndividual ,
-                                                                   :Country .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_7593c8ad_6a02_42bc_834d_96d32d7f5e13
-g:OWLNamedIndividual_7593c8ad_6a02_42bc_834d_96d32d7f5e13 rdf:type owl:NamedIndividual ,
-                                                                   :Country ;
-                                                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VM" .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_7a156c5b_d8d4_4586_b363_8a6cab21695f
-g:OWLNamedIndividual_7a156c5b_d8d4_4586_b363_8a6cab21695f rdf:type owl:NamedIndividual ,
-                                                                   :Country ;
-                                                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PJ" .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_88fff176_a622_485c_9485_14142936b417
-g:OWLNamedIndividual_88fff176_a622_485c_9485_14142936b417 rdf:type owl:NamedIndividual ,
-                                                                   :Country ;
-                                                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BF" .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_ab0561ad_336e_4f5a_838f_c8f8e7097437
-g:OWLNamedIndividual_ab0561ad_336e_4f5a_838f_c8f8e7097437 rdf:type owl:NamedIndividual ,
-                                                                   :Country .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_bd4c3350_c4b1_4d99_aceb_4959fd6e5b02
-g:OWLNamedIndividual_bd4c3350_c4b1_4d99_aceb_4959fd6e5b02 rdf:type owl:NamedIndividual ,
-                                                                   :Country ;
-                                                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BF" .
-
-
-###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/OWLNamedIndividual_d2576a12_a956_48fe_9b54_a1a29811a49f
-g:OWLNamedIndividual_d2576a12_a956_48fe_9b54_a1a29811a49f rdf:type owl:NamedIndividual ,
-                                                                   :Country .
-
-
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Oceans
 g:Oceans rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "OS" .
+                  g:Country ;
+         g:hasCountryCode "OS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Oman
 g:Oman rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "MU" .
+                g:Country ;
+       g:hasCountryCode "MU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/PEACEKEEPING
@@ -3069,89 +2979,90 @@ g:PUBLIC_TRANSPORT rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Pakistan
 g:Pakistan rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PK" .
+                    g:Country ;
+           g:hasCountryCode "PK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Palau
 g:Palau rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PS" .
+                 g:Country ;
+        g:hasCountryCode "PS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/PalmyraAtoll
 g:PalmyraAtoll rdf:type owl:NamedIndividual ,
-                        :Country ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "LQ" .
+                        g:Country ;
+               g:hasCountryCode "LQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Panama
 g:Panama rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PM" .
+                  g:Country ;
+         g:hasCountryCode "PM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/PapuaNewGuinea
 g:PapuaNewGuinea rdf:type owl:NamedIndividual ,
-                          :Country ;
-                 g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PP" .
+                          g:Country ;
+                 g:hasCountryCode "PP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/ParacelIslands
 g:ParacelIslands rdf:type owl:NamedIndividual ,
-                          :Country ;
-                 g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PF" .
+                          g:Country ;
+                 g:hasCountryCode "PF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Paraguay
 g:Paraguay rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PA" .
+                    g:Country ;
+           g:hasCountryCode "PA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Peru
 g:Peru rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PE" .
+                g:Country ;
+       g:hasCountryCode "PE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Philippines
 g:Philippines rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q928> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RP" .
+              g:hasCountryCode "RP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/PitcairnIslands
 g:PitcairnIslands rdf:type owl:NamedIndividual ,
-                           :Country ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PC" .
+                           g:Country ;
+                  g:hasCountryCode "PC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Poland
 g:Poland rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q36> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PL" .
+         g:hasCountryCode "PL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Portugal
 g:Portugal rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q45> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PO" .
+           g:hasCountryCode "PO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/PuertoRico
 g:PuertoRico rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RQ" .
+                      g:Country ;
+             g:hasCountryCode "RQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Qatar
 g:Qatar rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "QA" .
+                 g:Country ;
+        owl:sameAs <https://www.wikidata.org/entity/Q846> ;
+        g:hasCountryCode "QA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/RAIL_INCIDENT
@@ -3264,28 +3175,28 @@ g:RURAL rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Reunion
 g:Reunion rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RE" .
+                   g:Country ;
+          g:hasCountryCode "RE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Romania
 g:Romania rdf:type owl:NamedIndividual ,
-                   :Country ;
+                   g:Country ;
           owl:sameAs <https://www.wikidata.org/entity/Q218> ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RO" .
+          g:hasCountryCode "RO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Russia
 g:Russia rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q159> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RS" .
+         g:hasCountryCode "RS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Rwanda
 g:Rwanda rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RW" .
+                  g:Country ;
+         g:hasCountryCode "RW" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SANCTIONS
@@ -3578,214 +3489,214 @@ g:SURVEILLANCE rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Saint-BarthelemyIsland
 g:Saint-BarthelemyIsland rdf:type owl:NamedIndividual ,
-                                  :Country ;
-                         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TB" .
+                                  g:Country ;
+                         g:hasCountryCode "TB" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaintHelena
 g:SaintHelena rdf:type owl:NamedIndividual ,
-                       :Country ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SH" .
+                       g:Country ;
+              g:hasCountryCode "SH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaintKittsAndNevis
 g:SaintKittsAndNevis rdf:type owl:NamedIndividual ,
-                              :Country ;
-                     g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SC" .
+                              g:Country ;
+                     g:hasCountryCode "SC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaintLucia
 g:SaintLucia rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ST" .
+                      g:Country ;
+             g:hasCountryCode "ST" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaintMartin
 g:SaintMartin rdf:type owl:NamedIndividual ,
-                       :Country ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RN" .
+                       g:Country ;
+              g:hasCountryCode "RN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaintPierreAndMiquelon
 g:SaintPierreAndMiquelon rdf:type owl:NamedIndividual ,
-                                  :Country ;
-                         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SB" .
+                                  g:Country ;
+                         g:hasCountryCode "SB" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaintVincentAndTheGrenadines
 g:SaintVincentAndTheGrenadines rdf:type owl:NamedIndividual ,
-                                        :Country ;
-                               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VC" .
+                                        g:Country ;
+                               g:hasCountryCode "VC" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Samoa
 g:Samoa rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WS" .
+                 g:Country ;
+        g:hasCountryCode "WS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SanMarino
 g:SanMarino rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SM" .
+                     g:Country ;
+            g:hasCountryCode "SM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaoTomeAndPrincipe
 g:SaoTomeAndPrincipe rdf:type owl:NamedIndividual ,
-                              :Country ;
-                     g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TP" .
+                              g:Country ;
+                     g:hasCountryCode "TP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SaudiArabia
 g:SaudiArabia rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q851> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SA" .
+              g:hasCountryCode "SA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Senegal
 g:Senegal rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SG" .
+                   g:Country ;
+          g:hasCountryCode "SG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Serbia
 g:Serbia rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q403> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "RI" .
+         g:hasCountryCode "RI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Seychelles
 g:Seychelles rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SE" .
+                      g:Country ;
+             g:hasCountryCode "SE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SierraLeone
 g:SierraLeone rdf:type owl:NamedIndividual ,
-                       :Country ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SL" .
+                       g:Country ;
+              g:hasCountryCode "SL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Singapore
 g:Singapore rdf:type owl:NamedIndividual ,
-                     :Country ;
+                     g:Country ;
             owl:sameAs <https://www.wikidata.org/entity/Q334> ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SN" .
+            g:hasCountryCode "SN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Slovakia
 g:Slovakia rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q214> .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Slovenia
 g:Slovenia rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q215> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SI" .
+           g:hasCountryCode "SI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SolomonIslands
 g:SolomonIslands rdf:type owl:NamedIndividual ,
-                          :Country ;
-                 g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "BP" .
+                          g:Country ;
+                 g:hasCountryCode "BP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Somalia
 g:Somalia rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SO" .
+                   g:Country ;
+          g:hasCountryCode "SO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SouthAfrica
 g:SouthAfrica rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q258> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SF" .
+              g:hasCountryCode "SF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SouthGeorgiaAndTheSouthSandwichIslands
 g:SouthGeorgiaAndTheSouthSandwichIslands rdf:type owl:NamedIndividual ,
-                                                  :Country ;
-                                         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SX" .
+                                                  g:Country ;
+                                         g:hasCountryCode "SX" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SouthKorea
 g:SouthKorea rdf:type owl:NamedIndividual ,
-                      :Country ;
+                      g:Country ;
              owl:sameAs <https://www.wikidata.org/entity/Q884> ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "KS" .
+             g:hasCountryCode "KS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SouthSudan
 g:SouthSudan rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "OD" .
+                      g:Country ;
+             g:hasCountryCode "OD" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Spain
 g:Spain rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SP" .
+                 g:Country ;
+        g:hasCountryCode "SP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SpratlyIslands
 g:SpratlyIslands rdf:type owl:NamedIndividual ,
-                          :Country ;
-                 g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "PG" .
+                          g:Country ;
+                 g:hasCountryCode "PG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/SriLanka
 g:SriLanka rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "CE" .
+                    g:Country ;
+           g:hasCountryCode "CE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Sudan
 g:Sudan rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SU" .
+                 g:Country ;
+        g:hasCountryCode "SU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Suriname
 g:Suriname rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NS" .
+                    g:Country ;
+           g:hasCountryCode "NS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Svalbard
 g:Svalbard rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SV" .
+                    g:Country ;
+           g:hasCountryCode "SV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Swaziland
 g:Swaziland rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WZ" .
+                     g:Country ;
+            g:hasCountryCode "WZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Sweden
 g:Sweden rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q34> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SW" .
+         g:hasCountryCode "SW" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Switzerland
 g:Switzerland rdf:type owl:NamedIndividual ,
-                       :Country ;
+                       g:Country ;
               owl:sameAs <https://www.wikidata.org/entity/Q39> ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SZ" .
+              g:hasCountryCode "SZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Syria
 g:Syria rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "SY" .
+                 g:Country ;
+        g:hasCountryCode "SY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/TAKE_OFFICE
@@ -3910,93 +3821,93 @@ g:TRIAL rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Taiwan
 g:Taiwan rdf:type owl:NamedIndividual ,
-                  :Country ;
+                  g:Country ;
          owl:sameAs <https://www.wikidata.org/entity/Q865> ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TW" .
+         g:hasCountryCode "TW" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Tajikistan
 g:Tajikistan rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TI" .
+                      g:Country ;
+             g:hasCountryCode "TI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Tanzania
 g:Tanzania rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TZ" .
+                    g:Country ;
+           g:hasCountryCode "TZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Thailand
 g:Thailand rdf:type owl:NamedIndividual ,
-                    :Country ;
+                    g:Country ;
            owl:sameAs <https://www.wikidata.org/entity/Q869> ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TH" .
+           g:hasCountryCode "TH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Togo
 g:Togo rdf:type owl:NamedIndividual ,
-                :Country ;
-       g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TO" .
+                g:Country ;
+       g:hasCountryCode "TO" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Tokelau
 g:Tokelau rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TL" .
+                   g:Country ;
+          g:hasCountryCode "TL" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Tonga
 g:Tonga rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TN" .
+                 g:Country ;
+        g:hasCountryCode "TN" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/TrinidadAndTobago
 g:TrinidadAndTobago rdf:type owl:NamedIndividual ,
-                             :Country ;
-                    g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TD" .
+                             g:Country ;
+                    g:hasCountryCode "TD" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/TromelinIsland
 g:TromelinIsland rdf:type owl:NamedIndividual ,
-                          :Country ;
-                 g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TE" .
+                          g:Country ;
+                 g:hasCountryCode "TE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Tunisia
 g:Tunisia rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TS" .
+                   g:Country ;
+          g:hasCountryCode "TS" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Turkey
 g:Turkey rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TU" .
+                  g:Country ;
+         g:hasCountryCode "TU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Turkmenistan
 g:Turkmenistan rdf:type owl:NamedIndividual ,
-                        :Country ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TX" .
+                        g:Country ;
+               g:hasCountryCode "TX" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/TurksAndCaicosIslands
 g:TurksAndCaicosIslands rdf:type owl:NamedIndividual ,
-                                 :Country ;
-                        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TK" .
+                                 g:Country ;
+                        g:hasCountryCode "TK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Tuvalu
 g:Tuvalu rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "TV" .
+                  g:Country ;
+         g:hasCountryCode "TV" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UAE
 g:UAE rdf:type owl:NamedIndividual ,
-               :Country .
+               g:Country .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UNEMPLOYMENT
@@ -4073,56 +3984,56 @@ g:URBAN_SPRAWL rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Uganda
 g:Uganda rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UG" .
+                  g:Country ;
+         g:hasCountryCode "UG" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Ukraine
 g:Ukraine rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UP" .
+                   g:Country ;
+          g:hasCountryCode "UP" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UnderseaFeatures
 g:UnderseaFeatures rdf:type owl:NamedIndividual ,
-                            :Country ;
-                   g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UF" .
+                            g:Country ;
+                   g:hasCountryCode "UF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UndesignatedSovereignty
 g:UndesignatedSovereignty rdf:type owl:NamedIndividual ,
-                                   :Country ;
-                          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UU" .
+                                   g:Country ;
+                          g:hasCountryCode "UU" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UnitedArabEmirates
 g:UnitedArabEmirates rdf:type owl:NamedIndividual ,
-                              :Country ;
-                     g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "AE" .
+                              g:Country ;
+                     g:hasCountryCode "AE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UnitedKingdom
 g:UnitedKingdom rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UK" .
+                         g:Country ;
+                g:hasCountryCode "UK" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/UnitedStates
 g:UnitedStates rdf:type owl:NamedIndividual ,
-                        :Country ;
-               g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "US" .
+                        g:Country ;
+               g:hasCountryCode "US" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Uruguay
 g:Uruguay rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UY" .
+                   g:Country ;
+          g:hasCountryCode "UY" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Uzbekistan
 g:Uzbekistan rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "UZ" .
+                      g:Country ;
+             g:hasCountryCode "UZ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/VANDALIZE
@@ -4145,26 +4056,26 @@ g:VIOLENT_UNREST rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Vanuatu
 g:Vanuatu rdf:type owl:NamedIndividual ,
-                   :Country ;
-          g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "NH" .
+                   g:Country ;
+          g:hasCountryCode "NH" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/VaticanCity
 g:VaticanCity rdf:type owl:NamedIndividual ,
-                       :Country ;
-              g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VT" .
+                       g:Country ;
+              g:hasCountryCode "VT" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Venezuela
 g:Venezuela rdf:type owl:NamedIndividual ,
-                     :Country ;
-            g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VE" .
+                     g:Country ;
+            g:hasCountryCode "VE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/VirginIslands
 g:VirginIslands rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "VQ" .
+                         g:Country ;
+                g:hasCountryCode "VQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/WATER_SECURITY
@@ -4187,65 +4098,68 @@ g:WMD rdf:type owl:NamedIndividual ,
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/WakeIsland
 g:WakeIsland rdf:type owl:NamedIndividual ,
-                      :Country ;
-             g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WQ" .
+                      g:Country ;
+             g:hasCountryCode "WQ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/WallisAndFutuna
 g:WallisAndFutuna rdf:type owl:NamedIndividual ,
-                           :Country ;
-                  g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WF" .
+                           g:Country ;
+                  g:hasCountryCode "WF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/WestBank
 g:WestBank rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WE" .
+                    g:Country ;
+           g:hasCountryCode "WE" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/WesternSahara
 g:WesternSahara rdf:type owl:NamedIndividual ,
-                         :Country ;
-                g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "WI" .
+                         g:Country ;
+                g:hasCountryCode "WI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Yemen
 g:Yemen rdf:type owl:NamedIndividual ,
-                 :Country ;
-        g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "YM" .
+                 g:Country ;
+        g:hasCountryCode "YM" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Zambia
 g:Zambia rdf:type owl:NamedIndividual ,
-                  :Country ;
-         g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ZA" .
+                  g:Country ;
+         g:hasCountryCode "ZA" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Zimbabwe
 g:Zimbabwe rdf:type owl:NamedIndividual ,
-                    :Country ;
-           g:OWLDataProperty_8cf2a8d7_169e_4cac_9f7f_46614dbdcb65 "ZI" .
+                    g:Country ;
+           g:hasCountryCode "ZI" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bahamas,The
 <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Bahamas,The> rdf:type owl:NamedIndividual ,
-                                                                                                                          :Country ;
-                                                                                                                 owl:sameAs <https://www.wikidata.org/entity/Q778> .
+                                                                                                                          g:Country ;
+                                                                                                                 owl:sameAs <https://www.wikidata.org/entity/Q778> ;
+                                                                                                                 g:hasCountryCode "BF" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Etorofu,Habomai,KunashiriAndShikotanIslands
 <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Etorofu,Habomai,KunashiriAndShikotanIslands> rdf:type owl:NamedIndividual ,
-                                                                                                                                                          :Country ;
+                                                                                                                                                          g:Country ;
                                                                                                                                                  owl:sameAs <https://www.wikidata.org/entity/Q1043128> ,
                                                                                                                                                             <https://www.wikidata.org/entity/Q1050542> ,
                                                                                                                                                             <https://www.wikidata.org/entity/Q215727> ,
-                                                                                                                                                            <https://www.wikidata.org/entity/Q847285> .
+                                                                                                                                                            <https://www.wikidata.org/entity/Q847285> ;
+                                                                                                                                                 g:hasCountryCode "PJ" .
 
 
 ###  https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Vietnam,DemocraticRepublicOf
 <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/Vietnam,DemocraticRepublicOf> rdf:type owl:NamedIndividual ,
-                                                                                                                                           :Country ;
-                                                                                                                                  owl:sameAs <https://www.wikidata.org/entity/Q881> .
+                                                                                                                                           g:Country ;
+                                                                                                                                  owl:sameAs <https://www.wikidata.org/entity/Q881> ;
+                                                                                                                                  g:hasCountryCode "VM" .
 
 
 ###  https://www.wikidata.org/aruba/Q21203
@@ -4608,6 +4522,10 @@ g:Zimbabwe rdf:type owl:NamedIndividual ,
 <https://www.wikidata.org/entity/Q833> rdf:type owl:NamedIndividual .
 
 
+###  https://www.wikidata.org/entity/Q846
+<https://www.wikidata.org/entity/Q846> rdf:type owl:NamedIndividual .
+
+
 ###  https://www.wikidata.org/entity/Q847285
 <https://www.wikidata.org/entity/Q847285> rdf:type owl:NamedIndividual .
 
@@ -4714,6 +4632,13 @@ g:Zimbabwe rdf:type owl:NamedIndividual ,
 
 ###  https://www.wikidata.org/wiki/Special:EntityData/Q414
 <https://www.wikidata.org/wiki/Special:EntityData/Q414> rdf:type owl:NamedIndividual .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://dbpedia.org/ontology/OWLAnnotationPropertyImpl_ebf64efb_3c27_4caf_93d5_54ae29b26110> rdfs:label "dbo:"@en .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
