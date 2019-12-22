@@ -200,27 +200,29 @@ var eventToRDF = function (event) {
 	// Data Properties
   var dataProperties = [
 		// hasTrustLevel
-    [':' + fixString(event[id]), 'ont:hasTrustLevel', '""'].join(' '),
+    [':' + fixString(event[id]), 'ont:hasTrustLevel', '""', '.'].join(' '),
 		// hasArticleURL
-    [':' + fixString(event[id]), 'ont:hasArticleURL', '<' + fixString(event['SOURCEURL']) + '>'].join(' '),
+    [':' + fixString(event[id]), 'ont:hasArticleURL', '"' + fixString(event['SOURCEURL']) + '"', '.'].join(' '),
 		// hasAvgTone
-    [':' + fixString(event[id]), 'ont:hasAvgTone', fixString(event['AvgTone'])].join(' '),
+    [':' + fixString(event[id]), 'ont:hasAvgTone', fixString(event['AvgTone']), '.'].join(' '),
 		// hasDate
-    [':' + fixString(event[id]), 'ont:hasDate', '"' + fixString(event['Day']) + '"'].join(' '),
+    [':' + fixString(event[id]), 'ont:hasDate', '"' + fixString(event['Day']) + '"', '.'].join(' '),
 		// hasDateAdded
-    [':' + fixString(event[id]), 'ont:hasDateAdded', '"' + fixString(event['DATEADDED']) + '"'].join(' '),
+    [':' + fixString(event[id]), 'ont:hasDateAdded', '"' + fixString(event['DATEADDED']) + '"', '.'].join(' '),
 		// hasEventCode
-    [':' + fixString(event[id]), 'ont:hasEventCode', '"' + fixString(event['EventCode']) + '"'].join(' '),
+    [':' + fixString(event[id]), 'ont:hasEventCode', '"' + fixString(event['EventCode']) + '"', '.'].join(' '),
 		// hasFractionDate
-    [':' + fixString(event[id]), 'ont:hasFractionDate', '"' + fixString(event['FractionDate']) + '"'].join(' '),
+    [':' + fixString(event[id]), 'ont:hasFractionDate', '"' + fixString(event['FractionDate']) + '"', '.'].join(
+			' '
+		),
 		// hasGoldsteinScale
-    [':' + fixString(event[id]), 'ont:hasGoldsteinScale', fixString(event['GoldsteinScale'])].join(' '),
+    [':' + fixString(event[id]), 'ont:hasGoldsteinScale', fixString(event['GoldsteinScale']), '.'].join(' '),
 		// hasNumMentions
-    [':' + fixString(event[id]), 'ont:hasNumMentions', fixString(event['NumMentions'])].join(' '),
+    [':' + fixString(event[id]), 'ont:hasNumMentions', fixString(event['NumMentions']), '.'].join(' '),
 		// hasNumSources
-    [':' + fixString(event[id]), 'ont:hasNumSources', fixString(event['NumSources'])].join(' '),
+    [':' + fixString(event[id]), 'ont:hasNumSources', fixString(event['NumSources']), '.'].join(' '),
 		// isRootEvent
-    [':' + fixString(event[id]), 'ont:isRootEvent', fixString(event['IsRootEvent'])].join(' ')
+    [':' + fixString(event[id]), 'ont:isRootEvent', fixString(event['IsRootEvent']), '.'].join(' ')
   ].join(os.EOL)
 
   return initial + os.EOL + objectProperties + os.EOL + dataProperties
@@ -268,7 +270,7 @@ var gkgToRDF = function (gkg) {
 		// hasGKG_ID
     [':' + fixString(gkg[id]), 'ont:hasGKG_ID', '"' + fixString(gkg[id]) + '"', '.'].join(' '),
 		// hasArticleURL
-    [':' + fixString(gkg[id]), 'ont:hasArticleURL', '<' + fixString(gkg['V2DOCUMENTIDENTIFIER']) + '>', '.'].join(
+    [':' + fixString(gkg[id]), 'ont:hasArticleURL', '"' + fixString(gkg['V2DOCUMENTIDENTIFIER']) + '"', '.'].join(
 			' '
 		),
 		// hasPolarity
@@ -282,7 +284,7 @@ var gkgToRDF = function (gkg) {
 		// hasPublishDate
     [':' + fixString(gkg[id]), 'ont:hasPublishDate', '"' + fixString(gkg['V21DATE']) + '"', '.'].join(' '),
 		// hasImageURL
-    [':' + fixString(gkg[id]), 'ont:hasImageURL', '<' + fixString(gkg['V21SHARINGIMAGE']) + '>', '.'].join(' '),
+    [':' + fixString(gkg[id]), 'ont:hasImageURL', '"' + fixString(gkg['V21SHARINGIMAGE']) + '"', '.'].join(' '),
 		// hasVideoURL
     [':' + fixString(gkg[id]), 'ont:hasVideoURLs', '"' + fixString(gkg['V21SOCIALVIDEOEMBEDS']) + '"', '.'].join(
 			' '
@@ -318,7 +320,7 @@ var getAllSources = function () {
 						os.EOL +
 						'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .' +
 						os.EOL +
-						'@prefix ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/>'
+						'@prefix ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/> .'
   var rdf = results.map(item => allToRDF[key](item)).join(os.EOL)
 
   return prefix + os.EOL + rdf
