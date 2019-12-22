@@ -55,6 +55,16 @@ exports.allNews = function (req, res, next) {
 		.catch(next)
 }
 
+exports.getNewsBySlug = function (req, res, next) {
+  var slug = req.params.slug
+
+  if (!slug) {
+    throw { title: 'This field is required.', status: 400 }
+  }
+
+  News.getNewsBySlug({ session: dbUtils.getSession(req), slug: slug })
+		.then(response => writeResponse(res, response, 200))
+ 
 exports.updateNews = function (req, res, next) {
   var source = _.get(req.body, 'source')
   var language = _.get(req.body, 'language') || 'en'
