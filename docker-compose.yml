@@ -33,6 +33,7 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_USERNAME=${NEO4J_USERNAME}
       - DATABASE_PASSWORD=${NEO4J_PASSWORD}
+      - NEWSAPI_API_KEY=${NEWSAPI_API_KEY}
     ports:
       - ${API_PORT}:${API_PORT}
     volumes:
