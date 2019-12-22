@@ -177,27 +177,53 @@ var fixString = function (str) {
   return str.replace(/"/g, ' ').replace(/\u2013|\u2014/g, '-')
 }
 
-var eventToRDF = function (event) {
-  var initial = ':' + fixString(event['GlobalEventID']) + ' ' + 'rdf:type' + ' ' + ':Event' + ' ' + '.'
-  var rest = Object.entries(event)
-		.map(([key, val]) => {
-  return (
-				':' +
-				fixString(event['GlobalEventID']) +
-				' ' +
-				':has' +
-				key +
-				' ' +
-				'"' +
-				fixString(val) +
-				'"' +
-				' ' +
-				'.'
-  )
-})
-		.join(os.EOL)
+var extractTitle = function (xmlStr) {
+  var match = xmlStr.match(/<PAGE_TITLE>(.*)<\/PAGE_TITLE>/)
+  if (match) {
+    return match[1]
+  } else {
+    return ''
+  }
+}
 
-  return initial + os.EOL + rest
+var eventToRDF = function (event) {
+  var id = 'GlobalEventID'
+  var initial = ':' + fixString(event[id]) + ' ' + 'rdf:type' + ' ' + 'ont:Event' + ' ' + '.'
+	// Object Properties
+	// hasLocation
+  var objectProperties = [
+    [':' + fixString(event[id]), 'ont:hasLocation', 'ont:' + fixString(event['ActionGeo_CountryCode']), '.'].join(
+			' '
+		)
+  ].join(os.EOL)
+
+	// Data Properties
+  var dataProperties = [
+		// hasTrustLevel
+    [':' + fixString(event[id]), 'ont:hasTrustLevel', '""'].join(' '),
+		// hasArticleURL
+    [':' + fixString(event[id]), 'ont:hasArticleURL', '<' + fixString(event['SOURCEURL']) + '>'].join(' '),
+		// hasAvgTone
+    [':' + fixString(event[id]), 'ont:hasAvgTone', fixString(event['AvgTone'])].join(' '),
+		// hasDate
+    [':' + fixString(event[id]), 'ont:hasDate', '"' + fixString(event['Day']) + '"'].join(' '),
+		// hasDateAdded
+    [':' + fixString(event[id]), 'ont:hasDateAdded', '"' + fixString(event['DATEADDED']) + '"'].join(' '),
+		// hasEventCode
+    [':' + fixString(event[id]), 'ont:hasEventCode', '"' + fixString(event['EventCode']) + '"'].join(' '),
+		// hasFractionDate
+    [':' + fixString(event[id]), 'ont:hasFractionDate', '"' + fixString(event['FractionDate']) + '"'].join(' '),
+		// hasGoldsteinScale
+    [':' + fixString(event[id]), 'ont:hasGoldsteinScale', fixString(event['GoldsteinScale'])].join(' '),
+		// hasNumMentions
+    [':' + fixString(event[id]), 'ont:hasNumMentions', fixString(event['NumMentions'])].join(' '),
+		// hasNumSources
+    [':' + fixString(event[id]), 'ont:hasNumSources', fixString(event['NumSources'])].join(' '),
+		// isRootEvent
+    [':' + fixString(event[id]), 'ont:isRootEvent', fixString(event['IsRootEvent'])].join(' ')
+  ].join(os.EOL)
+
+  return initial + os.EOL + objectProperties + os.EOL + dataProperties
 }
 
 var mentionToRDF = function (mention) {
@@ -223,17 +249,60 @@ var mentionToRDF = function (mention) {
   return initial + os.EOL + rest
 }
 
-var gkgToRDF = function (gkg) {
-  var initial = ':' + fixString(gkg['GKGRECORDID']) + ' ' + 'rdf:type' + ' ' + ':GKG' + ' ' + '.'
-  var rest = Object.entries(gkg)
-		.map(([key, val]) => {
-  return (
-				':' + fixString(gkg['GKGRECORDID']) + ' ' + ':has' + key + ' ' + '"' + fixString(val) + '"' + ' ' + '.'
-  )
-})
-		.join(os.EOL)
+var extractTones = function (toneStr) {
+  return toneStr.split(',')
+}
 
-  return initial + os.EOL + rest
+var gkgToRDF = function (gkg) {
+  var id = 'GKGRECORDID'
+  var initial = ':' + fixString(gkg[id]) + ' ' + 'rdf:type' + ' ' + 'ont:NewsArticle' + ' ' + '.'
+
+	// Tone Values
+  var tones = extractTones(gkg['V15TONE'])
+
+	// Object Properties
+  var objectProperties = [[].join(' ')].join(os.EOL)
+
+	// Data Properties
+  var dataProperties = [
+		// hasGKG_ID
+    [':' + fixString(gkg[id]), 'ont:hasGKG_ID', '"' + fixString(gkg[id]) + '"', '.'].join(' '),
+		// hasArticleURL
+    [':' + fixString(gkg[id]), 'ont:hasArticleURL', '<' + fixString(gkg['V2DOCUMENTIDENTIFIER']) + '>', '.'].join(
+			' '
+		),
+		// hasPolarity
+    [':' + fixString(gkg[id]), 'ont:hasPolarity', tones[3] !== undefined ? tones[3] : '""', '.'].join(' '),
+		// hasTone
+    [':' + fixString(gkg[id]), 'ont:hasTone', tones[0] !== undefined ? tones[0] : '""', '.'].join(' '),
+		// hasPositiveScore
+    [':' + fixString(gkg[id]), 'ont:hasPositiveScore', tones[1] !== undefined ? tones[1] : '""', '.'].join(' '),
+		// hasNegativeScore
+    [':' + fixString(gkg[id]), 'ont:hasNegativeScore', tones[2] !== undefined ? tones[2] : '""', '.'].join(' '),
+		// hasPublishDate
+    [':' + fixString(gkg[id]), 'ont:hasPublishDate', '"' + fixString(gkg['V21DATE']) + '"', '.'].join(' '),
+		// hasImageURL
+    [':' + fixString(gkg[id]), 'ont:hasImageURL', '<' + fixString(gkg['V21SHARINGIMAGE']) + '>', '.'].join(' '),
+		// hasVideoURL
+    [':' + fixString(gkg[id]), 'ont:hasVideoURLs', '"' + fixString(gkg['V21SOCIALVIDEOEMBEDS']) + '"', '.'].join(
+			' '
+		),
+		// hasTitle
+    [':' + fixString(gkg[id]), 'ont:hasTitle', '"' + fixString(extractTitle(gkg['V2EXTRASXML'])) + '"', '.'].join(
+			' '
+		),
+		// hasThemes
+    [':' + fixString(gkg[id]), 'ont:hasThemes', '"' + fixString(gkg['V1THEMES']) + '"', '.'].join(' '),
+		// hasSourceCommonName
+    [
+      ':' + fixString(gkg[id]),
+      'ont:hasSourceCommonName',
+      '"' + fixString(gkg['V2SOURCECOMMONNAME']) + '"',
+      '.'
+    ].join(' ')
+  ].join(os.EOL)
+
+  return initial + os.EOL + objectProperties + os.EOL + dataProperties
 }
 
 var allToRDF = [eventToRDF, mentionToRDF, gkgToRDF]
@@ -247,7 +316,9 @@ var getAllSources = function () {
   var prefix =
 						'@prefix : <http://www.stnews.com/> .' +
 						os.EOL +
-						'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .'
+						'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .' +
+						os.EOL +
+						'@prefix ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/>'
   var rdf = results.map(item => allToRDF[key](item)).join(os.EOL)
 
   return prefix + os.EOL + rdf
