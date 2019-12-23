@@ -66,6 +66,7 @@ var getGKGByGKGRECORDID = function (gkgRecordId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
+        console.log(results)
         resolve(utils.extractResults(results))
       })
     })

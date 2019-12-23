@@ -13,7 +13,7 @@
 	"scripts": {
 		"start": "node bin/app",
 		"dev": "nodemon bin/app",
-		"test": "mocha test/models/test-events --exit"
+		"test": "mocha test/models/test-gkgs --exit"
 	},
 	"dependencies": {
 		"adm-zip": "^0.4.13",

@@ -35,15 +35,15 @@ describe('GKG Records', function () {
     V21TRANSLATIONINFO: '',
     V2EXTRASXML: '<PAGE_TITLE>Calendar - South Texas ISD Health Professions</PAGE_TITLE>'
   }
-  describe('Create a GKG Record', function () {
-    it('should create a GKG record', function (done) {
-      GKGs.createGKG(params).then(res => done())
-    })
-  })
+	// describe('Create a GKG Record', function () {
+	//   it('should create a GKG record', function (done) {
+	//     GKGs.createGKG(params).then(res => done())
+	//   })
+	// })
 
   describe('Get a GKG Record by Record Id', function () {
     it('should get a GKG record by its id', function (done) {
-      GKGs.getGKGByGKGRECORDID('20191222193000-1').then(result => {
+      GKGs.getGKGByGKGRECORDID('20191222200000-5').then(result => {
         console.log(result)
 				// expect(result['GKGRECORDID']).to.equal(params['GKGRECORDID'])
         done()
@@ -51,13 +51,13 @@ describe('GKG Records', function () {
     })
   })
 
-  describe('Get ALL GKG records', function () {
-    it('should get all gkg records', function (done) {
-      GKGs.getAllGKGs().then(results => {
-        console.log(results.length)
-				// expect(results.length).to.greaterThan(0)
-        done()
-      })
-    })
-  })
+	// describe('Get ALL GKG records', function () {
+	//   it('should get all gkg records', function (done) {
+	//     GKGs.getAllGKGs().then(results => {
+	//       console.log(results.length)
+	// 			// expect(results.length).to.greaterThan(0)
+	//       done()
+	//     })
+	//   })
+	// })
 })

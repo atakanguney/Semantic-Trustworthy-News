@@ -3,6 +3,7 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { CardTitle } from './news-list-item.style'
+import { Icon, Button } from 'semantic-ui-react'
 
 const NewsListItem = props => {
   const {
@@ -29,7 +30,6 @@ const NewsListItem = props => {
     height: '15vw',
     objectFit: 'cover'
   }
-  const cardStyle = { width: '25vw', flex: 1 }
   return (
     <Card>
       <Link to={`/news/${hasGKG_ID}`}>
@@ -43,11 +43,22 @@ const NewsListItem = props => {
           {hasSourceCommonName}
         </Card.Subtitle>
         <Card.Text>
-          {hasTrustLevel}
+          {Array.isArray(hasTrustLevel)
+						? hasTrustLevel.map(item => parseFloat(item)).reduce((acc, x) => acc + x, 0) /
+							hasTrustLevel.length
+						: 0}
         </Card.Text>
       </Card.Body>
       <Card.Footer>
         <Card.Link href={hasArticleURL}>Original source</Card.Link>
+        <Button style={{ float: 'right' }}>
+          <Icon name='thumbs down' />
+					Don't
+				</Button>
+        <Button style={{ float: 'right' }}>
+          <Icon name='thumbs up' />
+					Trust
+				</Button>
       </Card.Footer>
     </Card>
   )

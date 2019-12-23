@@ -21,8 +21,22 @@ var getSTNPrefix = function () {
 
 var extractResults = function (results, predicate = 'p', object = 'o') {
   return results.reduce((obj, item) => {
-    obj[item[predicate]['id'].split('/').pop()] =
-			item[object]['id'].match(/"(.*?)"/) !== null ? item[object]['id'].match(/"(.*?)"/)[1] : '' // JSON.parse(item[object]['id'])
+    let key = item[predicate]['id'].split('/').pop()
+    if (key in obj) {
+      if (Array.isArray(obj[key])) {
+        obj[key].push(
+					item[object]['id'].match(/"(.*?)"/) !== null ? item[object]['id'].match(/"(.*?)"/)[1] : ''
+				)
+      } else {
+        obj[key] = [
+          obj[key],
+          item[object]['id'].match(/"(.*?)"/) !== null ? item[object]['id'].match(/"(.*?)"/)[1] : ''
+        ]
+      }
+    } else {
+      obj[key] = item[object]['id'].match(/"(.*?)"/) !== null ? item[object]['id'].match(/"(.*?)"/)[1] : ''
+    }
+
     return obj
   }, {})
 }
