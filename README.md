@@ -29,5 +29,6 @@ Before starting the app, you need to have done following instructions
     
 - Before fetching any news, do not forget to create a repository named as **STN** in working branch of GraphDB. Otherwise, database actions won't work.
 
+- Our ontology is under directory `neo4j/ontology/trustworthy-news.ttl`. Please import this file into **STN** repository on GraphDB.
 
 - Occasionally, you may need to run the following command to clear the cache `docker-compose down -v`, and build the project from scratch. This is sometimes required due to the newly added modules.
