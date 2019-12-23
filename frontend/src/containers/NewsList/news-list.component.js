@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import NewsListItem from './news-list-item.component'
 import { CardDeck } from 'react-bootstrap'
 
@@ -10,7 +10,11 @@ const NewsList = props => {
 		? newsList.reduce((acc, item, idx) => {
   const index = parseInt(idx / 3)
   acc[index] = acc[index] || []
-  acc[index].push(<NewsListItem news={item} key={idx} />)
+  acc[index].push(
+					// <Col md={4}>
+    <NewsListItem news={item} key={idx} />
+					// </Col>
+				)
   return acc
 }, {})
 		: {}
