@@ -18,7 +18,7 @@ const HomeFeedContainer = () => {
   const fetchNewsFromAPI = () => {
     updateNews()
 			.then(res => {
-  if (res && res.data && res.data['status']) {
+  if (res && res.status == 200) {
     setNewsUpdated(!newsUpdated)
   }
 })

@@ -12,4 +12,5 @@ module.exports = function (app, opts) {
   app.get('/api/users/me', userRoutes.me)
   app.post('/api/create-news', userRoutes.me)
   app.get('/api/all-news', newsRoutes.index)
+  app.get('/api/update-news', newsRoutes.updateNews)
 }

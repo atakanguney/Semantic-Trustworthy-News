@@ -8,6 +8,7 @@ const mentions = require('../models/mentions')
 var os = require('os')
 var dbUtils = require('../graphdb/dbUtils')
 var moment = require('moment')
+var _ = require('lodash')
 
 var eventFields = [
   'GlobalEventID',
@@ -356,7 +357,7 @@ var getAllSources = function () {
   })
 }
 
-var uploadRDTToGraphDB = function () {
+var uploadRDFToGraphDB = function () {
   return this.getAllSources().then(res => {
     if (res) {
       let names = ['events', 'mentions', 'gkgs']
@@ -384,13 +385,10 @@ var uploadRDTToGraphDB = function () {
 }
 
 var trustMetrics = [
-	// 'eventActionGeo_CountryCode',
-	// 'eventDate',
   'eventGoldsteinScale',
   'eventNumSources',
   'eventNumMentions',
   'eventIsRootEvent',
-	// 'newsPublishDate',
   'newsPolarity',
   'newsTone',
   'newsPositiveScore',
@@ -408,9 +406,7 @@ var getPrefixes = function () {
 }
 
 var extractMetrics = function (rawMetrics) {
-	// console.log(Object.entries(rawMetrics))
   var extractedMetricsAsString = Object.entries(rawMetrics).reduce((acc, [key, val]) => {
-		// console.log(val)
     acc[key] = val['id'].match(/"(.*?)"/) ? val['id'].match(/"(.*?)"/)[1] : val['id']
     return acc
   }, {})
@@ -566,17 +562,13 @@ var getMaxNumbers = function () {
   let maxNumbers = maxPredicates.map(item => getMax(item))
 
   return Promise.all(maxNumbers).then(results => {
-    console.log(results)
     let obj = {}
     results.forEach((item, idx) => {
       obj[maxPredicates[idx]] = item
     })
-    console.log(obj)
     return obj
   })
 }
-
-var _ = require('lodash')
 
 var trustMetricsToRDF = function (trustMetrics, newsIDs) {
   var prefix =
@@ -627,7 +619,7 @@ module.exports = {
   mentionsFields: mentionsFields,
   gkgFields: gkgFields,
   getAllSources: getAllSources,
-  uploadRDTToGraphDB: uploadRDTToGraphDB,
+  uploadRDFToGraphDB: uploadRDFToGraphDB,
   getTrustMetrics: getTrustMetrics,
   uploadTrustMetrics: uploadTrustMetrics,
   getMax: getMax

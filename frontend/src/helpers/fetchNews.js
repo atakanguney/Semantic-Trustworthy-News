@@ -11,7 +11,5 @@ export const getNewsBySlug = slug => {
 }
 
 export const updateNews = () => {
-  return axios.post('/api/update-news', {
-    source: 'abc-news'
-  })
+  return axios.get('/api/update-news')
 }

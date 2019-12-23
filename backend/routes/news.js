@@ -12,3 +12,12 @@ exports.index = function (req, res, next) {
 })
 		.catch(next)
 }
+
+exports.updateNews = function (req, res, next) {
+  News.updateNews()
+		.then(result => {
+  console.log(result)
+  res.status(200).send()
+})
+		.catch(next)
+}

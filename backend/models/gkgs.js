@@ -1,6 +1,7 @@
 var GKG = require('../models/graphdb/gkg')
 var dbUtils = require('../graphdb/dbUtils')
 var utils = require('./utils')
+var fetchGDELTHelper = require('../helpers/fetchGDELTNews')
 
 var gkgGraph = 'ssw:stn:GKG'
 
@@ -20,7 +21,6 @@ var createGKG = function (gkg) {
   var repository = dbUtils.getRepository()
 
 	// Make the request
-
   return repository.update(payload).then(() => {
     console.log('GKG Record Created Successfully')
   })
@@ -66,7 +66,6 @@ var getGKGByGKGRECORDID = function (gkgRecordId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
-        console.log(results)
         resolve(utils.extractResults(results))
       })
     })
@@ -90,10 +89,16 @@ var getAllGKGs = function () {
   'ont:hasTrustLevel',
   '?t',
   ';',
+  'ont:hasPublishDate',
+  '?date',
+  ';',
   'ont:hasGKG_ID',
   '?gkgRecordId',
   '.',
-  '}'
+  '}',
+  'ORDER',
+  'BY',
+  'DESC(?date)'
 ])
 		.join(' ')
 
@@ -124,8 +129,18 @@ var getAllGKGs = function () {
   })
 }
 
+var updateNews = function () {
+  return fetchGDELTHelper.uploadRDFToGraphDB().then(res => {
+    if (res) {
+      return fetchGDELTHelper.uploadTrustMetrics()
+    }
+    return res
+  })
+}
+
 module.exports = {
   createGKG: createGKG,
   getGKGByGKGRECORDID: getGKGByGKGRECORDID,
-  getAllGKGs: getAllGKGs
+  getAllGKGs: getAllGKGs,
+  updateNews: updateNews
 }
