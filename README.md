@@ -1,6 +1,8 @@
 # Semantic-Trustworthy-News
 CMPE 58H Course Project Repository
 
+Semantic Trustworthy News platform aims to serve people who wish to reach news that they can trust. With this platform, people can see news from many different sources in one platform with the trustworthiness metric, which we generate based on some certain fields related to the news.
+
 Who are we?
 ---
 1. Atakan Güney
