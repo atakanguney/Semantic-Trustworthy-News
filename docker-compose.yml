@@ -13,19 +13,19 @@ services:
       - ./graphdb-docker/data:/opt/graphdb/home/data
       - ./graphdb-docker/logs:/opt/graphdb/home/logs
 
-  database:
-    image: neo4j:3.5.13
-    environment: 
-      NEO4J_AUTH: ${NEO4J_USERNAME}/${NEO4J_PASSWORD}
-    ports:
-      - ${NEO4J_BOLT_PORT}:${NEO4J_BOLT_PORT}
-      - ${NEO4J_BROWSER_PORT}:${NEO4J_BROWSER_PORT}
-    volumes:
-      - ./neo4j/data:/data
-      - ./neo4j/logs:/logs
-      - ./neo4j/plugins:/plugins
-      - ./neo4j/conf:/conf
-      - ./neo4j/ontology:/ontology
+  # database:
+  #   image: neo4j:3.5.13
+  #   environment: 
+  #     NEO4J_AUTH: ${NEO4J_USERNAME}/${NEO4J_PASSWORD}
+  #   ports:
+  #     - ${NEO4J_BOLT_PORT}:${NEO4J_BOLT_PORT}
+  #     - ${NEO4J_BROWSER_PORT}:${NEO4J_BROWSER_PORT}
+  #   volumes:
+  #     - ./neo4j/data:/data
+  #     - ./neo4j/logs:/logs
+  #     - ./neo4j/plugins:/plugins
+  #     - ./neo4j/conf:/conf
+  #     - ./neo4j/ontology:/ontology
 
   backend:
     build: ./backend
@@ -41,7 +41,7 @@ services:
       - /usr/src/app/node_modules
     working_dir: /usr/src/app
     depends_on: 
-      - database
+      - graphdb
   frontend:
     build: ./frontend
     environment: 

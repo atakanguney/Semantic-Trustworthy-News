@@ -37,8 +37,12 @@ var getEventByEventId = function (eventId) {
   'WHERE',
   '{',
   '?s',
-  ':hasGlobalEventID',
+  'ont:hasGlobalEventID',
   '"' + eventId + '"',
+  '.',
+  '?s',
+  'rdf:type',
+  'ont:Event',
   '.',
   '?s',
   '?p',
@@ -67,7 +71,7 @@ var getEventByEventId = function (eventId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
-        resolve(new Event(utils.extractResults(results)))
+        resolve(utils.extractResults(results))
       })
     })
     return promise
@@ -85,9 +89,9 @@ var getAllEvents = function () {
   '{',
   '?s',
   'rdf:type',
-  ':Event',
+  'ont:Event',
   ';',
-  ':hasGlobalEventID',
+  'ont:hasGlobalEventID',
   '?eventId',
   '.',
   '}'
@@ -96,12 +100,13 @@ var getAllEvents = function () {
 
   var repository = dbUtils.getRepository()
   repository.registerParser(dbUtils.getJSONParser())
-
+  console.log(query)
   var payload = dbUtils
 		.getQueryPayload()
 		.setQuery(query)
 		.setQueryType(dbUtils.getQueryTypes().SELECT)
 		.setResponseType(dbUtils.getRDFMimeType().SPARQL_RESULTS_JSON)
+		.setLimit(100)
 
   return repository.query(payload).then(stream => {
     var results = []

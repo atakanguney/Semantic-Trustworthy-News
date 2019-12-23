@@ -3,11 +3,7 @@
 	"version": "0.0.1",
 	"description": "Backend API for Sematic Trustworthy News",
 	"author": "atakanguney <atakanguney58@hotmail.com>",
-	"keywords": [
-		"semantic",
-		"news",
-		"trust"
-	],
+	"keywords": ["semantic", "news", "trust"],
 	"license": "GNU General Public License v3.0",
 	"main": "index.js",
 	"repository": {
@@ -17,7 +13,7 @@
 	"scripts": {
 		"start": "node bin/app",
 		"dev": "nodemon bin/app",
-		"test": "mocha test/models --exit"
+		"test": "mocha test/models/test-events --exit"
 	},
 	"dependencies": {
 		"adm-zip": "^0.4.13",

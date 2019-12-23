@@ -200,10 +200,19 @@ var eventToRDF = function (event) {
 
 	// Data Properties
   var dataProperties = [
-		// hasTrustLevel
-    [':' + fixString(event[id]), 'ont:hasTrustLevel', '""', '.'].join(' '),
-		// hasArticleURL
-    [':' + fixString(event[id]), 'ont:hasArticleURL', '"' + fixString(event['SOURCEURL']) + '"', '.'].join(' '),
+		// hasGlobalEventID
+    [':' + fixString(event[id]), 'ont:hasGlobalEventID', '"' + fixString(event['GlobalEventID']) + '"', '.'].join(
+			' '
+		),
+    [
+			// hasTrustLevel
+			// [':' + fixString(event[id]), 'ont:hasTrustLevel', '""', '.'].join(' '),
+			// hasArticleURL
+      ':' + fixString(event[id]),
+      'ont:hasArticleURL',
+      '"' + fixString(event['SOURCEURL']) + '"',
+      '.'
+    ].join(' '),
 		// hasActionGeo_CountryCode
     [
       ':' + fixString(event[id]),

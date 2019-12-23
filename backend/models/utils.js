@@ -9,12 +9,20 @@ var constructPredicatesAndObjects = function (obj) {
 }
 
 var getSTNPrefix = function () {
-  return ['PREFIX', ':', '<http://www.stnews.com/>']
+  return [
+    'PREFIX',
+    ':',
+    '<http://www.stnews.com/>',
+    'PREFIX',
+    'ont:',
+    '<https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/>'
+  ]
 }
 
 var extractResults = function (results, predicate = 'p', object = 'o') {
-  return results.slice(1).reduce((obj, item) => {
-    obj[item[predicate]['id'].split('/').pop().slice(3)] = JSON.parse(item[object]['id'])
+  return results.reduce((obj, item) => {
+    obj[item[predicate]['id'].split('/').pop()] =
+			item[object]['id'].match(/"(.*?)"/) !== null ? item[object]['id'].match(/"(.*?)"/)[1] : '' // JSON.parse(item[object]['id'])
     return obj
   }, {})
 }

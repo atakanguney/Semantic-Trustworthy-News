@@ -36,7 +36,7 @@ var getGKGByGKGRECORDID = function (gkgRecordId) {
   'WHERE',
   '{',
   '?s',
-  ':hasGKGRECORDID',
+  'ont:hasGKG_ID',
   '"' + gkgRecordId + '"',
   '.',
   '?s',
@@ -66,7 +66,7 @@ var getGKGByGKGRECORDID = function (gkgRecordId) {
       })
       stream.on('error', reject)
       stream.on('end', () => {
-        resolve(new GKG(utils.extractResults(results)))
+        resolve(utils.extractResults(results))
       })
     })
     return promise
@@ -84,9 +84,9 @@ var getAllGKGs = function () {
   '{',
   '?s',
   'rdf:type',
-  ':GKG',
+  'ont:NewsArticle',
   ';',
-  ':hasGKGRECORDID',
+  'ont:hasGKG_ID',
   '?gkgRecordId',
   '.',
   '}'
@@ -101,6 +101,7 @@ var getAllGKGs = function () {
 		.setQuery(query)
 		.setQueryType(dbUtils.getQueryTypes().SELECT)
 		.setResponseType(dbUtils.getRDFMimeType().SPARQL_RESULTS_JSON)
+		.setLimit(200)
 
   return repository.query(payload).then(stream => {
     var results = []
