@@ -7,6 +7,7 @@ const gkgs = require('../models/gkgs')
 const mentions = require('../models/mentions')
 var os = require('os')
 var dbUtils = require('../graphdb/dbUtils')
+var moment = require('moment')
 
 var eventFields = [
   'GlobalEventID',
@@ -203,7 +204,13 @@ var eventToRDF = function (event) {
     [':' + fixString(event[id]), 'ont:hasTrustLevel', '""', '.'].join(' '),
 		// hasArticleURL
     [':' + fixString(event[id]), 'ont:hasArticleURL', '"' + fixString(event['SOURCEURL']) + '"', '.'].join(' '),
-		// hasAvgTone
+		// hasActionGeo_CountryCode
+    [
+      ':' + fixString(event[id]),
+      'ont:hasActionGeo_CountryCode',
+      '"' + fixString(event['ActionGeo_CountryCode']) + '"',
+      '.'
+    ].join(' '),
     [':' + fixString(event[id]), 'ont:hasAvgTone', fixString(event['AvgTone']), '.'].join(' '),
 		// hasDate
     [':' + fixString(event[id]), 'ont:hasDate', '"' + fixString(event['Day']) + '"', '.'].join(' '),
@@ -315,12 +322,7 @@ var getAllSources = function () {
     fileUrls.forEach((fileUrl, key) => {
       allData.push(
 				getRawNews(fileUrl, allFields[key]).then(results => {
-  var prefix =
-						'@prefix : <http://www.stnews.com/> .' +
-						os.EOL +
-						'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .' +
-						os.EOL +
-						'@prefix ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/> .'
+  var prefix = getPrefixes()
   var rdf = results.map(item => allToRDF[key](item)).join(os.EOL)
 
   return prefix + os.EOL + rdf
@@ -372,10 +374,252 @@ var uploadRDTToGraphDB = function () {
   })
 }
 
+var trustMetrics = [
+	// 'eventActionGeo_CountryCode',
+	// 'eventDate',
+  'eventGoldsteinScale',
+  'eventNumSources',
+  'eventNumMentions',
+  'eventIsRootEvent',
+	// 'newsPublishDate',
+  'newsPolarity',
+  'newsTone',
+  'newsPositiveScore',
+  'newsNegativeScore'
+]
+
+var getPrefixes = function () {
+  return (
+		'@prefix : <http://www.stnews.com/> .' +
+		os.EOL +
+		'@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .' +
+		os.EOL +
+		'@prefix ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/> .'
+  )
+}
+
+var extractMetrics = function (rawMetrics) {
+	// console.log(Object.entries(rawMetrics))
+  var extractedMetricsAsString = Object.entries(rawMetrics).reduce((acc, [key, val]) => {
+		// console.log(val)
+    acc[key] = val['id'].match(/"(.*?)"/) ? val['id'].match(/"(.*?)"/)[1] : val['id']
+    return acc
+  }, {})
+
+  trustMetrics.forEach(item => {
+    extractedMetricsAsString[item] = parseFloat(extractedMetricsAsString[item])
+  })
+
+  return extractedMetricsAsString
+}
+
+var getTrustMetrics = function () {
+	// Get all required Trust Metrics
+  var prefix = [
+    'PREFIX : <http://www.stnews.com/>',
+    'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>',
+    'PREFIX ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/>'
+  ].join(' ')
+
+  var query = [
+    'SELECT',
+    'DISTINCT',
+    '*',
+    'WHERE',
+    '{',
+    '?event rdf:type ont:Event .',
+    '?news rdf:type ont:NewsArticle .',
+    '?news ont:hasArticleURL ?url .',
+    '?event ont:hasArticleURL ?url .',
+    '?event ont:hasActionGeo_CountryCode ?eventActionGeo_CountryCode .',
+    '?event ont:hasDate ?eventDate .',
+    '?event ont:hasGoldsteinScale ?eventGoldsteinScale .',
+    '?event ont:hasNumSources ?eventNumSources .',
+    '?event ont:hasNumMentions ?eventNumMentions .',
+    '?event ont:isRootEvent ?eventIsRootEvent .',
+    '?news ont:hasPublishDate ?newsPublishDate .',
+    '?news ont:hasPolarity ?newsPolarity .',
+    '?news ont:hasTone ?newsTone .',
+    '?news ont:hasPositiveScore ?newsPositiveScore .',
+    '?news ont:hasNegativeScore ?newsNegativeScore .',
+    '}'
+  ].join(' ')
+
+	// Get payload
+  var payload = dbUtils
+		.getQueryPayload()
+		.setQuery(prefix + ' ' + query)
+		.setQueryType(dbUtils.getQueryTypes().SELECT)
+		.setResponseType(dbUtils.getRDFMimeType().SPARQL_RESULTS_JSON)
+
+  var repository = dbUtils.getRepository()
+  repository.registerParser(dbUtils.getJSONParser())
+
+	// Return an object, which consists of metrics with name
+  return repository.query(payload).then(stream => {
+    var results = []
+
+    var promise = new Promise((resolve, reject) => {
+      stream.on('data', bindings => {
+        results.push(bindings)
+      })
+      stream.on('error', reject)
+      stream.on('end', () => {
+        resolve(results.map(item => extractMetrics(item)))
+      })
+    })
+    return promise
+  })
+}
+
+var getMax = function (predicate) {
+	// Query
+  var prefix = [
+    'PREFIX : <http://www.stnews.com/>',
+    'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>',
+    'PREFIX ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/>'
+  ].join(' ')
+  var query = ['SELECT (MAX(?x) as ?max) WHERE {', '?s', 'ont:' + predicate, '?x', '}'].join(' ')
+
+	// Get payload
+  var payload = dbUtils
+		.getQueryPayload()
+		.setQuery(prefix + ' ' + query)
+		.setQueryType(dbUtils.getQueryTypes().SELECT)
+		.setResponseType(dbUtils.getRDFMimeType().SPARQL_RESULTS_JSON)
+
+  var repository = dbUtils.getRepository()
+  repository.registerParser(dbUtils.getJSONParser())
+
+  return repository.query(payload).then(stream => {
+    var promise = new Promise((resolve, reject) => {
+      stream.on('data', bindings => {
+        resolve(parseFloat(bindings['max']['id'].match(/"(.*?)"/)[1]))
+      })
+      stream.on('error', reject)
+    })
+    return promise
+  })
+}
+
+var getTrustMetric = function (metrics, maxNumbers) {
+  let abs = Math.abs
+	// Event Metrics
+  var maxEventMentions = maxNumbers['hasNumMentions']
+  var eventMentions =
+		metrics['eventIsRootEvent'] === 1
+			? metrics['eventNumMentions'] / (maxEventMentions > 0 ? maxEventMentions : 1)
+			: 0
+
+  var maxEventNumSources = maxNumbers['hasNumSources']
+  var eventSources =
+		metrics['eventIsRootEvent'] === 1
+			? metrics['eventNumSources'] / (maxEventNumSources > 0 ? maxEventNumSources : 1)
+			: 0
+
+  var eventGoldsteinScale = metrics['eventIsRootEvent'] === 1 ? (10 - abs(metrics['eventGoldsteinScale'])) / 10 : 0
+
+  var now = new Date()
+  var date = moment(metrics['eventDate'].slice(0, 8), 'YYYYMMDD')
+  var duration = moment.duration({ from: now, to: date }).asDays()
+  var eventDate = metrics['eventIsRootEvent'] === 1 ? 1.0 / (duration > 1 ? duration : 1) : 0
+	// var eventActionGeo_CountryCode = metrics['eventActionGeo_CountryCode'] // Get WikiData PPP GDP
+
+	// News Metrics
+  var newsTone = (100 - abs(metrics['newsTone'])) / 100
+  var newsPolarity = (100 - abs(metrics['newsPolarity'])) / 100
+  var maxNewsPositiveScore = maxNumbers['hasPositiveScore']
+  var newsPositiveScore = metrics['newsPositiveScore'] / (maxNewsPositiveScore > 0 ? maxNewsPositiveScore : 1)
+  var maxNewsNegativeScore = maxNumbers['hasNegativeScore']
+  var newsNegativeScore = 1 - metrics['newsNegativeScore'] / (maxNewsNegativeScore > 0 ? maxNewsNegativeScore : 1)
+  now = new Date()
+  date = moment(metrics['newsPublishDate'].slice(0, 8), 'YYYYMMDD')
+  duration = moment.duration({ from: now, to: date }).asDays()
+  var newsPublishDate = 1.0 / (duration > 1 ? duration : 1)
+
+  return (
+		10 *
+		(eventMentions +
+			eventSources +
+			eventGoldsteinScale +
+			eventDate +
+			//	eventActionGeo_CountryCode +
+			newsTone +
+			newsPolarity +
+			newsPositiveScore +
+			newsNegativeScore +
+			newsPublishDate)
+  )
+}
+
+var getMaxNumbers = function () {
+  let maxPredicates = ['hasNegativeScore', 'hasPositiveScore', 'hasNumSources', 'hasNumMentions']
+  let maxNumbers = maxPredicates.map(item => getMax(item))
+
+  return Promise.all(maxNumbers).then(results => {
+    console.log(results)
+    let obj = {}
+    results.forEach((item, idx) => {
+      obj[maxPredicates[idx]] = item
+    })
+    console.log(obj)
+    return obj
+  })
+}
+
+var _ = require('lodash')
+
+var trustMetricsToRDF = function (trustMetrics, newsIDs) {
+  var prefix =
+		'@prefix ont: <https://github.com/atakanguney/Semantic-Trustworthy-News/blob/master/ontology/trustworthy-news.owl/> .'
+  return (
+		prefix +
+		os.EOL +
+		_.zip(trustMetrics, newsIDs)
+			.map(([val, id]) => {
+  return '<' + id + '>' + ' ' + 'ont:hasTrustLevel' + ' ' + val + '.'
+})
+			.join(os.EOL)
+  )
+}
+
+var uploadTrustMetrics = function () {
+  return getTrustMetrics().then(results => {
+    return getMaxNumbers().then(maxNumbers => {
+      let trustMetrics = results.map(metrics => {
+        return getTrustMetric(metrics, maxNumbers)
+      })
+
+      let newsIDs = results.map(item => item['news'])
+      var trustMetricsRDF = trustMetricsToRDF(trustMetrics, newsIDs)
+
+      fs.writeFileSync('/tmp/trust.ttl', trustMetricsRDF)
+
+      var repository = dbUtils.getRepository()
+      const contentType = dbUtils.getRDFMimeType().TURTLE
+
+      fs.readFile('/tmp/trust.ttl', (err, stream) => {
+        repository
+					.upload(stream, contentType, 'ssw:stn:Trust', null)
+					.then(r => console.log(`Turtle File Uploaded Successfully`))
+					.catch(e => {
+  console.log(e)
+  return false
+})
+      })
+
+      return true
+    })
+  })
+}
+
 module.exports = {
   eventFields: eventFields,
   mentionsFields: mentionsFields,
   gkgFields: gkgFields,
   getAllSources: getAllSources,
-  uploadRDTToGraphDB: uploadRDTToGraphDB
+  uploadRDTToGraphDB: uploadRDTToGraphDB,
+  getTrustMetrics: getTrustMetrics,
+  uploadTrustMetrics: uploadTrustMetrics,
+  getMax: getMax
 }
